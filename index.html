@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KB Rewaq Digital — Future-Ready Websites & Marketing in Kuwait</title>
+<meta name="description" content="KB Rewaq Digital — futuristic websites, 3D visuals, social media & digital marketing for Kuwait businesses. Bilingual EN/العربية.">
+<style>
+  :root{
+    --bg:#05060a; --bg2:#0a0e17; --card:rgba(20,28,42,.55); --card2:rgba(26,36,52,.7);
+    --accent:#22e3c0; --accent-d:#0bbf9a; --accent2:#9b6bff; --accent3:#ff5e8a;
+    --text:#eaf6ff; --muted:#8aa0b8; --green:#22c55e; --line:rgba(120,160,200,.16);
+    --glow:0 0 24px rgba(34,227,192,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body.ar{direction:rtl;font-family:'Segoe UI',Tahoma,'Noto Sans Arabic',Arial,sans-serif}
+  /* 3D canvas bg */
+  #bg3d{position:fixed;inset:0;z-index:0;background:radial-gradient(900px 500px at 70% -10%,rgba(34,227,192,.12),transparent 60%),radial-gradient(700px 400px at 10% 10%,rgba(155,107,255,.12),transparent 55%),var(--bg)}
+  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 22px}
+  a{text-decoration:none}
+
+  /* glass header */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(5,6,10,.6);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:15px 0}
+  body.ar .nav{flex-direction:row-reverse}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:.3px}
+  .brand .mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--glow);animation:spin3d 8s linear infinite;transform-style:preserve-3d}
+  @keyframes spin3d{0%{transform:rotateY(0) rotateX(0)}100%{transform:rotateY(360deg) rotateX(360deg)}}
+  body.ar .brand .mark{animation-direction:reverse}
+  .brand b{color:var(--accent)}
+  .brand span{color:var(--accent2)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  body.ar .nav-right{flex-direction:row-reverse}
+  .toggle{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px;backdrop-filter:blur(8px)}
+  .toggle button{background:transparent;border:none;color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer;font-weight:700;font-size:14px;transition:.2s}
+  .toggle button.on{background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#04140f}
+  .btn{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#04140f;padding:13px 26px;border-radius:11px;font-weight:800;font-size:15px;transition:.22s;box-shadow:var(--glow)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 34px rgba(34,227,192,.55)}
+  .btn-wa{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;box-shadow:0 0 24px rgba(34,197,94,.4)}
+  .btn-wa:hover{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text);box-shadow:none;backdrop-filter:blur(8px)}
+  .btn-ghost:hover{border-color:var(--accent);background:var(--card)}
+
+  /* hero */
+  .hero{position:relative;padding:104px 0 86px}
+  .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  body.ar .hero-inner{grid-template-columns:.9fr 1.1fr}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);color:var(--accent);padding:7px 15px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px;backdrop-filter:blur(8px)}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(34,197,94,.2),0 0 12px var(--green)}
+  .hero h1{font-size:clamp(34px,5.2vw,56px);line-height:1.1;font-weight:840;letter-spacing:-.6px;margin-bottom:20px}
+  .hero h1 .hl{background:linear-gradient(120deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:flow 6s linear infinite}
+  @keyframes flow{to{background-position:200% center}}
+  .hero p.lead{color:var(--muted);font-size:19px;max-width:540px;margin-bottom:32px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  body.ar .hero-cta{flex-direction:row-reverse}
+  .stats-row{display:flex;gap:30px;margin-top:42px;flex-wrap:wrap}
+  body.ar .stats-row{flex-direction:row-reverse}
+  .stats-row .s b{display:block;font-size:26px;font-weight:800;color:var(--accent);text-shadow:var(--glow)}
+  .stats-row .s span{font-size:13px;color:var(--muted)}
+
+  /* 3D floating card mock */
+  .stage3d{perspective:1200px}
+  .holo{position:relative;transform-style:preserve-3d;transform:rotateY(-16deg) rotateX(6deg);animation:float 7s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:rotateY(-16deg) rotateX(6deg) translateY(0)}50%{transform:rotateY(-12deg) rotateX(3deg) translateY(-16px)}}
+  .holo .glass{background:var(--card2);border:1px solid var(--line);border-radius:22px;padding:22px;backdrop-filter:blur(14px);box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+  .holo .bar{display:flex;gap:7px;margin-bottom:16px}
+  .holo .bar i{width:11px;height:11px;border-radius:50%;background:#3a4a5e;display:block}
+  .holo .scr{background:linear-gradient(160deg,rgba(34,227,192,.14),rgba(155,107,255,.12));border:1px solid var(--line);border-radius:14px;padding:22px;position:relative;overflow:hidden}
+  .holo .scr::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);animation:sheen 5s infinite}
+  @keyframes sheen{0%,60%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  .holo .mlogo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-bottom:14px;box-shadow:var(--glow)}
+  .holo h4{font-size:19px;margin-bottom:8px}
+  .holo p{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .holo .cbtn{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#04140f;padding:9px 18px;border-radius:9px;font-weight:800;font-size:13px}
+  .holo .minis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  .holo .mini{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px}
+  .holo .mini b{font-size:13px;display:block;margin-bottom:4px}
+  .holo .mini span{font-size:11px;color:var(--muted)}
+
+  section.block{position:relative;z-index:2;padding:84px 0}
+  .sec-head{text-align:center;max-width:700px;margin:0 auto 50px}
+  .sec-head .tag{color:var(--accent);font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase}
+  .sec-head h2{font-size:clamp(28px,4vw,40px);margin:10px 0 14px;font-weight:820;letter-spacing:-.4px}
+  .sec-head p{color:var(--muted);font-size:17px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;transition:.28s;backdrop-filter:blur(12px);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0;background:radial-gradient(300px 160px at 50% -20%,rgba(34,227,192,.14),transparent);opacity:0;transition:.28s}
+  .card:hover{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 18px 50px rgba(0,0,0,.5),var(--glow)}
+  .card:hover::before{opacity:1}
+  .card .ico{width:56px;height:56px;border-radius:15px;background:linear-gradient(135deg,rgba(34,227,192,.22),rgba(155,107,255,.18));display:flex;align-items:center;justify-content:center;font-size:27px;margin-bottom:18px}
+  .card h3{font-size:20px;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:15px}
+
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;display:flex;gap:18px;align-items:flex-start;backdrop-filter:blur(12px)}
+  body.ar .step{flex-direction:row-reverse}
+  .step .n{width:48px;height:48px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04140f;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;box-shadow:var(--glow)}
+  .step h4{font-size:18px;margin-bottom:6px}
+  .step p{color:var(--muted);font-size:15px}
+
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;align-items:stretch}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 32px;position:relative;display:flex;flex-direction:column;backdrop-filter:blur(12px)}
+  .plan.pop{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 24px 60px rgba(34,227,192,.15)}
+  .plan .best{position:absolute;top:-13px;right:26px;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#04140f;padding:5px 16px;border-radius:999px;font-size:12.5px;font-weight:800}
+  body.ar .plan .best{right:auto;left:26px}
+  .plan h3{font-size:22px;margin-bottom:4px}
+  .plan .desc{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .plan .price{font-size:40px;font-weight:840;color:var(--accent2);margin-bottom:4px;text-shadow:0 0 20px rgba(155,107,255,.4)}
+  .plan .price small{font-size:15px;color:var(--muted);font-weight:500}
+  .plan ul{list-style:none;margin:18px 0 28px;flex:1}
+  .plan ul li{padding:9px 0;border-bottom:1px dashed var(--line);color:var(--text);font-size:15px;display:flex;gap:10px;align-items:flex-start}
+  body.ar .plan ul li{flex-direction:row-reverse}
+  .plan ul li::before{content:"✦";color:var(--accent);font-weight:800}
+  body.ar .plan ul li::before{content:""}
+  body.ar .plan ul li::after{content:" ✦";color:var(--accent);font-weight:800}
+  .plan .btn{text-align:center}
+
+  .cta-band{background:linear-gradient(135deg,rgba(34,227,192,.16),rgba(155,107,255,.12));border:1px solid var(--line);border-radius:24px;padding:56px 40px;text-align:center;margin:30px 0;backdrop-filter:blur(12px);position:relative;overflow:hidden}
+  .cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(400px 200px at 50% 0,rgba(255,94,138,.12),transparent)}
+  .cta-band h2{font-size:clamp(26px,4vw,36px);margin-bottom:12px;position:relative}
+  .cta-band p{color:var(--muted);font-size:17px;margin-bottom:28px;position:relative}
+
+  footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:40px 0 30px;margin-top:30px;backdrop-filter:blur(10px);background:rgba(5,6,10,.5)}
+  .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:24px}
+  body.ar .foot-grid{flex-direction:row-reverse}
+  .foot-grid .col h5{font-size:15px;margin-bottom:12px;color:var(--accent)}
+  .foot-grid .col a,.foot-grid .col p{display:block;color:var(--muted);font-size:14px;margin-bottom:7px}
+  .copy{text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:20px}
+
+  [data-ar]{display:none}
+  body.ar [data-en]{display:none}
+  body.ar [data-ar]{display:inline}
+  body.ar .card p[data-ar]{display:block}
+  body.ar .sec-head p[data-ar]{display:block}
+  body.ar .hero p.lead[data-ar]{display:block}
+  body.ar .step p[data-ar]{display:block}
+  body.ar .cta-band p[data-ar]{display:block}
+  body.ar .plan .desc[data-ar]{display:block}
+  body.ar .holo p[data-ar]{display:block}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:920px){.hero-inner{grid-template-columns:1fr}.holo{transform:none;margin-top:10px;max-width:420px}.stage3d{perspective:none}}
+  @media(max-width:880px){.nav .toggle{order:2}}
+</style>
+</head>
+<body>
+
+<!-- 3D background -->
+<canvas id="bg3d"></canvas>
+<script src="three.min.js"></script>
+<script>
+(function(){
+  if(typeof THREE==='undefined')return;
+  const c=document.getElementById('bg3d');
+  const renderer=new THREE.WebGLRenderer({canvas:c,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(60,1,0.1,1000);cam.position.z=48;
+  // particle network
+  const N=220,pos=new Float32Array(N*3),v=new Float32Array(N*3);
+  for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*110;pos[i*3+1]=(Math.random()-.5)*70;pos[i*3+2]=(Math.random()-.5)*60;
+    v[i*3]=(Math.random()-.5)*.05;v[i*3+1]=(Math.random()-.5)*.05;v[i*3+2]=(Math.random()-.5)*.05;}
+  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const pmat=new THREE.PointsMaterial({color:0x22e3c0,size:0.55,transparent:true,opacity:.85,blending:THREE.AdditiveBlending});
+  const pts=new THREE.Points(geo,pmat);scene.add(pts);
+  // lines
+  const lgeo=new THREE.BufferGeometry();const lpos=new Float32Array(N*N*3);lgeo.setAttribute('position',new THREE.BufferAttribute(lpos,3));
+  const lmat=new THREE.LineBasicMaterial({color:0x9b6bff,transparent:true,opacity:.10});
+  const lines=new THREE.LineSegments(lgeo,lmat);scene.add(lines);
+  function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();}
+  addEventListener('resize',resize);resize();
+  const mouse={x:0,y:0};addEventListener('mousemove',e=>{mouse.x=(e.clientX/innerWidth-.5);mouse.y=(e.clientY/innerHeight-.5);});
+  function tick(){
+    const p=geo.attributes.position.array;
+    for(let i=0;i<N;i++){p[i*3]+=v[i*3];p[i*3+1]+=v[i*3+1];p[i*3+2]+=v[i*3+2];
+      if(Math.abs(p[i*3])>55)v[i*3]*=-1;if(Math.abs(p[i*3+1])>35)v[i*3+1]*=-1;if(Math.abs(p[i*3+2])>30)v[i*3+2]*=-1;}
+    geo.attributes.position.needsUpdate=true;
+    // build lines
+    let idx=0;const maxD=22;
+    for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+      const dx=p[i*3]-p[j*3],dy=p[i*3+1]-p[j*3+1],dz=p[i*3+2]-p[j*3+2];
+      const d=Math.sqrt(dx*dx+dy*dy+dz*dz);
+      if(d<maxD&&idx<N*N*3-6){lpos[idx++]=p[i*3];lpos[idx++]=p[i*3+1];lpos[idx++]=p[i*3+2];
+        lpos[idx++]=p[j*3];lpos[idx++]=p[j*3+1];lpos[idx++]=p[j*3+2];}
+    }
+    lgeo.setDrawRange(0,idx/3);lgeo.attributes.position.needsUpdate=true;
+    pts.rotation.y+=0.0008;lines.rotation.y+=0.0008;
+    cam.position.x+=(mouse.x*8-cam.position.x)*0.04;cam.position.y+=(-mouse.y*6-cam.position.y)*0.04;cam.lookAt(0,0,0);
+    renderer.render(scene,cam);requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><div class="mark">🚀</div><div>KB Rewaq <b>Digital</b></div></div>
+    <div class="nav-right">
+      <div class="toggle" id="tg"><button data-l="en" onclick="setLang('en')">EN</button><button data-l="ar" onclick="setLang('ar')">العربية</button></div>
+      <a class="btn-wa btn" href="https://wa.me/96550703252?text=Hi%20KB%20Rewaq%20Digital%2C%20I%20need%20a%20website%20for%20my%20business"><span data-en>WhatsApp</span><span data-ar>واتساب</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="pill"><span class="dot"></span><span data-en>Future-ready digital for Kuwait</span><span data-ar>رقمي متطور للكويت</span></span>
+      <h1><span data-en>Launch your business <span class="hl">into the future</span></span><span data-ar>أطلق عملك <span class="hl">نحو المستقبل</span></span></h1>
+      <p class="lead" data-en>3D websites, smart social media and digital marketing — built for shops, restaurants, salons, clinics & real estate. Bilingual. Live in 3 days.</p>
+      <p class="lead" data-ar>مواقع ثلاثية الأبعاد، تواصل اجتماعي ذكي وتسويق رقمي — للمحلات والمطاعم والصالونات والعيادات والعقار. ثنائي اللغة. جاهز خلال ٣ أيام.</p>
+      <div class="hero-cta">
+        <a class="btn-wa btn" href="https://wa.me/96550703252?text=Hi%20KB%20Rewaq%20Digital%2C%20free%20consultation%20please"><span data-en>Free Consultation</span><span data-ar>استشارة مجانية</span></a>
+        <a class="btn-ghost btn" href="#pricing"><span data-en>View Pricing</span><span data-ar>شاهد الأسعار</span></a>
+      </div>
+      <div class="stats-row">
+        <div class="s"><b>3 days</b><span data-en>avg delivery</span><span data-ar>متوسط التسليم</span></div>
+        <div class="s"><b>2 langs</b><span data-en>EN + العربية</span><span data-ar>إنجليزي + عربي</span></div>
+        <div class="s"><b>3D</b><span data-en>visual experience</span><span data-ar>تجربة بصرية</span></div>
+      </div>
+    </div>
+    <div class="stage3d">
+      <div class="holo">
+        <div class="glass">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="scr">
+            <div class="mlogo"></div>
+            <h4 data-en>Al Madeed Restaurant</h4><h4 data-ar>مطعم المدى</h4>
+            <p data-en>New 3D website + Instagram — launched in 3 days.</p>
+            <p data-ar>موقع ثلاثي الأبعاد وإنستقرام — أطلقا خلال ٣ أيام.</p>
+            <span class="cbtn" data-en>Order Online</span><span data-ar>اطلب الآن</span>
+            <div class="minis">
+              <div class="mini"><b data-en>Social Media</b><b data-ar>تواصل اجتماعي</b><span data-en>30 posts/mo</span><span data-ar>٣٠ منشور/شهر</span></div>
+              <div class="mini"><b data-en>Talabat Setup</b><b data-ar>إعداد طلبات</b><span data-en>more orders</span><span data-ar>طلبات أكثر</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="tag"><span data-en>What we do</span><span data-ar>ماذا نقدم</span></div>
+      <h2 data-en>You run the business. We run the future.</h2><h2 data-ar>أنت تدير عملك. نحن ندير المستقبل.</h2>
+      <p data-en>Everything a modern business needs to look premium and reach more customers.</p>
+      <p data-ar>كل ما يحتاجه العمل العصري ليبدو فاخراً ويصل لعملاء أكثر.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal"><div class="ico">🌐</div><h3 data-en>3D Websites</h3><h3 data-ar>مواقع ثلاثية الأبعاد</h3>
+        <p data-en>Immersive, fast, mobile-ready sites that appear on Google Maps & search.</p>
+        <p data-ar>مواقع غامرة وسريعة ومتجاوبة تظهر في خرائط جوجل والبحث.</p></div>
+      <div class="card reveal"><div class="ico">📱</div><h3 data-en>Social Media</h3><h3 data-ar>التواصل الاجتماعي</h3>
+        <p data-en>Instagram & TikTok posts, festival visuals and reels — fresh content weekly.</p>
+        <p data-ar>منشورات إنستقرام وتيك توك، بصريات أعياد وريلز — محتوى أسبوعي.</p></div>
+      <div class="card reveal"><div class="ico">📈</div><h3 data-en>Digital Marketing</h3><h3 data-ar>التسويق الرقمي</h3>
+        <p data-en>Google Business, Talabat listing, local ads & WhatsApp marketing.</p>
+        <p data-ar>ملف جوجل، تسجيل طلبات، إعلانات محلية وتسويق واتساب.</p></div>
+      <div class="card reveal"><div class="ico">⚙️</div><h3 data-en>Automation</h3><h3 data-ar>الأتمتة</h3>
+        <p data-en>Invoice systems, auto-replies and booking forms that save you time.</p>
+        <p data-ar>أنظمة فواتير ورد تلقائي ونماذج حجز توفر وقتك.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="background:rgba(10,14,23,.5)">
+  <div class="wrap">
+    <div class="sec-head"><div class="tag"><span data-en>How it works</span><span data-ar>كيف نعمل</span></div>
+      <h2 data-en>Simple, fast, no surprises</h2><h2 data-ar>بسيط، سريع، بلا مفاجآت</h2></div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><div><h4 data-en>Free Consultation</h4><h4 data-ar>استشارة مجانية</h4>
+        <p data-en>A 10-min WhatsApp call to understand your goals.</p><p data-ar>مكالمة واتساب ١٠ دقائق لفهم أهدافك.</p></div></div>
+      <div class="step reveal"><div class="n">2</div><div><h4 data-en>Show You a Demo</h4><h4 data-ar>نعرض لك عينة</h4>
+        <p data-en>We build a sample first — if you like it, we proceed.</p><p data-ar>نصمم عينة أولاً — إن أعجبتك نتابع.</p></div></div>
+      <div class="step reveal"><div class="n">3</div><div><h4 data-en>Deliver & Support</h4><h4 data-ar>التسليم والدعم</h4>
+        <p data-en>Ready in 3 days, with ongoing support.</p><p data-ar>جاهز خلال ٣ أيام، مع دعم مستمر.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="pricing">
+  <div class="wrap">
+    <div class="sec-head"><div class="tag"><span data-en>Pricing</span><span data-ar>الأسعار</span></div>
+      <h2 data-en>Clear prices. No hidden fees.</h2><h2 data-ar>أسعار واضحة. بلا رسوم خفية.</h2>
+      <p data-en>Designed for a small-business budget in Kuwait.</p><p data-ar>مصممة لميزانية المشاريع الصغيرة في الكويت.</p></div>
+    <div class="price-grid">
+      <div class="plan reveal"><h3 data-en>Starter</h3><h3 data-ar>ستارتر</h3>
+        <div class="desc" data-en>For a quick online presence</div><div class="desc" data-ar>لوجود سريع على الإنترنت</div>
+        <div class="price">35 <span data-en>KWD</span><span data-ar>د.ك</span> <small data-en>one-time</small><small data-ar>مرة واحدة</small></div>
+        <ul><li data-en>1-page website</li><li data-ar>موقع صفحة واحدة</li><li data-en>Mobile-ready</li><li data-ar>متجاوب للجوال</li><li data-en>5 social media posters</li><li data-ar>٥ بوسترات</li><li data-en>7 days support</li><li data-ar>دعم ٧ أيام</li></ul>
+        <a class="btn" href="https://wa.me/96550703252?text=Starter%20plan%20please"><span data-en>Get Started</span><span data-ar>ابدأ الآن</span></a></div>
+      <div class="plan pop reveal"><div class="best"><span data-en>Most Popular</span><span data-ar>الأكثر طلباً</span></div>
+        <h3 data-en>Growth</h3><h3 data-ar>جrowth</h3>
+        <div class="desc" data-en>Best value for growing shops</div><div class="desc" data-ar>أفضل قيمة للمحلات النامية</div>
+        <div class="price">95 <span data-en>KWD</span><span data-ar>د.ك</span> <small data-en>one-time</small><small data-ar>مرة واحدة</small></div>
+        <ul><li data-en>5-page website</li><li data-ar>موقع ٥ صفحات</li><li data-en>Google Maps + Talabat</li><li data-ar>خرائط جوجل + طلبات</li><li data-en>20 posters / month</li><li data-ar>٢٠ بوستر/شهر</li><li data-en>WhatsApp auto-reply</li><li data-ar>رد تلقائي واتساب</li><li data-en>30 days support</li><li data-ar>دعم ٣٠ يوم</li></ul>
+        <a class="btn" href="https://wa.me/96550703252?text=Growth%20plan%20please"><span data-en>Get Started</span><span data-ar>ابدأ الآن</span></a></div>
+      <div class="plan reveal"><h3 data-en>Monthly</h3><h3 data-ar>شهري</h3>
+        <div class="desc" data-en>Hands-off social media</div><div class="desc" data-ar>سوشال ميديا بلا عناء</div>
+        <div class="price">55 <span data-en>KWD</span><span data-ar>د.ك</span> <small data-en>/ month</small><small data-ar>/ شهر</small></div>
+        <ul><li data-en>Full social media management</li><li data-ar>إدارة كاملة للسوشال ميديا</li><li data-en>30 posts / month</li><li data-ar>٣٠ منشور/شهر</li><li data-en>2 reels / TikTok</li><li data-ar>٢ ريلز/تيك توك</li><li data-en>Monthly report</li><li data-ar>تقرير شهري</li><li data-en>Unlimited support</li><li data-ar>دعم غير محدود</li></ul>
+        <a class="btn" href="https://wa.me/96550703252?text=Monthly%20plan%20please"><span data-en>Get Started</span><span data-ar>ابدأ الآن</span></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap"><div class="cta-band">
+    <h2 data-en>Take the first step today</h2><h2 data-ar>اتخذ خطوتك الأولى اليوم</h2>
+    <p data-en>Free consultation call — no charge, just a friendly chat about your business.</p>
+    <p data-ar>مكالمة استشارة مجانية — بلا رسوم، مجرد حديث ودي عن عملك.</p>
+    <a class="btn-wa btn" href="https://wa.me/96550703252?text=Hi%20KB%20Rewaq%20Digital%2C%20free%20consultation%20please"><span data-en>Chat on WhatsApp</span><span data-ar>دردشة على واتساب</span></a>
+  </div></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="col" style="max-width:280px"><div class="brand" style="margin-bottom:12px"><div class="mark">🚀</div><div>KB Rewaq <b>Digital</b></div></div>
+        <p data-en>Future-ready digital solutions for local businesses across Kuwait.</p>
+        <p data-ar>حلول رقمية متطورة للشركات المحلية في الكويت.</p></div>
+      <div class="col"><h5 data-en>Services</h5><h5 data-ar>الخدمات</h5>
+        <a href="#"><span data-en>3D Websites</span><span data-ar>مواقع ثلاثية الأبعاد</span></a>
+        <a href="#"><span data-en>Social Media</span><span data-ar>تواصل اجتماعي</span></a>
+        <a href="#"><span data-en>Digital Marketing</span><span data-ar>تسويق رقمي</span></a></div>
+      <div class="col"><h5 data-en>Contact</h5><h5 data-ar>تواصل</h5>
+        <p>📞 +965 50703252</p><a href="https://wa.me/96550703252"><span data-en>WhatsApp</span><span data-ar>واتساب</span></a>
+        <p data-en>📍 Kuwait</p><p data-ar>📍 الكويت</p></div>
+    </div>
+    <div class="copy">© 2026 KB Rewaq Digital — <span data-en>All rights reserved</span><span data-ar>جميع الحقوق محفوظة</span></div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  (function(){
+    const els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:.12});
+    els.forEach(e=>io.observe(e));
+  })();
+  function detectLang(){const s=localStorage.getItem('kb_lang');if(s)return s;const n=(navigator.language||'en').toLowerCase();return n.startsWith('ar')?'ar':'en';}
+  function setLang(l){document.body.classList.toggle('ar',l==='ar');document.documentElement.lang=l;document.documentElement.dir=(l==='ar')?'rtl':'ltr';localStorage.setItem('kb_lang',l);document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));}
+  setLang(detectLang());
+</script>
+</body>
+</html>

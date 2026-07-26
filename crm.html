@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KB Rewaq Digital — Client CRM</title>
+<style>
+  :root{--bg:#0b0f14;--card:#141c26;--card2:#1a2430;--accent:#1ec8a0;--accent-d:#0e9e7e;--accent2:#ffd166;--text:#eaf2f8;--muted:#94a3b8;--line:#243240;--red:#f87171;--green:#22c55e}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);padding:22px;line-height:1.6}
+  body.ar{direction:rtl;font-family:'Segoe UI',Tahoma,'Noto Sans Arabic',Arial,sans-serif}
+  .wrap{max-width:1140px;margin:0 auto}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
+  body.ar .top{flex-direction:row-reverse}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .brand .m{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-d));display:flex;align-items:center;justify-content:center}
+  .brand b{color:var(--accent)}
+  .toggle{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+  .toggle button{background:transparent;border:none;color:var(--muted);padding:7px 15px;border-radius:999px;cursor:pointer;font-weight:700;font-size:13px}
+  .toggle button.on{background:var(--accent);color:#06231c}
+  h1{font-size:22px;font-weight:800;margin-bottom:4px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:20px}
+  .form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px;margin-bottom:22px}
+  label{font-size:12px;color:var(--muted);font-weight:600;display:block;margin-bottom:5px}
+  input,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:#0b0f14;color:var(--text);font-size:14px}
+  .full{grid-column:1/-1}
+  .add{background:var(--accent);color:#06231c;border:none;padding:12px 22px;border-radius:10px;font-weight:800;cursor:pointer;justify-self:start}
+  .add:hover{background:var(--accent2)}
+  .stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 20px;min-width:132px}
+  .stat .n{font-size:24px;font-weight:800;color:var(--accent2)}
+  .stat .l{font-size:12px;color:var(--muted)}
+  .stat .l .ar,.stat .l .en{display:inline}
+  .toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  body.ar .toolbar{flex-direction:row-reverse}
+  .exp{background:var(--card2);border:1px solid var(--line);color:var(--text);padding:9px 15px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600}
+  .exp:hover{border-color:var(--accent)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  th,td{border-bottom:1px solid var(--line);padding:12px 14px;text-align:left;font-size:14px}
+  body.ar th,body.ar td{text-align:right}
+  th{background:#0a0e14;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+  .tag{display:inline-block;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700}
+  .t-lead{background:#21262d;color:#94a3b8}.t-demo{background:#14352a;color:#3fb9a0}.t-won{background:#14352a;color:#3fb9a0}
+  .t-paid{background:#0d3b1e;color:#22c55e}.t-lost{background:#3a1620;color:#f87171}
+  .del{background:transparent;border:none;color:var(--red);cursor:pointer;font-size:17px}
+  .empty{text-align:center;color:var(--muted);padding:34px}
+  [data-ar]{display:none}
+  body.ar [data-en]{display:none}
+  body.ar [data-ar]{display:inline}
+  body.ar .stat .l .ar{display:inline}
+  body.ar .stat .l .en{display:none}
+  @media(max-width:700px){table{font-size:13px}.stat{flex:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><div class="m">📇</div><div>KB Rewaq <b>Digital</b></div></div>
+    <div class="toggle" id="tg"><button data-l="en" onclick="setLang('en')">EN</button><button data-l="ar" onclick="setLang('ar')">العربية</button></div>
+  </div>
+  <h1><span data-en>Client CRM</span><span data-ar>إدارة العملاء</span></h1>
+  <div class="sub"><span data-en>Local only — data saved in your browser. Export to back up.</span><span data-ar>محلي فقط — البيانات في متصفحك. صدّر للنسخ الاحتياطي.</span> · WhatsApp: +965 50703252</div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="s_total">0</div><div class="l"><span class="en">Total Clients</span><span class="ar">إجمالي العملاء</span></div></div>
+    <div class="stat"><div class="n" id="s_won">0</div><div class="l"><span class="en">Won / Active</span><span class="ar">مكتمل / نشط</span></div></div>
+    <div class="stat"><div class="n" id="s_earn">0</div><div class="l"><span class="en">KWD Earned</span><span class="ar">د.ك محصل</span></div></div>
+    <div class="stat"><div class="n" id="s_pipe">0</div><div class="l"><span class="en">KWD Pipeline</span><span class="ar">د.ك متوقع</span></div></div>
+    <button class="exp" onclick="exp()"><span data-en>⬇ Export</span><span data-ar>⬇ تصدير</span></button>
+    <button class="exp" onclick="imp()"><span data-en>⬆ Import</span><span data-ar>⬆ استيراد</span></button>
+    <input type="file" id="impfile" accept=".json" style="display:none" onchange="doimp(this)">
+  </div>
+
+  <div class="form">
+    <div><label data-en>Client Name</label><label data-ar>اسم العميل</label><input id="c_name" placeholder="Al Madeed Restaurant"></div>
+    <div><label data-en>WhatsApp</label><label data-ar>واتساب</label><input id="c_phone" placeholder="+965 ......"></div>
+    <div><label data-en>Type</label><label data-ar>النوع</label>
+      <select id="c_type"><option data-en>Restaurant</option><option data-ar>مطعم</option><option data-en>Salon</option><option data-ar>صالون</option><option data-en>Grocery</option><option data-ar>بقالة</option><option data-en>Real Estate</option><option data-ar>عقار</option><option data-en>Clinic</option><option data-ar>عيادة</option><option data-en>Tuition</option><option data-ar>معهد</option><option data-en>Other</option><option data-ar>أخرى</option></select>
+    </div>
+    <div><label data-en>Service</label><label data-ar>الخدمة</label>
+      <select id="c_svc"><option data-en>Website</option><option data-ar>موقع</option><option data-en>Social Media</option><option data-ar>تواصل اجتماعي</option><option data-en>Marketing</option><option data-ar>تسويق</option><option data-en>Automation</option><option data-ar>أتمتة</option><option data-en>Poster</option><option data-ar>بوستر</option></select>
+    </div>
+    <div><label data-en>Value (KWD)</label><label data-ar>القيمة (د.ك)</label><input id="c_val" type="number" placeholder="35"></div>
+    <div><label data-en>Status</label><label data-ar>الحالة</label>
+      <select id="c_status"><option value="lead" data-en>Lead</option><option value="lead" data-ar>مرشح</option><option value="demo" data-en>Demo Sent</option><option value="demo" data-ar>أرسلنا عينة</option><option value="won" data-en>Won</option><option value="won" data-ar>فوز</option><option value="paid" data-en>Paid</option><option value="paid" data-ar>مدفوع</option><option value="lost" data-en>Lost</option><option value="lost" data-ar>خسارة</option></select>
+    </div>
+    <div class="full"><label data-en>Notes</label><label data-ar>ملاحظات</label><input id="c_note" placeholder="follow-up date, requirement..."></div>
+    <button class="add" onclick="add()"><span data-en>+ Add Client</span><span data-ar>+ إضافة عميل</span></button>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th><span data-en>Client</span><span data-ar>العميل</span></th>
+      <th><span data-en>Type</span><span data-ar>النوع</span></th>
+      <th><span data-en>Service</span><span data-ar>الخدمة</span></th>
+      <th><span data-en>KWD</span><span data-ar>د.ك</span></th>
+      <th><span data-en>Status</span><span data-ar>الحالة</span></th>
+      <th><span data-en>Notes</span><span data-ar>ملاحظات</span></th>
+      <th></th>
+    </tr></thead>
+    <tbody id="rows"><tr><td colspan="7" class="empty"><span data-en>No clients yet. Add your first lead above.</span><span data-ar>لا عملاء بعد. أضف أول مرشح أعلاه.</span></td></tr></tbody>
+  </table>
+</div>
+
+<script>
+const KEY='kb_rewaq_clients';
+let clients=JSON.parse(localStorage.getItem(KEY)||'[]');
+const TAG={lead:['t-lead','Lead','مرشح'],demo:['t-demo','Demo Sent','أرسلنا عينة'],won:['t-won','Won','فوز'],paid:['t-paid','Paid','مدفوع'],lost:['t-lost','Lost','خسارة']};
+function save(){localStorage.setItem(KEY,JSON.stringify(clients));render();}
+function add(){
+  const n=document.getElementById('c_name').value.trim();
+  if(!n){alert((document.body.classList.contains('ar'))?'اكتب اسم العميل':'Client name required');return;}
+  clients.push({name:n,phone:document.getElementById('c_phone').value,type:sel('c_type'),svc:sel('c_svc'),
+    val:+document.getElementById('c_val').value||0,status:document.getElementById('c_status').value,
+    note:document.getElementById('c_note').value,ts:Date.now()});
+  ['c_name','c_phone','c_val','c_note'].forEach(i=>document.getElementById(i).value='');
+  save();
+}
+function sel(id){const o=document.getElementById(id);return o.options[o.selectedIndex].text;}
+function del(i){clients.splice(i,1);save();}
+function show(o,ar){return ar?o[2]:o[1];}
+function render(){
+  const tb=document.getElementById('rows');
+  if(!clients.length){tb.innerHTML='<tr><td colspan="7" class="empty"><span data-en>No clients yet. Add your first lead above.</span><span data-ar>لا عملاء بعد. أضف أول مرشح أعلاه.</span></td></tr>';}
+  else{
+    const ar=document.body.classList.contains('ar');
+    tb.innerHTML=clients.map((c,i)=>{
+      const t=TAG[c.status]||TAG.lead;
+      return `<tr><td><b>${esc(c.name)}</b><br><small style="color:var(--muted)">${esc(c.phone)}</small></td>
+      <td>${ar?c.type_ar||c.type:c.type}</td><td>${ar?c.svc_ar||c.svc:c.svc}</td><td>${c.val}</td>
+      <td><span class="tag ${t[0]}">${ar?t[2]:t[1]}</span></td>
+      <td><small>${esc(c.note)}</small></td>
+      <td><button class="del" onclick="del(${i})" title="delete">🗑</button></td></tr>`;
+    }).join('');
+  }
+  document.getElementById('s_total').textContent=clients.length;
+  document.getElementById('s_won').textContent=clients.filter(c=>['won','paid'].includes(c.status)).length;
+  document.getElementById('s_earn').textContent=clients.filter(c=>c.status==='paid').reduce((s,c)=>s+c.val,0);
+  document.getElementById('s_pipe').textContent=clients.filter(c=>['won','demo','lead'].includes(c.status)).reduce((s,c)=>s+c.val,0);
+}
+function esc(s){return (s||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+function exp(){const b=new Blob([JSON.stringify(clients,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='kb_rewaq_clients.json';a.click();}
+function imp(){document.getElementById('impfile').click();}
+function doimp(f){const r=new FileReader();r.onload=()=>{try{clients=JSON.parse(r.result);save();}catch(e){alert('Invalid file');}};r.readAsText(f.files[0]);}
+function setLang(l){
+  document.body.classList.toggle('ar',l==='ar');
+  document.documentElement.lang=l;document.documentElement.dir=(l==='ar')?'rtl':'ltr';
+  localStorage.setItem('kb_lang',l);
+  document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+  render();
+}
+(function(){const s=localStorage.getItem('kb_lang');const nav=(navigator.language||'en').toLowerCase();setLang(s||(nav.startsWith('ar')?'ar':'en'));})();
+</script>
+</body>
+</html>

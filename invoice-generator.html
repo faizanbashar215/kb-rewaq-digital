@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KB Rewaq Digital — Invoice Generator (Kuwait)</title>
+<style>
+  :root{--bg:#0b0f14;--card:#141c26;--card2:#1a2430;--accent:#1ec8a0;--accent-d:#0e9e7e;--accent2:#ffd166;--text:#eaf2f8;--muted:#94a3b8;--line:#243240}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);padding:22px;line-height:1.6}
+  body.ar{direction:rtl;font-family:'Segoe UI',Tahoma,'Noto Sans Arabic',Arial,sans-serif}
+  .wrap{max-width:860px;margin:0 auto}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
+  body.ar .top{flex-direction:row-reverse}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}
+  .brand .m{width:35px;height:35px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-d));display:flex;align-items:center;justify-content:center}
+  .brand b{color:var(--accent)}
+  .toggle{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px}
+  .toggle button{background:transparent;border:none;color:var(--muted);padding:7px 15px;border-radius:999px;cursor:pointer;font-weight:700;font-size:13px}
+  .toggle button.on{background:var(--accent);color:#06231c}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  h1{font-size:22px;font-weight:800;margin-bottom:4px}
+  .box h1{color:var(--accent)}
+  .note{color:var(--muted);font-size:13px;margin-bottom:18px}
+  label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin:13px 0 5px}
+  input,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:#0b0f14;color:var(--text);font-size:14px;font-family:inherit}
+  .row{display:flex;gap:14px}.row>div{flex:1}
+  table{width:100%;border-collapse:collapse;margin-top:16px}
+  th,td{border:1px solid var(--line);padding:9px;text-align:left;font-size:14px}
+  body.ar th,body.ar td{text-align:right}
+  th{background:var(--card2)}
+  button.gen{background:var(--accent);color:#06231c;border:none;padding:13px 22px;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer;margin-top:18px}
+  button.gen:hover{background:var(--accent2)}
+  .preview{max-width:860px;margin:22px auto;background:#fff;color:#111;border-radius:16px;padding:34px;display:none;box-shadow:var(--shadow,0 14px 44px rgba(0,0,0,.4))}
+  .preview .pbtn{background:var(--accent);color:#06231c;border:none;padding:11px 20px;border-radius:9px;font-weight:800;cursor:pointer;margin-top:10px}
+  [data-ar]{display:none}
+  body.ar [data-en]{display:none}
+  body.ar [data-ar]{display:inline}
+  body.ar .box .note[data-ar]{display:block}
+  @media print{.noprint{display:none}}
+  @media(max-width:700px){.row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand"><div class="m">🧾</div><div>KB Rewaq <b>Digital</b></div></div>
+  <div class="toggle" id="tg"><button data-l="en" onclick="setLang('en')">EN</button><button data-l="ar" onclick="setLang('ar')">العربية</button></div>
+</div>
+
+<div class="box noprint">
+  <h1><span data-en>Invoice Generator</span><span data-ar>مولّد الفواتير</span></h1>
+  <div class="note" data-en>Free tool for Kuwait businesses — bills in KWD.</div>
+  <div class="note" data-ar>أداة مجانية للشركات الكويتية — فواتير بالدينار.</div>
+  <div class="row">
+    <div><label data-en>Business Name</label><label data-ar>اسم النشاط</label><input id="biz" value="KB Rewaq Digital"></div>
+    <div><label data-en>Phone / WhatsApp</label><label data-ar>هاتف / واتساب</label><input id="phone" value="+965 50703252"></div>
+  </div>
+  <label data-en>Customer Name</label><label data-ar>اسم العميل</label><input id="cust" placeholder="Customer name">
+  <label data-en>Customer Address</label><label data-ar>عنوان العميل</label><textarea id="caddr" rows="2"></textarea>
+  <label data-en>Items (each line: Name, Qty, Rate)</label><label data-ar>الأصناف (كل سطر: الاسم، الكمية، السعر)</label>
+  <textarea id="items" rows="5">Website Design, 1, 35
+Social Media Poster, 5, 8</textarea>
+  <label data-en>VAT % (Kuwait has no VAT — leave 0)</label><label data-ar>الضريبة % (الكويت بلا ضريبة — اترك ٠)</label><input id="gst" value="0">
+  <button class="gen" onclick="gen()"><span data-en>Generate Invoice</span><span data-ar>إنشاء الفاتورة</span></button>
+</div>
+
+<div class="preview" id="prev">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start">
+    <div><h2 id="o_biz" style="color:#0e9e7e;margin:0"></h2><div id="o_phone" style="color:#555"></div></div>
+    <div style="text-align:right"><h3 style="margin:0;color:#222"><span data-en>INVOICE</span><span data-ar>فاتورة</span></h3><div id="o_date" style="color:#555"></div></div>
+  </div>
+  <hr style="margin:14px 0">
+  <p><b><span data-en>Bill To:</span><span data-ar>فاتورة إلى:</span></b> <span id="o_cust"></span><br><span id="o_caddr" style="color:#555"></span></p>
+  <table><thead><tr><th>#</th><th><span data-en>Item</span><span data-ar>الصنف</span></th><th><span data-en>Qty</span><span data-ar>الكمية</span></th><th><span data-en>Rate</span><span data-ar>السعر</span></th><th><span data-en>Amount</span><span data-ar>المبلغ</span></th></tr></thead>
+  <tbody id="o_body"></tbody></table>
+  <p style="text-align:right;font-size:19px;margin-top:14px"><b><span data-en>Total:</span><span data-ar>المجموع:</span> KWD <span id="o_total"></span></b></p>
+  <p style="font-size:12px;color:#666"><span data-en>Thank you! Payment: KNET / Bank transfer.</span><span data-ar>شكراً لكم! الدفع: KNET / تحويل بنكي.</span></p>
+  <button class="pbtn noprint" onclick="window.print()"><span data-en>Print / Save PDF</span><span data-ar>طباعة / حفظ PDF</span></button>
+</div>
+
+<script>
+let ar=false;
+function gen(){
+  const biz=document.getElementById('biz').value, phone=document.getElementById('phone').value;
+  const cust=document.getElementById('cust').value, caddr=document.getElementById('caddr').value;
+  const gst=parseFloat(document.getElementById('gst').value)||0;
+  let total=0,rows='';
+  document.getElementById('items').value.split('\n').forEach((line,i)=>{
+    if(!line.trim())return;
+    const p=line.split(',').map(x=>x.trim());
+    const qty=+p[1]||0, rate=+p[2]||0, amt=qty*rate; total+=amt;
+    rows+=`<tr><td>${i+1}</td><td>${p[0]}</td><td>${qty}</td><td>${rate}</td><td>${amt.toFixed(2)}</td></tr>`;
+  });
+  if(gst>0){const g=total*gst/100; total+=g; rows+=`<tr><td colspan="4" style="text-align:right"><b><span data-en>VAT ${gst}%</span><span data-ar>ضريبة ${gst}%</span></b></td><td>${g.toFixed(2)}</td></tr>`;}
+  document.getElementById('o_biz').textContent=biz;
+  document.getElementById('o_phone').textContent=phone;
+  document.getElementById('o_cust').textContent=cust;
+  document.getElementById('o_caddr').textContent=caddr;
+  document.getElementById('o_body').innerHTML=rows;
+  document.getElementById('o_total').textContent=total.toFixed(2);
+  document.getElementById('o_date').textContent=new Date().toLocaleDateString('en-GB');
+  document.getElementById('prev').style.display='block';
+  document.getElementById('prev').scrollIntoView();
+}
+function setLang(l){
+  ar=(l==='ar');
+  document.body.classList.toggle('ar',ar);
+  document.documentElement.lang=l;document.documentElement.dir=ar?'rtl':'ltr';
+  localStorage.setItem('kb_lang',l);
+  document.querySelectorAll('#tg button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+}
+(function(){const s=localStorage.getItem('kb_lang');const nav=(navigator.language||'en').toLowerCase();setLang(s||(nav.startsWith('ar')?'ar':'en'));})();
+</script>
+</body>
+</html>

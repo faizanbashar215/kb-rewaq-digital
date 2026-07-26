@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صالون نور — 3D Demo by KB Rewaq Digital</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,'Noto Sans Arabic',sans-serif;color:#eaf6ff;line-height:1.7;background:#05060a;overflow-x:hidden}
+  #bg{position:fixed;inset:0;z-index:0;background:radial-gradient(700px 400px at 75% -10%,rgba(155,107,255,.16),transparent),radial-gradient(600px 360px at 10% 10%,rgba(34,227,192,.12),transparent),#05060a}
+  .wrap{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:0 24px}
+  header{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;backdrop-filter:blur(14px);background:rgba(5,6,10,.55);border-bottom:1px solid rgba(120,160,200,.16)}
+  .logo{font-weight:800;font-size:20px;color:#9b6bff}
+  .nav a{color:#eaf6ff;text-decoration:none;margin-right:18px;font-weight:600;font-size:14px;opacity:.85}
+  .hero{position:relative;z-index:2;padding:90px 24px;text-align:center}
+  .tag{display:inline-block;background:rgba(20,28,42,.6);border:1px solid rgba(120,160,200,.16);color:#9b6bff;font-size:11px;letter-spacing:1px;padding:4px 12px;border-radius:8px;margin-bottom:14px}
+  .hero h1{font-size:clamp(32px,6vw,48px);font-weight:840;margin-bottom:12px;background:linear-gradient(120deg,#9b6bff,#22e3c0,#ff5e8a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:flow 6s linear infinite}
+  @keyframes flow{to{background-position:200% center}}
+  .hero p{font-size:18px;opacity:.9;margin-bottom:26px;color:#c9b8e8}
+  .btn{display:inline-block;background:linear-gradient(135deg,#9b6bff,#6b3fa0);color:#fff;padding:14px 30px;border-radius:11px;font-weight:800;text-decoration:none;box-shadow:0 0 26px rgba(155,107,255,.4);transition:.2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 38px rgba(155,107,255,.6)}
+  section{padding:64px 0;position:relative;z-index:2}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .card{background:rgba(20,28,42,.55);border:1px solid rgba(120,160,200,.16);border-radius:16px;padding:26px;text-align:center;backdrop-filter:blur(12px);transition:.25s}
+  .card:hover{transform:translateY(-6px);border-color:#9b6bff;box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 22px rgba(155,107,255,.3)}
+  .card .ico{font-size:34px;margin-bottom:10px}
+  .card h3{margin-bottom:6px}
+  .card p{color:#8aa0b8;font-size:14px}
+  .price{background:rgba(10,14,23,.5)}
+  .item{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(120,160,200,.12);font-size:16px}
+  .item b{color:#9b6bff;font-weight:800}
+  h2{text-align:center;font-size:30px;margin-bottom:30px;font-weight:820}
+  footer{position:relative;z-index:2;text-align:center;padding:34px;color:#8aa0b8;font-size:14px;border-top:1px solid rgba(120,160,200,.16);backdrop-filter:blur(10px);background:rgba(5,6,10,.5)}
+  .demo-note{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;background:rgba(20,28,42,.8);border:1px solid rgba(120,160,200,.2);color:#c9b8e8;font-size:12px;padding:8px 16px;border-radius:10px;backdrop-filter:blur(10px)}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<header>
+  <div class="logo">💇 صالون نور</div>
+  <nav class="nav"><a href="#price">الأسعار</a><a href="#about">عنا</a><a href="https://wa.me/96550703252">احجز</a></nav>
+</header>
+<section class="hero">
+  <div class="tag">موقع تجريبي — بواسطة KB Rewaq Digital</div>
+  <h1>أجمل تسريحات وإطلالات</h1>
+  <p>خدمات نسائية ورجالية · أحدث الموديلات · مواعيد مرنة</p>
+  <a class="btn" href="https://wa.me/96550703252">احجز عبر واتساب</a>
+</section>
+<section class="wrap" id="price">
+  <h2>الأسعار</h2>
+  <div class="item"><span>قص شعر نسائي</span><b>٨ د.ك</b></div>
+  <div class="item"><span>صبغة</span><b>١٥ د.ك</b></div>
+  <div class="item"><span>حلاقة رجالية</span><b>٣ د.ك</b></div>
+  <div class="item"><span>عناية بالبشرة</span><b>١٢ د.ك</b></div>
+</section>
+<section class="price" id="about">
+  <div class="wrap">
+    <h2>لماذا صالون نور</h2>
+    <div class="grid">
+      <div class="card"><div class="ico">✨</div><h3>أيدي خبيرة</h3><p>فريق محترف</p></div>
+      <div class="card"><div class="ico">🕐</div><h3>مواعيد سهلة</h3><p>عبر واتساب</p></div>
+      <div class="card"><div class="ico">💎</div><h3>جودة عالية</h3><p>أفضل المنتجات</p></div>
+    </div>
+  </div>
+</section>
+<footer>
+  📞 +965 50703252 &nbsp;|&nbsp; 📍 حولي، الكويت<br>
+  موقع تجريبي من إنشاء KB Rewaq Digital — موقعك الحقيقي هنا.
+</footer>
+<div class="demo-note">هذا موقع تجريبي. موقعك الحقيقي بنفس التصميم ثلاثي الأبعاد.</div>
+</body>
+</html>

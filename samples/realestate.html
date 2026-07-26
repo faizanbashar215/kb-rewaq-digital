@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Falah Real Estate — 3D Demo by KB Rewaq Digital</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,Tahoma,sans-serif;color:#eaf6ff;line-height:1.65;background:#05060a;overflow-x:hidden}
+  #bg{position:fixed;inset:0;z-index:0;background:radial-gradient(700px 400px at 75% -10%,rgba(34,227,192,.14),transparent),radial-gradient(600px 360px at 10% 10%,rgba(155,107,255,.12),transparent),#05060a}
+  .wrap{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:0 24px}
+  header{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;backdrop-filter:blur(14px);background:rgba(5,6,10,.55);border-bottom:1px solid rgba(120,160,200,.16)}
+  .logo{font-weight:800;font-size:20px;color:#22e3c0}
+  .nav a{color:#eaf6ff;text-decoration:none;margin-left:18px;font-weight:600;font-size:14px;opacity:.85}
+  .hero{position:relative;z-index:2;padding:90px 24px;text-align:center}
+  .tag{display:inline-block;background:rgba(20,28,42,.6);border:1px solid rgba(120,160,200,.16);color:#22e3c0;font-size:11px;letter-spacing:1px;padding:4px 12px;border-radius:8px;margin-bottom:14px}
+  .hero h1{font-size:clamp(32px,6vw,50px);font-weight:840;letter-spacing:-.6px;margin-bottom:12px;background:linear-gradient(120deg,#22e3c0,#9b6bff,#0bbf9a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:200% auto;animation:flow 6s linear infinite}
+  @keyframes flow{to{background-position:200% center}}
+  .hero p{font-size:18px;opacity:.9;margin-bottom:26px;color:#bcd0e4}
+  .btn{display:inline-block;background:linear-gradient(135deg,#22e3c0,#0bbf9a);color:#04140f;padding:14px 30px;border-radius:11px;font-weight:800;text-decoration:none;box-shadow:0 0 26px rgba(34,227,192,.4);transition:.2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 38px rgba(34,227,192,.6)}
+  section{padding:64px 0;position:relative;z-index:2}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .prop{background:rgba(20,28,42,.55);border:1px solid rgba(120,160,200,.16);border-radius:16px;overflow:hidden;backdrop-filter:blur(12px);transition:.25s}
+  .prop:hover{transform:translateY(-6px);border-color:#22e3c0;box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 22px rgba(34,227,192,.3)}
+  .prop .img{height:160px;background:linear-gradient(135deg,#22e3c0,#9b6bff);display:flex;align-items:center;justify-content:center;font-size:40px}
+  .prop .body{padding:18px}
+  .prop h3{margin-bottom:4px}
+  .prop .p{color:#22e3c0;font-weight:800;font-size:18px}
+  .prop .loc{color:#8aa0b8;font-size:13px}
+  h2{text-align:center;font-size:30px;margin-bottom:30px;font-weight:820}
+  footer{position:relative;z-index:2;text-align:center;padding:34px;color:#8aa0b8;font-size:14px;border-top:1px solid rgba(120,160,200,.16);backdrop-filter:blur(10px);background:rgba(5,6,10,.5)}
+  .demo-note{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;background:rgba(20,28,42,.8);border:1px solid rgba(120,160,200,.2);color:#bcd0e4;font-size:12px;padding:8px 16px;border-radius:10px;backdrop-filter:blur(10px)}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<header>
+  <div class="logo">🏢 Al Falah RE</div>
+  <nav class="nav"><a href="#list">Properties</a><a href="#about">About</a><a href="https://wa.me/96550703252">Enquire</a></nav>
+</header>
+<section class="hero">
+  <div class="tag">DEMO SITE — by KB Rewaq Digital</div>
+  <h1>Find Your Perfect Home in Kuwait</h1>
+  <p>Apartments · Villas · Offices across Kuwait City, Hawally, Salmiya</p>
+  <a class="btn" href="https://wa.me/96550703252">WhatsApp Enquiry</a>
+</section>
+<section class="wrap" id="list">
+  <h2>Featured Properties</h2>
+  <div class="grid">
+    <div class="prop"><div class="img">🏠</div><div class="body"><h3>2BR Apartment</h3><div class="loc">Salmiya</div><div class="p">420 KWD/mo</div></div></div>
+    <div class="prop"><div class="img">🏡</div><div class="body"><h3>Villa 4BR</h3><div class="loc">Hawally</div><div class="p">850 KWD/mo</div></div></div>
+    <div class="prop"><div class="img">🏢</div><div class="body"><h3>Office Space</h3><div class="loc">Kuwait City</div><div class="p">300 KWD/mo</div></div></div>
+  </div>
+</section>
+<section style="background:rgba(10,14,23,.5)" id="about">
+  <div class="wrap" style="text-align:center">
+    <h2>Why Al Falah</h2>
+    <p style="max-width:600px;margin:0 auto;color:#8aa0b8">Trusted local broker with 10+ years. Verified listings, fast paperwork, English &amp; Arabic service.</p>
+  </div>
+</section>
+<footer>
+  📞 +965 50703252 &nbsp;|&nbsp; 📍 Kuwait<br>
+  Demo website created by KB Rewaq Digital — your real site here.
+</footer>
+<div class="demo-note">This is a sample. Your live site gets the same 3D treatment.</div>
+</body>
+</html>
