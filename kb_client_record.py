@@ -137,20 +137,33 @@ def write_index():
         "site_url", "status", "created", "last_touch", "next_action",
         "deal_value_kwd",
     ]
-    with open(path, "w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(cols)
-        for l in LEADS:
-            slug = l["slug"]
-            rec = build_client(l)
-            row = [
-                l["name_en"], l["name_ar"], slug, slug, l["area_en"],
-                l["phone_disp"], l["ig"], len(rec["services"]),
-                len(rec["packages"]), l["clients"],
-                rec["online"]["site_url"], rec["pipeline"]["status"],
-                TODAY, "", "", "",
-            ]
-            w.writerow(row)
+    lines = [cols]
+    for l in LEADS:
+        slug = l["slug"]
+        rec = build_client(l)
+        lines.append([
+            l["name_en"], l["name_ar"], slug, slug, l["area_en"],
+            l["phone_disp"], l["ig"], len(rec["services"]),
+            len(rec["packages"]), l["clients"],
+            rec["online"]["site_url"], rec["pipeline"]["status"],
+            TODAY, "", "", "",
+        ])
+    # Robust against Excel lock: write to .tmp then atomic replace.
+    # If still locked (Excel open), fall back to a timestamped copy.
+    import io
+    buf = io.StringIO()
+    csv.writer(buf).writerows(lines)
+    content = buf.getvalue()
+    try:
+        with open(path + ".tmp", "w", encoding="utf-8", newline="") as f:
+            f.write(content)
+        os.replace(path + ".tmp", path)
+    except PermissionError:
+        import datetime as _dt
+        fallback = os.path.join(ROOT, f"_INDEX_{_dt.datetime.now():%Y%m%d-%H%M%S}.csv")
+        with open(fallback, "w", encoding="utf-8", newline="") as f:
+            f.write(content)
+        print(f"  ! _INDEX.csv locked (Excel open) -> wrote {os.path.basename(fallback)} instead")
 
 
 def main():
