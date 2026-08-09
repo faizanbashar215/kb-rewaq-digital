@@ -1,2 +1,6 @@
-secrets.txt
-token.txt
+# KB Rewaq secrets — NEVER commit
+.env
+wa-bridge/auth/
+wa-bridge/qr.png
+node_modules/
+*.log
