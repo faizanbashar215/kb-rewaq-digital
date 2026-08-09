@@ -79,6 +79,27 @@ def resolve_slug(from_num):
     return None
 
 
+def resolve_slug_from_name(name):
+    # best-effort: match WhatsApp display name to a client folder business name
+    if not name:
+        return None
+    n = name.lower().strip()
+    for s in os.listdir(ROOT):
+        c = os.path.join(ROOT, s, "client.json")
+        if os.path.exists(c):
+            try:
+                rec = json.load(open(c, encoding="utf-8"))
+                bn = rec.get("business", {}).get("name_en", "").lower()
+                ig = rec.get("contact", {}).get("instagram", "").lower()
+                if bn and (bn in n or n in bn):
+                    return s
+                if ig and ig in n:
+                    return s
+            except Exception:
+                pass
+    return None
+
+
 def send(to, text):
     data = json.dumps({"to": to, "text": text}).encode()
     req = urllib.request.Request(BRIDGE + "/send", data=data, headers={"Content-Type": "application/json"})

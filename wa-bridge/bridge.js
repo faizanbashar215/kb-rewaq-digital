@@ -5,7 +5,20 @@ const path = require("path");
 const fs = require("fs");
 const http = require("http");
 const QRCode = require("qrcode");
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require("@whiskeysockets/baileys");
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore } = require("@whiskeysockets/baileys");
+const fslock = require("fs");
+const LOCK = path.join(__dirname, "bridge.lock");
+// single-instance guard: prevent double bridge (causes 515 throttle)
+if (showLock()) { console.log("[bridge] ANOTHER INSTANCE RUNNING — exiting to avoid 515 throttle"); process.exit(0); }
+fslock.writeFileSync(LOCK, String(process.pid));
+process.on("exit", () => { try { fslock.unlinkSync(LOCK); } catch (e) {} });
+function showLock() {
+  if (!fslock.existsSync(LOCK)) return false;
+  try { const pid = parseInt(fslock.readFileSync(LOCK, "utf-8"));
+    if (pid && pid !== process.pid && isAlive(pid)) return true; } catch(e){}
+  return false;
+}
+function isAlive(p) { try { process.kill(p, 0); return true; } catch(e){ return false; } }
 
 const AUTH = path.join(__dirname, "auth");
 const STATE = path.join(__dirname, "state.json"); // {lastPoll, sentLog}
@@ -43,7 +56,15 @@ async function connect() {
     if (connection === "close") {
       const reason = lastDisconnect?.error?.output?.statusCode;
       console.log("[bridge] disconnected:", reason, DisconnectReason[reason] || "");
-      if (reason !== DisconnectReason.loggedOut) setTimeout(connect, 3000);
+      // 515 = throttle (too many connections) — back off longer to avoid loop
+      if (reason === 515) {
+        console.log("[bridge] 515 throttle — backing off 60s");
+        setTimeout(connect, 60000);
+      } else if (reason !== DisconnectReason.loggedOut) {
+        setTimeout(connect, 5000);
+      } else {
+        console.log("[bridge] logged out — clear auth + rescan QR");
+      }
     }
   });
 

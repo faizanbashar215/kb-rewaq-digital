@@ -4,3 +4,6 @@ wa-bridge/auth/
 wa-bridge/qr.png
 node_modules/
 *.log
+__pycache__/
+*.pid
+wa-bridge/state.json
