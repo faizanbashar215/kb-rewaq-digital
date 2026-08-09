@@ -14,16 +14,6 @@ GITHUB = "https://faizanbashar215.github.io/kb-rewaq-digital"
 # Each lead: (en, ar, area, phone, disp, slug, opener)
 # opener is a natural, personal WhatsApp opener (no emoji/dash/bullet).
 LEADS = [
-    ("Midyaf Beauty Salon", "صالون ميدياف", "Salmiya Block 9", "96567633667", "+965 6763 3667", "midyaf",
-     "Hi, this is Faizan. I was near your salon in Salmiya the other day and really liked what you do."),
-    ("Look Noor Ladies Beauty Salon", "صالون لوك نور", "Salmiya Block 12", "96560748354", "+965 6074 8354", "looknoor",
-     "Hello, this is Faizan. A friend mentioned your salon and said you do great work."),
-    ("Monya Ladies Beauty Salon", "صالون منى", "Salmiya Block 10", "96598980970", "+965 9898 0970", "monya",
-     "Hi, Faizan here. Saw your summer offers and thought your salon deserves more walk-ins."),
-    ("Royal Jasmine Salon", "صالون الياسمين", "Salmiya Block 10", "96561114586", "+965 6111 4586", "royaljasmine",
-     "Hello, this is Faizan. Your salon has such a royal feel, it deserves a matching website."),
-    ("Larene Beauty Salon & Spa", "صالون لارين", "Hawally Block 8", "96551746804", "+965 5174 6804", "larene",
-     "Hi, Faizan here. Your spa looked so calm and beautiful when I passed by, thought I would reach out."),
     ("KAHI Ladies Beauty Salon", "صالون كاهي", "Salmiya Block 2", "96550770458", "+965 5077 0458", "kahi",
      "Hi, this is Faizan. Heard good things about KAHI and wanted to show you something I made."),
     ("Mahima Ladies Salon", "صالون ماهيما", "Salmiya Block 10", "96551413855", "+965 5141 3855", "mahima",
@@ -115,5 +105,5 @@ for i, (txt, bold) in enumerate(instructions, 1):
     c.font = Font(bold=bold, size=14 if bold else 11)
     ws2.column_dimensions["A"].width = 100
 
-wb.save("KB_Rewaq_Leads_v5.xlsx")
-print("✅ KB_Rewaq_Leads_v5.xlsx created with", len(LEADS), "leads (all 6 KB Rewaq services in DM)")
+wb.save("KB_Rewaq_Leads_v6.xlsx")
+print("✅ KB_Rewaq_Leads_v6.xlsx created with", len(LEADS), "leads (v10 advanced sites, all 6 KB Rewaq services in DM)")
