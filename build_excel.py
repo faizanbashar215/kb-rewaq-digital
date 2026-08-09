@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build KB Rewaq lead Excel with click-to-WhatsApp + DM (link embedded) + site link.
-DM rules (boss 2026-08-09): no upfront price, attractive/professional, explain IG
-delivery concretely, close with office-visit offer on YES.
+DM rules (boss 2026-08-09): human/conversational tone, NO bullets/dashes/emoji-spam,
+no upfront price, explains IG delivery naturally, closes with office-visit offer on YES.
 """
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -11,42 +11,42 @@ from urllib.parse import quote
 GITHUB = "https://faizanbashar215.github.io/kb-rewaq-digital"
 
 # Each lead: (en, ar, area, phone, disp, slug, opener)
-# DM body is built from a shared professional template + salon opener + site link.
+# opener is a natural, personal WhatsApp opener (no emoji/dash/bullet).
 LEADS = [
     ("Midyaf Beauty Salon", "صالون ميدياف", "Salmiya Block 9", "96567633667", "+965 6763 3667", "midyaf",
-     "Hi Midyaf Beauty Salon! 👋 Your salon deserves to be seen online."),
+     "Hi, this is Faizan. I was near your salon in Salmiya the other day and really liked what you do."),
     ("Look Noor Ladies Beauty Salon", "صالون لوك نور", "Salmiya Block 12", "96560748354", "+965 6074 8354", "looknoor",
-     "Hello Look Noor Ladies! 👋 Your clients are already on Instagram — let's meet them there."),
+     "Hello, this is Faizan. A friend mentioned your salon and said you do great work."),
     ("Monya Ladies Beauty Salon", "صالون منى", "Salmiya Block 10", "96598980970", "+965 9898 0970", "monya",
-     "Hi Monya Ladies Salon! 👋 Summer is busy — a website catches the walk-ins you're missing."),
+     "Hi, Faizan here. Saw your summer offers and thought your salon deserves more walk-ins."),
     ("Royal Jasmine Salon", "صالون الياسمين", "Salmiya Block 10", "96561114586", "+965 6111 4586", "royaljasmine",
-     "Hello Royal Jasmine! 👋 A royal salon needs a royal presence online."),
+     "Hello, this is Faizan. Your salon has such a royal feel, it deserves a matching website."),
     ("Larene Beauty Salon & Spa", "صالون لارين", "Hawally Block 8", "96551746804", "+965 5174 6804", "larene",
-     "Hi Larene Beauty Spa! 👋 Your spa should look as beautiful online as it does inside."),
+     "Hi, Faizan here. Your spa looked so calm and beautiful when I passed by, thought I would reach out."),
     ("KAHI Ladies Beauty Salon", "صالون كاهي", "Salmiya Block 2", "96550770458", "+965 5077 0458", "kahi",
-     "Hi KAHI Ladies Salon! 👋 Your clients love your work — now let them find you online."),
+     "Hi, this is Faizan. Heard good things about KAHI and wanted to show you something I made."),
     ("Mahima Ladies Salon", "صالون ماهيما", "Salmiya Block 10", "96551413855", "+965 5141 3855", "mahima",
-     "Hi Mahima Ladies Salon! 👋 Your spa packages are amazing — a website shows them to everyone."),
+     "Hi, Faizan here. Your spa packages look amazing, your clients would love seeing them online."),
     ("Paulita Spa Beauty", "بوليتا سبا", "Salmiya Block 9", "96569649660", "+965 6964 9660", "paulita",
-     "Hello Paulita Spa! 👋 A relaxing salon like yours deserves a calm, beautiful website."),
+     "Hello, this is Faizan. Your salon has such a relaxing vibe, it should have a beautiful site too."),
     ("Neweves Salon", "صالون نيو إيفز", "Hawally Tunis St", "96594147140", "+965 9414 7140", "neweves",
-     "Hi Neweves Salon! 👋 Great prices, great work — a website brings the walk-ins you're missing."),
+     "Hi, Faizan here. You have got great prices and work, just thought a site would bring more people in."),
     ("Yours Salon", "صالون يورز", "Maidan Hawally", "96597200323", "+965 9720 0323", "yours",
-     "Hi Yours Salon! 👋 Your clients keep coming back — a website helps new ones find you."),
+     "Hi, this is Faizan. Your regulars clearly love you, a website would just help new ones find you."),
 ]
 
-# Shared professional body (NO price upfront, explains IG delivery, office-visit close)
+# Human, conversational DM body (no bullets/dashes/emoji-spam — reads like a real WhatsApp)
 BODY = (
-    "\n\nI'm Faizan from KB Rewaq Digital. I built a FREE sample website for your salon "
-    "so you can see exactly what you'd get — no cost, no obligation.\n\n"
-    "Here's what we do for salons like yours:\n"
-    "🌐 Custom website — your name, services & prices, online booking, Arabic + English\n"
-    "📸 Instagram growth — you send us photos, we design your posts, reels & stories "
-    "and handle the posting, so your salon stays active and pulls in new clients\n"
-    "📈 More visibility, more bookings — that's the whole point\n\n"
-    "If you like the demo, I'll visit your salon for a free 15-minute overview and show "
-    "you the full plan — no pressure, just a clear next step.\n\n"
-    "Reply YES and I'll set it up. 🙌"
+    "\n\nThis is Faizan, I run a small digital studio here in Kuwait. I made a little demo "
+    "website for your salon just to show you what it could look like, totally free and "
+    "no strings attached.\n\n"
+    "If you like it, I can build you a proper site with your name, your services and prices, "
+    "and online booking in both Arabic and English. I also help with Instagram, you just send "
+    "me photos from the salon and I handle the posts and reels so you stay active and get new "
+    "clients without the hassle.\n\n"
+    "No pressure at all, but if you are curious I can come by the salon for 15 minutes, show you "
+    "the plan properly and we take it from there.\n\n"
+    "Just reply with a yes and I will get it started :)"
 )
 
 wb = openpyxl.Workbook()
@@ -76,7 +76,7 @@ for c, w in enumerate(widths, 1):
 for i, (en, ar, area, phone, disp, slug, opener) in enumerate(LEADS, 1):
     r = i + 1
     site_url = f"{GITHUB}/{slug}/"
-    dm = opener + BODY + f"\n\n👉 Your free demo: {site_url}"
+    dm = opener + BODY + f"\n\nHere is your free demo: {site_url}"
     wa_url = f"https://wa.me/{phone}?text={quote(dm)}"
     vals = [i, en, ar, area, disp, "View Demo Site", dm, "Lead"]
     for c, v in enumerate(vals, 1):
@@ -90,12 +90,11 @@ for i, (en, ar, area, phone, disp, slug, opener) in enumerate(LEADS, 1):
     ws.cell(r, 6).fill = site_fill
     ws.cell(r, 6).font = Font(size=11, bold=True, color="FFFFFF")
     ws.cell(r, 6).alignment = center
-    ws.row_dimensions[r].height = 140
+    ws.row_dimensions[r].height = 160
 
 ws.freeze_panes = "A2"
 ws.auto_filter.ref = f"A1:H{len(LEADS)+1}"
 
-# Instructions sheet
 ws2 = wb.create_sheet("HOW TO USE")
 instructions = [
     ("KB REWAQ DIGITAL — LEAD TRACKER", True),
@@ -113,5 +112,5 @@ for i, (txt, bold) in enumerate(instructions, 1):
     c.font = Font(bold=bold, size=14 if bold else 11)
     ws2.column_dimensions["A"].width = 100
 
-wb.save("KB_Rewaq_Leads.xlsx")
-print("✅ KB_Rewaq_Leads.xlsx created with", len(LEADS), "leads (link embedded, no upfront price)")
+wb.save("KB_Rewaq_Leads_v4.xlsx")
+print("✅ KB_Rewaq_Leads_v4.xlsx created with", len(LEADS), "leads (human DM, link embedded)")
