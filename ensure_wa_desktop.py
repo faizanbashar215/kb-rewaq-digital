@@ -18,7 +18,26 @@ def is_alive(pid):
     except Exception:
         return False
 
+def script_running():
+    """Detect wa_desktop_automation.py already running (by command line),
+    so a manually-started instance is not double-launched. Uses psutil
+    (psutil works on modern Windows)."""
+    try:
+        import psutil
+        for p in psutil.process_iter(["name", "cmdline"]):
+            if p.info["name"] and "python" in p.info["name"].lower():
+                cmd = " ".join(p.info.get("cmdline") or [])
+                if "wa_desktop_automation.py" in cmd:
+                    return True
+    except Exception:
+        pass
+    return False
+
 def main():
+    # Prefer live command-line detection (covers manually-started instances)
+    if script_running():
+        print("wa_desktop_automation already running (detected by script name)")
+        return
     pid = None
     if os.path.exists(PID_FILE):
         try:
