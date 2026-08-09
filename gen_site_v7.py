@@ -261,10 +261,9 @@ nav.scrolled{{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:1
 footer{{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}}
 .wa-float{{position:fixed;bottom:24px;right:24px;z-index:120;background:#25D366;color:#fff;padding:14px 22px;border-radius:50px;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 10px 36px rgba(37,211,102,.5);transition:.3s}}
 .wa-float:hover{{transform:scale(1.06)}}
-.reveal{{opacity:1;transform:none;transition:1s cubic-bezier(.2,.8,.2,1)}}
-.js .reveal{{opacity:0;transform:translateY(60px)}}
+.reveal{{opacity:1;transform:none}}
+.js .reveal{{opacity:1;transform:translateY(40px);transition:1s cubic-bezier(.2,.8,.2,1)}}
 .js .reveal.show{{opacity:1;transform:translateY(0)}}
-.no-js .reveal{{opacity:1!important;transform:none!important}}
 @media(max-width:860px){{.sgrid,.pgrid,.tgrid,.tgrid2{{grid-template-columns:repeat(2,1fr)}}.nav-links{{display:none}}.bookwrap .row{{grid-template-columns:1fr}}}}
 </style>
 </head>
