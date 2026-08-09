@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KB Rewaq — Outreach Command Center</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0b0f14;--panel:#141c26;--line:#243240;--accent:#22e3c0;--accent2:#0bbf9a;--txt:#eaf6ff;--muted:#8aa0b8;--warn:#ffb454;--ok:#34d399;--bad:#f87171}
+  body{font-family:'Segoe UI',system-ui,Tahoma,sans-serif;background:var(--bg);color:var(--txt);padding:20px;line-height:1.5}
+  .wrap{max-width:900px;margin:0 auto}
+  h1{color:var(--accent);font-size:23px;margin-bottom:2px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:14px}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;flex:1;min-width:90px;text-align:center}
+  .stat b{display:block;font-size:22px;color:var(--accent)}
+  .stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+  .card .top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .card .n{width:30px;height:30px;flex-shrink:0;background:var(--accent);color:#04140f;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+  .card .info{flex:1}
+  .card .info b{font-size:15px}
+  .card .info span{color:var(--muted);font-size:12px;display:block}
+  .msg{background:#0e161f;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-size:13px;color:#cdd9e6;margin:10px 0;white-space:pre-wrap;word-break:break-word;max-height:120px;overflow:auto}
+  .acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:8px;padding:9px 13px;font-weight:700;font-size:13px}
+  .b-copy{background:#22303f;color:var(--txt)}
+  .b-send{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04140f}
+  .b-send:hover,.b-copy:hover{opacity:.9}
+  select{background:#22303f;color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-size:13px;font-family:inherit}
+  .add{background:var(--panel);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:18px 0}
+  .add h3{color:var(--accent);font-size:15px;margin-bottom:10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+  .add input{background:#0e161f;border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--txt);font-size:13px;font-family:inherit;width:100%}
+  .add .full{grid-column:1/-1}
+  .b-add{background:var(--accent);color:#04140f;margin-top:4px}
+  .tip{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 15px;color:var(--muted);font-size:12.5px;margin-bottom:16px}
+  .tip b{color:var(--accent)}
+  .flt{background:#0e161f;border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-top:10px;font-size:13px}
+  .flt .row{display:flex;gap:8px;align-items:center;margin-top:6px}
+  .flt textarea{flex:1;background:#0b0f14;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:12.5px;padding:7px 9px;font-family:inherit;resize:vertical;min-height:42px}
+  .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--accent);color:#04140f;padding:10px 18px;border-radius:9px;font-weight:700;font-size:13px;opacity:0;transition:.25s;pointer-events:none}
+  .toast.show{opacity:1}
+  .bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .bar select,.bar button{font-family:inherit}
+  .b-export{background:#22303f;color:var(--txt)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📲 KB Rewaq Digital — Outreach Command Center</h1>
+  <div class="sub">You (Faizan) send via your own WhatsApp • AI (co-founder) drafts, tracks CRM, follows up. Bot-free • offline • no API.</div>
+
+  <div class="tip"><b>How it works:</b> Click <b>Copy</b> then paste in your WhatsApp, OR click <b>Send →</b> to open wa.me (pre-filled) in your logged-in WhatsApp Web/app. Wait 2–3 min between sends (anti-ban). After a reply, tell the AI → he updates the CRM.</div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <select id="filter"><option value="all">All</option><option value="lead">Lead</option><option value="contacted">Contacted</option><option value="replied">Replied</option><option value="negotiating">Negotiating</option><option value="won">Won</option><option value="lost">Lost</option></select>
+    <button class="b-export" onclick="exportCSV()">⭳ Export CSV</button>
+  </div>
+
+  <div id="list"></div>
+
+  <div class="add">
+    <h3>➕ Add New Lead</h3>
+    <div class="grid">
+      <input id="a_name" placeholder="Salon name">
+      <input id="a_phone" placeholder="Phone e.g. 96566339766">
+      <input id="a_area" placeholder="Area">
+      <input id="a_lang" placeholder="Lang (ar/en)">
+      <input id="a_svc" placeholder="Service">
+      <input id="a_val" placeholder="Value KWD">
+      <input id="a_msg" class="full" placeholder="Outreach message (or leave blank to auto-generate)">
+    </div>
+    <button class="b-add" onclick="addLead()">Add Lead</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const CRM_KEY = 'kb_rewaq_clients';
+let leads = [{"idx": "1", "name": "D Beauty Center Salon", "area": "Salon", "lang": "AR.", "val": 35, "svc": "Website", "url": "https://wa.me/96566339766?text=مرحباً!%20أنأ%20من%20KB%20Rewaq%20Digital%20—%20نصمم%20مواقع%20وتواصل%20اجتماعي%20للصالونات%20بالكويت.%20عملت%20بوستر%20تجريبي%20(خصم%20٣٠٪%20للزيارة%20الأولى).%20تبغى%20نموذج%20مجاني%20باسم%20صالونك؟%20رد%20'نعم'.%20المواقع%20من%203٥%20د.ك%20جاهزة%20خلال%203%20أيام.%20واتساب:%20+965%2050703252", "msg": "مرحباً! أنأ من KB Rewaq Digital — نصمم مواقع وتواصل اجتماعي للصالونات بالكويت. عملت بوستر تجريبي (خصم ٣٠٪ للزيارة الأولى). تبغى نموذج مجاني باسم صالونك؟ رد 'نعم'. المواقع من 3٥ د.ك جاهزة خلال 3 أيام. واتساب: +965 50703252", "status": "contacted", "phone": "96566339766"}, {"idx": "2", "name": "Beauty World", "area": "Salon", "lang": "EN + email.", "val": 55, "svc": "Social Media", "url": "https://wa.me/96563632873?text=Hi%20Beauty%20World!%20I%20help%20salons%20in%20Kuwait%20grow%20with%20social%20media%20+%20websites.%20Here's%20a%20free%20sample%20poster%20(30%25%20OFF%20style).%20Want%20one%20with%20YOUR%20name?%20Websites%20from%2035%20KWD,%20ready%20in%203%20days.%20WhatsApp%20+965%2050703252", "msg": "Hi Beauty World! I help salons in Kuwait grow with social media + websites. Here's a free sample poster (30% OFF style). Want one with YOUR name? Websites from 35 KWD, ready in 3 days. WhatsApp +965 50703252", "status": "contacted", "phone": "96563632873"}, {"idx": "3", "name": "Nail It", "area": "Salon", "lang": "EN.", "val": 35, "svc": "Website", "url": "https://wa.me/96522200042?text=Hello%20Nail%20It!%20Your%20salon%20deserves%20a%20proper%20website%20+%20booking.%20I%20made%20a%20free%20sample%20poster%20—%20reply%20YES%20and%20I'll%20send%20one%20with%20your%20brand.%20Website%2035%20KWD,%203-day%20delivery.%20WhatsApp%20+965%2050703252", "msg": "Hello Nail It! Your salon deserves a proper website + booking. I made a free sample poster — reply YES and I'll send one with your brand. Website 35 KWD, 3-day delivery. WhatsApp +965 50703252", "status": "contacted", "phone": "96522200042"}, {"idx": "4", "name": "Ponytail Beauty Salon", "area": "Salon", "lang": "AR/EN.", "val": 55, "svc": "Social Media", "url": "https://wa.me/96595544110?text=مرحباً%20بونيتيل!%20عندكم%201٩١%20ألف%20متابع%20إنستقرام%20بس%20بدون%20موقع%20—%20ضيعان%20فرصة.%20نحن%20KB%20Rewaq%20Digital%20نسوي%20لكم%20موقع%20+%20حجوزات%20واتساب.%20بوستر%20تجريبي%20مجاني%20رد%20'نعم'.%20واتساب:%20+965%2050703252", "msg": "مرحباً بونيتيل! عندكم 1٩١ ألف متابع إنستقرام بس بدون موقع — ضيعان فرصة. نحن KB Rewaq Digital نسوي لكم موقع + حجوزات واتساب. بوستر تجريبي مجاني رد 'نعم'. واتساب: +965 50703252", "status": "contacted", "phone": "96595544110"}, {"idx": "5", "name": "Queen You Salon", "area": "Salon", "lang": "AR.", "val": 35, "svc": "Website", "url": "https://wa.me/96551225223?text=السلام%20عليكم%20صالون%20كوين%20يو!%20نصمم%20لكم%20موقع%20احترافي%20+%20بوسترات%20إنستقرام%20بأسعار%20الكويت.%20بوستر%20تجريبي%20مجاني%20باسم%20صالونكم%20رد%20'نعم'.%20الموقع%203٥%20د.ك.%20واتساب:%20+965%2050703252", "msg": "السلام عليكم صالون كوين يو! نصمم لكم موقع احترافي + بوسترات إنستقرام بأسعار الكويت. بوستر تجريبي مجاني باسم صالونكم رد 'نعم'. الموقع 3٥ د.ك. واتساب: +965 50703252", "status": "contacted", "phone": "96551225223"}, {"idx": "6", "name": "Monya Ladies Beauty Salon", "area": "Salon", "lang": "AR + WhatsApp.", "val": 35, "svc": "Website", "url": "https://wa.me/96598980970?text=مرحباً%20منى%20صالون!%20عروض%20الصيف%20عندكم%20حلوة%20—%20بس%20محتاجة%20موقع%20ينظم%20الحجوزات.%20نسوي%20لكم%20موقع%20+%20بوستر%20مجاني%20تجريبي.%20رد%20'نعم'.%20واتساب:%20+965%2050703252", "msg": "مرحباً منى صالون! عروض الصيف عندكم حلوة — بس محتاجة موقع ينظم الحجوزات. نسوي لكم موقع + بوستر مجاني تجريبي. رد 'نعم'. واتساب: +965 50703252", "status": "contacted", "phone": "96598980970"}, {"idx": "7", "name": "Ayat Beauty Salon & Spa", "area": "Salon", "lang": "AR.", "val": 35, "svc": "Website", "url": "https://wa.me/96598021008?text=أيات%20بيوتي!%20نحن%20KB%20Rewaq%20Digital%20نسوي%20مواقع%20وإنستقرام%20للصالونات.%20بوستر%20تجريبي%20مجاني%20(خصم%203٠٪)%20باسم%20صالونك%20رد%20'نعم'.%20الموقع%203٥%20د.ك%20جاهز%20بـ%203%20أيام.%20واتساب:%20+965%2050703252", "msg": "أيات بيوتي! نحن KB Rewaq Digital نسوي مواقع وإنستقرام للصالونات. بوستر تجريبي مجاني (خصم 3٠٪) باسم صالونك رد 'نعم'. الموقع 3٥ د.ك جاهز بـ 3 أيام. واتساب: +965 50703252", "status": "contacted", "phone": "96598021008"}, {"idx": "8", "name": "Mirai Beauty Lounge", "area": "Salon", "lang": "AR + WhatsApp.", "val": 35, "svc": "Website", "url": "https://wa.me/96597777634?text=ميراي%20بيوتي%20لاونج!%20نجهز%20لكم%20موقع%20+%20حجوزات%20واتساب%20تزيد%20زبائنكم.%20بوستر%20مجاني%20تجريبي%20رد%20'نعم'.%20واتساب:%20+965%2050703252", "msg": "ميراي بيوتي لاونج! نجهز لكم موقع + حجوزات واتساب تزيد زبائنكم. بوستر مجاني تجريبي رد 'نعم'. واتساب: +965 50703252", "status": "contacted", "phone": "96597777634"}, {"idx": "9", "name": "Youky Salon", "area": "Salon", "lang": "EN.", "val": 35, "svc": "Website", "url": "https://wa.me/96562225344?text=Hi%20Youky%20Salon!%20A%20website%20+%20online%20booking%20would%20bring%20you%20more%20clients.%20Free%20sample%20poster%20—%20reply%20YES.%20Website%2035%20KWD,%203%20days.%20WhatsApp%20+965%2050703252", "msg": "Hi Youky Salon! A website + online booking would bring you more clients. Free sample poster — reply YES. Website 35 KWD, 3 days. WhatsApp +965 50703252", "status": "contacted", "phone": "96562225344"}, {"idx": "10", "name": "Blue Kuwait Salon", "area": "Salon", "lang": "AR.", "val": 35, "svc": "Website", "url": "https://wa.me/96566693695?text=صالون%20بلو%20الكويت!%20نسوي%20لكم%20موقع%20احترافي%20+%20بوسترات%20بسعر%20الكويت.%20بوستر%20تجريبي%20مجاني%20رد%20'نعم'.%20واتساب:%20+965%2050703252", "msg": "صالون بلو الكويت! نسوي لكم موقع احترافي + بوسترات بسعر الكويت. بوستر تجريبي مجاني رد 'نعم'. واتساب: +965 50703252", "status": "contacted", "phone": "96566693695"}];
+
+// load saved statuses from localStorage (matches crm.html)
+function loadStatus(){
+  try{ const saved = JSON.parse(localStorage.getItem(CRM_KEY)||'[]');
+    const map = {}; saved.forEach(l=>map[l.phone]=l.status);
+    leads.forEach(l=>{ if(map[l.phone]) l.status = map[l.phone]; });
+  }catch(e){}
+}
+function saveStatus(){
+  // persist under same key as crm.html (phone,name,area,lang,val,svc,status,note)
+  const arr = leads.map(l=>({phone:l.phone, name:l.name, area:l.area, lang:l.lang, val:l.val, svc:l.svc, status:l.status, note:l.note||''}));
+  localStorage.setItem(CRM_KEY, JSON.stringify(arr));
+}
+function phoneOf(url){ const m = url.match(/wa\.me\/(\S+?)\?/); return m?m[1]:''; }
+
+loadStatus();
+
+function render(){
+  const f = document.getElementById('filter').value;
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  leads.filter(l=> f==='all'||l.status===f).forEach((l,i)=>{
+    const ph = l.phone || phoneOf(l.url);
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML = `
+      <div class="top">
+        <div class="n">${l.idx}</div>
+        <div class="info"><b>${esc(l.name)}</b><span>${esc(l.area||'')} · ${esc(l.lang||'')} · ${esc(l.svc||'')} · ${l.val||''} KWD</span></div>
+        <select onchange="setStatus('${ph}',this.value)">
+          ${['lead','contacted','replied','negotiating','won','lost'].map(s=>`<option ${l.status===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="msg">${esc(l.msg||'(no message — generate one)')}</div>
+      <div class="acts">
+        <button class="b-copy" onclick="copyMsg('${ph}')">📋 Copy</button>
+        <a class="b-send" href="${l.url}" target="_blank" onclick="markSent('${ph}')">Send →</a>
+      </div>
+      <div class="flt" id="flt_${ph}"></div>`;
+    list.appendChild(card);
+    renderFollowups(l, ph);
+  });
+  renderStats();
+}
+
+function renderFollowups(l, ph){
+  const box = document.getElementById('flt_'+ph); if(!box) return;
+  const base = l.msg||'';
+  const fu = [
+    {t:'2nd touch (3 days)', m: followup(l,2)},
+    {t:'3rd touch (7 days)', m: followup(l,3)},
+  ];
+  box.innerHTML = fu.map((x,j)=>`
+    <div style="color:var(--muted);font-size:12px;margin-top:6px">${x.t}</div>
+    <div class="row"><textarea readonly id="fu_${ph}_${j}">${esc(x.m)}</textarea><button class="b-copy" onclick="copyFU('${ph}_${j}')">Copy</button></div>
+  `).join('');
+}
+
+function followup(l, n){
+  const nm = l.name;
+  if(l.lang==='ar'){
+    if(n===2) return `مرحباً ${nm}! هل فكرت في عرضنا؟ موقع احترافي بـ ٣٥ د.ك جاهز بـ ٣ أيام. رد 'نعم' وأرسل لك نموذج مجاني. واتساب: +965 50703252`;
+    return `آخر رسالة ${nm} — خصم ١٠٪ لوك لتصميم موقعك هذا الأسبوع. رد 'نعم' لأبدأ. واتساب: +965 50703252`;
+  }
+  if(n===2) return `Hi ${nm}! Did you get a chance to look at our offer? Pro website from 35 KWD, ready in 3 days. Reply YES for a free sample. WhatsApp +965 50703252`;
+  return `Last nudge ${nm} — 10% off website design this week only. Reply YES and I'll start. WhatsApp +965 50703252`;
+}
+
+function setStatus(ph, s){ const l=leads.find(x=>(x.phone||phoneOf(x.url))===ph); if(l){l.status=s; saveStatus(); renderStats();} }
+function markSent(ph){ const l=leads.find(x=>(x.phone||phoneOf(x.url))===ph); if(l && l.status==='lead'){l.status='contacted'; saveStatus(); renderStats();} }
+
+function copyMsg(ph){ const l=leads.find(x=>(x.phone||phoneOf(x.url))===ph); if(l){navigator.clipboard.writeText(l.msg||''); toast('Message copied');} }
+function copyFU(id){ const t=document.getElementById('fu_'+id); if(t){navigator.clipboard.writeText(t.value); toast('Follow-up copied');} }
+
+function addLead(){
+  const name=document.getElementById('a_name').value.trim();
+  const phone=document.getElementById('a_phone').value.trim().replace(/[^0-9]/g,'');
+  const area=document.getElementById('a_area').value.trim();
+  const lang=document.getElementById('a_lang').value.trim().toLowerCase();
+  const svc=document.getElementById('a_svc').value.trim();
+  const val=document.getElementById('a_val').value.trim();
+  let msg=document.getElementById('a_msg').value.trim();
+  if(!name||!phone){toast('Name + phone required');return;}
+  if(!msg){ msg = lang==='ar'
+    ? `مرحباً ${name}! أنا من KB Rewaq Digital — نصمم مواقع وتواصل اجتماعي للصالونات بالكويت. بوستر تجريبي مجاني باسم صالونك؟ الموقع ٣٥ د.ك جاهز بـ ٣ أيام. واتساب: +965 50703252`
+    : `Hi ${name}! I'm from KB Rewaq Digital — we build websites + social media for salons in Kuwait. Free sample poster with your name? Website 35 KWD, ready in 3 days. WhatsApp +965 50703252`; }
+  const idx = String(leads.length+1);
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  leads.push({idx,name,area,lang,svc,val,phone,url,msg,status:'lead',note:''});
+  saveStatus(); render();
+  ['a_name','a_phone','a_area','a_lang','a_svc','a_val','a_msg'].forEach(i=>document.getElementById(i).value='');
+  toast('Lead added');
+}
+
+function renderStats(){
+  const c={lead:0,contacted:0,replied:0,negotiating:0,won:0,lost:0};
+  leads.forEach(l=>c[l.status]=(c[l.status]||0)+1);
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><b>${leads.length}</b><span>Total</span></div>
+    <div class="stat"><b>${c.contacted||0}</b><span>Contacted</span></div>
+    <div class="stat"><b>${c.replied||0}</b><span>Replied</span></div>
+    <div class="stat"><b>${c.negotiating||0}</b><span>Negotiating</span></div>
+    <div class="stat"><b style="color:var(--ok)">${c.won||0}</b><span>Won</span></div>
+    <div class="stat"><b style="color:var(--bad)">${c.lost||0}</b><span>Lost</span></div>`;
+}
+
+function exportCSV(){
+  const rows=[['idx','name','phone','area','lang','svc','val','status','message']];
+  leads.forEach(l=>rows.push([l.idx,l.name,l.phone||phoneOf(l.url),l.area,l.lang,l.svc,l.val,l.status,(l.msg||'').replace(/\n/g,' ')]));
+  const csv=rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='kb_rewaq_outreach.csv'; a.click(); toast('CSV exported');
+}
+
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1400);}
+
+document.getElementById('filter').addEventListener('change',render);
+render();
+</script>
+</body>
+</html>

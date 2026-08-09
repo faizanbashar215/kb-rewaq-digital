@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KB Rewaq Digital — Lead Seeder</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,Tahoma,sans-serif;background:#0b0f14;color:#eaf6ff;padding:24px;line-height:1.6}
+  .wrap{max-width:900px;margin:0 auto}
+  h1{font-size:22px;color:#22e3c0;margin-bottom:6px}
+  .sub{color:#8aa0b8;font-size:14px;margin-bottom:20px}
+  .card{background:#141c26;border:1px solid #243240;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .card h3{font-size:17px;margin-bottom:4px}
+  .card .meta{color:#8aa0b8;font-size:13px;margin-bottom:8px}
+  .msg{background:#0b0f14;border:1px solid #243240;border-radius:8px;padding:12px;font-size:13.5px;white-space:pre-wrap;color:#cdd9e6;margin:8px 0}
+  .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .acts button{background:#1a2430;border:1px solid #243240;color:#eaf6ff;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600}
+  .acts button:hover{border-color:#22e3c0}
+  .acts .copied{background:#22c55e;color:#04140f}
+  .bar{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+  button.seed{background:linear-gradient(135deg,#22e3c0,#0bbf9a);color:#04140f;border:none;padding:12px 22px;border-radius:10px;font-weight:800;cursor:pointer;font-size:15px}
+  .ok{color:#22c55e;font-size:14px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🚀 KB Rewaq Digital — Salon Lead Seeder</h1>
+  <div class="sub">Co-founder console. Loads 10 real Kuwait salon leads into the CRM + drafts each outreach message.</div>
+  <div class="bar">
+    <button class="seed" onclick="seed()">📥 Load 10 Leads into CRM</button>
+    <span id="status"></span>
+  </div>
+  <div id="list"></div>
+</div>
+
+<script>
+const LEADS = [
+  {name:"D Beauty Center Salon",phone:"+965 66339766",type:"Salon",svc:"Website",val:35,note:"Salmiya. No clear website — hot lead.",lang:"ar",
+   msg:"مرحباً! أنا من KB Rewaq Digital — نصمم مواقع وتواصل اجتماعي للصالونات بالكويت. عملت بوستر تجريبي (خصم ٣٠٪ للزيارة الأولى). تبغى نموذج مجاني باسم صالونك؟ رد 'نعم'. المواقع من ٣٥ د.ك جاهزة خلال ٣ أيام. واتساب: +965 50703252"},
+  {name:"Beauty World",phone:"+965 63632873",type:"Salon",svc:"Social Media",val:55,note:"Salmiya. Email: info@beautyworld.com.kw",lang:"en",
+   msg:"Hi Beauty World! I help salons in Kuwait grow with social media + websites. Here's a free sample poster (30% OFF style). Want one with YOUR name? Websites from 35 KWD, ready in 3 days. WhatsApp +965 50703252"},
+  {name:"Nail It",phone:"+965 22200042",type:"Salon",svc:"Website",val:35,note:"Hawally/Salmiya multi-branch",lang:"en",
+   msg:"Hello Nail It! Your salon deserves a proper website + booking. I made a free sample poster — reply YES and I'll send one with your brand. Website 35 KWD, 3-day delivery. WhatsApp +965 50703252"},
+  {name:"Ponytail Beauty Salon",phone:"+965 95544110",type:"Salon",svc:"Social Media",val:55,note:"Salmiya. 191K IG but no site link",lang:"ar",
+   msg:"مرحباً بونيتيل! عندكم ١٩١ ألف متابع إنستقرام بس بدون موقع — ضيعان فرصة. نحن KB Rewaq Digital نسوي لكم موقع + حجوزات واتساب. بوستر تجريبي مجاني رد 'نعم'. واتساب: +965 50703252"},
+  {name:"Queen You Salon",phone:"+965 51225223",type:"Salon",svc:"Website",val:35,note:"Salmiya Block 5",lang:"ar",
+   msg:"السلام عليكم صالون كوين يو! نصمم لكم موقع احترافي + بوسترات إنستقرام بأسعار الكويت. بوستر تجريبي مجاني باسم صالونكم رد 'نعم'. الموقع ٣٥ د.ك. واتساب: +965 50703252"},
+  {name:"Monya Ladies Beauty Salon",phone:"+965 98980970",type:"Salon",svc:"Website",val:35,note:"Salmiya Block 10. Summer offers",lang:"ar",
+   msg:"مرحباً منى صالون! عروض الصيف عندكم حلوة — بس محتاجة موقع ينظم الحجوزات. نسوي لكم موقع + بوستر مجاني تجريبي. رد 'نعم'. واتساب: +965 50703252"},
+  {name:"Ayat Beauty Salon & Spa",phone:"+965 98021008",type:"Salon",svc:"Website",val:35,note:"Salmiya Block 3",lang:"ar",
+   msg:"أيات بيوتي! نحن KB Rewaq Digital نسوي مواقع وإنستقرام للصالونات. بوستر تجريبي مجاني (خصم ٣٠٪) باسم صالونك رد 'نعم'. الموقع ٣٥ د.ك جاهز بـ ٣ أيام. واتساب: +965 50703252"},
+  {name:"Mirai Beauty Lounge",phone:"+965 97777634",type:"Salon",svc:"Website",val:35,note:"Salmiya / Jabriya",lang:"ar",
+   msg:"ميراي بيوتي لاونج! نجهز لكم موقع + حجوزات واتساب تزيد زبائنكم. بوستر مجاني تجريبي رد 'نعم'. واتساب: +965 50703252"},
+  {name:"Youky Salon",phone:"+965 62225344",type:"Salon",svc:"Website",val:35,note:"Salmiya, Dana Building",lang:"en",
+   msg:"Hi Youky Salon! A website + online booking would bring you more clients. Free sample poster — reply YES. Website 35 KWD, 3 days. WhatsApp +965 50703252"},
+  {name:"Blue Kuwait Salon",phone:"+965 66693695",type:"Salon",svc:"Website",val:35,note:"Salmiya. Source: waseet.net",lang:"ar",
+   msg:"صالون بلو الكويت! نسوي لكم موقع احترافي + بوسترات بسعر الكويت. بوستر تجريبي مجاني رد 'نعم'. واتساب: +965 50703252"}
+];
+
+function seed(){
+  const KEY='kb_rewaq_clients';
+  let clients=JSON.parse(localStorage.getItem(KEY)||'[]');
+  const have=new Set(clients.map(c=>c.phone));
+  let added=0;
+  LEADS.forEach(l=>{
+    if(!have.has(l.phone)){
+      clients.push({name:l.name,phone:l.phone,type:l.type,svc:l.svc,val:l.val,status:'lead',note:l.note+' | MSG:'+l.lang});
+      added++;
+    }
+  });
+  localStorage.setItem(KEY,JSON.stringify(clients));
+  document.getElementById('status').innerHTML='<span class="ok">✓ '+added+' leads added to CRM (open crm.html)</span>';
+  render();
+}
+function render(){
+  const el=document.getElementById('list');
+  el.innerHTML=LEADS.map((l,i)=>`
+    <div class="card">
+      <h3>${l.name}</h3>
+      <div class="meta">${l.phone} · ${l.type} · ${l.svc} · ${l.val} KWD · <b>${l.lang.toUpperCase()}</b></div>
+      <div class="msg" id="m${i}">${l.msg}</div>
+      <div class="acts">
+        <button onclick="copy(${i})" id="b${i}">📋 Copy Message</button>
+        <button onclick="wa('${l.phone}','${encodeURIComponent(l.msg)}')">📲 Open WhatsApp</button>
+      </div>
+    </div>`).join('');
+}
+function copy(i){
+  navigator.clipboard.writeText(LEADS[i].msg).then(()=>{
+    const b=document.getElementById('b'+i);b.textContent='✓ Copied';b.classList.add('copied');
+    setTimeout(()=>{b.textContent='📋 Copy Message';b.classList.remove('copied');},1500);
+  });
+}
+function wa(phone,msg){
+  // strip the +965 space formatting for wa.me link
+  const num=phone.replace(/[^0-9]/g,'');
+  window.open('https://wa.me/'+num+'?text='+msg,'_blank');
+}
+render();
+</script>
+</body>
+</html>

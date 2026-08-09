@@ -154,10 +154,13 @@ footer{{text-align:center;padding:46px 20px;opacity:.5;font-size:.85rem}}
 .wa-float:hover{{transform:scale(1.06)}}
 .reveal{{opacity:0;transform:translateY(60px);transition:1s cubic-bezier(.2,.8,.2,1)}}
 .reveal.show{{opacity:1;transform:translateY(0)}}
+/* fallback: if JS fails, show everything */
+.no-js .reveal{{opacity:1!important;transform:none!important}}
 @media(max-width:860px){{.split{{grid-template-columns:1fr}}.split .pic{{height:60vh}}.sgrid{{grid-template-columns:repeat(2,1fr)}}.nav-links{{display:none}}}}
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.remove('no-js');document.body.classList.remove('no-js');</script>
 <nav id="nav"><div class="logo">{name_en}</div><div class="nav-links"><a href="#story">Story</a><a href="#services">Services</a><a href="#contact">Contact</a></div></nav>
 
 <header class="hero">
@@ -206,7 +209,7 @@ footer{{text-align:center;padding:46px 20px;opacity:.5;font-size:.85rem}}
 <section class="serv" style="padding-top:0">
   <div class="sec-t reveal"><div class="ey">The Result</div><h2>Before &amp; After</h2><div class="ar">قبل وبعد</div></div>
   <div class="ba">
-    <img class="before" src="{IMG4}" alt="before">
+    <img class="before" src="{IMG2}" alt="before">
     <img class="after" src="{IMG5}" alt="after">
     <span class="lbl b">Before · قبل</span>
     <span class="lbl a">After · بعد</span>

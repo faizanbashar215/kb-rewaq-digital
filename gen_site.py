@@ -85,44 +85,44 @@ TPL = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{name_en} | {name_ar}</title>
 <style>
-  *{{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Arial,sans-serif}}
-  :root{{--a:{accent};--b:{accent2}}}
-  body{{background:#0d0b1a;color:#fff;overflow-x:hidden}}
-  #hero-canvas{{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}}
-  .wrap{{max-width:1100px;margin:0 auto;padding:0 20px}}
-  header{{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:relative;z-index:5}}
-  .logo{{font-size:1.5rem;font-weight:800;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent}}
-  nav a{{color:#fff;text-decoration:none;margin-left:22px;font-size:.95rem;opacity:.85}}
-  nav a:hover{{opacity:1}}
-  .hero{{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:5}}
-  .hero h1{{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;background:linear-gradient(120deg,#fff,var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent}}
-  .hero .ar{{font-size:clamp(1.6rem,4vw,3rem);color:var(--b);margin-top:10px;font-weight:700}}
-  .hero p{{margin-top:18px;font-size:1.15rem;opacity:.9;max-width:600px}}
-  .cta{{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}}
-  .btn{{padding:15px 34px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;transition:.3s;border:2px solid var(--a)}}
-  .btn.primary{{background:linear-gradient(90deg,var(--a),var(--b));color:#0d0b1a;border:none;box-shadow:0 8px 30px rgba(199,125,255,.4)}}
-  .btn.ghost{{color:#fff}}
-  .btn:hover{{transform:translateY(-3px);box-shadow:0 12px 40px rgba(199,125,255,.6)}}
-  section{{position:relative;z-index:5;padding:80px 0}}
-  .glass{{background:rgba(255,255,255,.06);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:40px;margin:20px 0}}
-  h2{{font-size:2.2rem;margin-bottom:10px}}
-  h2 .ar{{color:var(--b);font-size:1.5rem;display:block;margin-top:4px}}
-  .sub{{opacity:.7;margin-bottom:30px}}
-  .grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}}
-  .card{{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px;transition:.3s}}
-  .card:hover{{transform:translateY(-6px);border-color:var(--a);background:rgba(255,255,255,.1)}}
-  .card h3{{font-size:1.2rem;margin-bottom:6px}}
-  .card .ar{{color:var(--b);font-size:.95rem;margin-bottom:10px}}
-  .card p{{opacity:.75;font-size:.9rem;line-height:1.5}}
-  .info-row{{display:flex;gap:14px;align-items:center;margin:14px 0;font-size:1.05rem}}
-  .info-row span{{font-size:1.4rem}}
-  .book{{display:flex;flex-direction:column;gap:14px;max-width:500px;margin:0 auto}}
-  .book input,.book textarea{{width:100%;padding:14px 18px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-size:1rem}}
-  .book input:focus,.book textarea:focus{{outline:none;border-color:var(--a)}}
-  .wa-float{{position:fixed;bottom:24px;right:24px;z-index:20;background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;padding:16px 22px;border-radius:50px;text-decoration:none;font-weight:700;box-shadow:0 8px 30px rgba(37,211,102,.5);display:flex;align-items:center;gap:10px}}
-  .wa-float:hover{{transform:scale(1.05)}}
-  footer{{text-align:center;padding:40px 0;opacity:.6;font-size:.9rem;position:relative;z-index:5}}
-  .badge{{display:inline-block;background:linear-gradient(90deg,var(--a),var(--b));color:#0d0b1a;padding:6px 16px;border-radius:30px;font-size:.8rem;font-weight:700;margin-bottom:20px}}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Arial,sans-serif}
+  :root{--a:{accent};--b:{accent2}}
+  body{background:#0d0b1a;color:#fff;overflow-x:hidden}
+  #hero-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:relative;z-index:5}
+  .logo{font-size:1.5rem;font-weight:800;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  nav a{color:#fff;text-decoration:none;margin-left:22px;font-size:.95rem;opacity:.85}
+  nav a:hover{opacity:1}
+  .hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:5}
+  .hero h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;background:linear-gradient(120deg,#fff,var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero .ar{font-size:clamp(1.6rem,4vw,3rem);color:var(--b);margin-top:10px;font-weight:700}
+  .hero p{margin-top:18px;font-size:1.15rem;opacity:.9;max-width:600px}
+  .cta{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+  .btn{padding:15px 34px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;transition:.3s;border:2px solid var(--a)}
+  .btn.primary{background:linear-gradient(90deg,var(--a),var(--b));color:#0d0b1a;border:none;box-shadow:0 8px 30px rgba(199,125,255,.4)}
+  .btn.ghost{color:#fff}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(199,125,255,.6)}
+  section{position:relative;z-index:5;padding:80px 0}
+  .glass{background:rgba(255,255,255,.06);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:40px;margin:20px 0}
+  h2{font-size:2.2rem;margin-bottom:10px}
+  h2 .ar{color:var(--b);font-size:1.5rem;display:block;margin-top:4px}
+  .sub{opacity:.7;margin-bottom:30px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px;transition:.3s}
+  .card:hover{transform:translateY(-6px);border-color:var(--a);background:rgba(255,255,255,.1)}
+  .card h3{font-size:1.2rem;margin-bottom:6px}
+  .card .ar{color:var(--b);font-size:.95rem;margin-bottom:10px}
+  .card p{opacity:.75;font-size:.9rem;line-height:1.5}
+  .info-row{display:flex;gap:14px;align-items:center;margin:14px 0;font-size:1.05rem}
+  .info-row span{font-size:1.4rem}
+  .book{display:flex;flex-direction:column;gap:14px;max-width:500px;margin:0 auto}
+  .book input,.book textarea{width:100%;padding:14px 18px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-size:1rem}
+  .book input:focus,.book textarea:focus{outline:none;border-color:var(--a)}
+  .wa-float{position:fixed;bottom:24px;right:24px;z-index:20;background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;padding:16px 22px;border-radius:50px;text-decoration:none;font-weight:700;box-shadow:0 8px 30px rgba(37,211,102,.5);display:flex;align-items:center;gap:10px}
+  .wa-float:hover{transform:scale(1.05)}
+  footer{text-align:center;padding:40px 0;opacity:.6;font-size:.9rem;position:relative;z-index:5}
+  .badge{display:inline-block;background:linear-gradient(90deg,var(--a),var(--b));color:#0d0b1a;padding:6px 16px;border-radius:30px;font-size:.8rem;font-weight:700;margin-bottom:20px}
 </style>
 </head>
 <body>
@@ -187,21 +187,21 @@ const cam=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
 const rend=new THREE.WebGLRenderer({canvas:document.getElementById('hero-canvas'),alpha:true,antialias:true});
 rend.setSize(innerWidth,innerHeight);rend.setPixelRatio(Math.min(devicePixelRatio,2));
 const geo=new THREE.IcosahedronGeometry(2.2,1);
-const mat=new THREE.MeshStandardMaterial({{color:0xffffff,wireframe:true,emissive:0xc77dff,emissiveIntensity:.4}});
+const mat=new THREE.MeshStandardMaterial({color:0xffffff,wireframe:true,emissive:0xc77dff,emissiveIntensity:.4});
 const mesh=new THREE.Mesh(geo,mat);scene.add(mesh);
 const g2=new THREE.TorusGeometry(3.4,0.05,16,100);
-const m2=new THREE.MeshStandardMaterial({{color:0xe8b4d4,wireframe:true}});
+const m2=new THREE.MeshStandardMaterial({color:0xe8b4d4,wireframe:true});
 const ring=new THREE.Mesh(g2,m2);scene.add(ring);
 scene.add(new THREE.AmbientLight(0xffffff,.6));
 const pl=new THREE.PointLight(0xc77dff,2);pl.position.set(5,5,5);scene.add(pl);
 const pl2=new THREE.PointLight(0xe8b4d4,2);pl2.position.set(-5,-5,5);scene.add(pl2);
 cam.position.z=7;
 const pts=[];
-for(let i=0;i<400;i++){{const g=new THREE.BufferGeometry();const r=Math.random()*1.5;const th=Math.random()*Math.PI*2;const ph=Math.acos(2*Math.random()-1);g.setAttribute('position',new THREE.Float32BufferAttribute([r*Math.sin(ph)*Math.cos(th),r*Math.sin(ph)*Math.sin(th),r*Math.cos(ph)],3));const p=new THREE.Points(g,new THREE.PointsMaterial({{color:0xffffff,size:0.04}}));pts.push(p);scene.add(p);}}
-function anim(){{requestAnimationFrame(anim);mesh.rotation.x+=0.004;mesh.rotation.y+=0.006;ring.rotation.z+=0.003;pts.forEach((p,i)=>{{p.rotation.y+=0.001*(i%3+1)}});rend.render(scene,cam);}}
+for(let i=0;i<400;i++){const g=new THREE.BufferGeometry();const r=Math.random()*1.5;const th=Math.random()*Math.PI*2;const ph=Math.acos(2*Math.random()-1);g.setAttribute('position',new THREE.Float32BufferAttribute([r*Math.sin(ph)*Math.cos(th),r*Math.sin(ph)*Math.sin(th),r*Math.cos(ph)],3));const p=new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:0.04}));pts.push(p);scene.add(p);}
+function anim(){requestAnimationFrame(anim);mesh.rotation.x+=0.004;mesh.rotation.y+=0.006;ring.rotation.z+=0.003;pts.forEach((p,i)=>{p.rotation.y+=0.001*(i%3+1)});rend.render(scene,cam);}
 anim();
-addEventListener('resize',()=>{{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();rend.setSize(innerWidth,innerHeight);}});
-function bookWa(e){{e.preventDefault();const n=document.getElementById('bname').value;const s=document.getElementById('bservice').value;const d=document.getElementById('bdate').value;const m=document.getElementById('bnote').value;const txt=encodeURIComponent('Hello {name_en}! I want to book:\\nName: '+n+'\\nService: '+s+'\\nDate: '+d+'\\nNote: '+m);window.open('https://wa.me/{phone}?text='+txt,'_blank');}}
+addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();rend.setSize(innerWidth,innerHeight);});
+function bookWa(e){e.preventDefault();const n=document.getElementById('bname').value;const s=document.getElementById('bservice').value;const d=document.getElementById('bdate').value;const m=document.getElementById('bnote').value;const txt=encodeURIComponent('Hello {name_en}! I want to book:\\nName: '+n+'\\nService: '+s+'\\nDate: '+d+'\\nNote: '+m);window.open('https://wa.me/{phone}?text='+txt,'_blank');}
 </script>
 </body></html>"""
 
