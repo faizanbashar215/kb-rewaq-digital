@@ -1,0 +1,357 @@
+#!/usr/bin/env python3
+"""KB Rewaq v4 — COUTURE salon site.
+Real-owner-photo drop system + curated high-fashion placeholders +
+testimonials + cinematic motion. 10/10 wow target.
+"""
+import os, json, glob
+
+# Curated high-fashion / couture beauty shots (verified 206 OK)
+COUTURE = [
+    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80",
+    "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1600&q=80",
+    "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=1600&q=80",
+    "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80",
+    "https://images.unsplash.com/photo-1571875257727-256c39da42af?w=1600&q=80",
+    "https://images.unsplash.com/photo-1613915617430-8ab0fd7c6baf?w=1600&q=80",
+    "https://images.unsplash.com/photo-1538329972958-465d6d2144ed?w=1600&q=80",
+    "https://images.unsplash.com/photo-1553544260-f87e671974ee?w=1600&q=80",
+    "https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=1600&q=80",
+    "https://images.unsplash.com/photo-1562151270-c7d22ceb586a?w=1600&q=80",
+]
+
+LEADS = [
+    {"slug":"midyaf","name_en":"Midyaf Beauty Salon","name_ar":"صالون ميدياف للتجميل",
+     "phone":"96541065562","phone_disp":"+965 4106 5562","area_en":"Salmiya, Block 9","area_ar":"السالمية، القطعة 9",
+     "tag_en":"Where Elegance Meets Expertise","tag_ar":"حيث يلتقي الأناقة بالخبرة","accent":"#e8b4d4","ig":"@midyafbeauty",
+     "services":[("Hair Styling & Color","تصفيف وصبغ الشعر","Expert cuts, balayage, keratin & bridal hair."),
+                 ("Facial & Skin Care","العناية بالبشرة","Hydrafacial, gold facial, deep cleansing."),
+                 ("Nails & Manicure","الأظافر والمانيكير","Gel, acrylic, nail art & pedicure."),
+                 ("Bridal Packages","باقات العرائس","Full bridal makeup + trial + day styling.")],
+     "reviews":[("Noura A.","Best salon in Salmiya! My bridal hair was perfect ❤️"),
+                ("Sara M.","Always leave looking amazing. The team is so professional."),
+                ("Layla K.","Finally a place that understands Arabic styling. Love it!")]},
+    {"slug":"looknoor","name_en":"Look Noor Ladies Beauty Salon","name_ar":"صالون لوك نور للسيدات",
+     "phone":"96560748354","phone_disp":"+965 6074 8354","area_en":"Salmiya, Block 12","area_ar":"السالمية، القطعة 12",
+     "tag_en":"Your Beauty, Our Passion","tag_ar":"جمالك، شغفنا","accent":"#ffd6a5","ig":"@looknoor",
+     "services":[("Hair Treatment","علاج الشعر","Protein, keratin, hair spa & extensions."),
+                 ("Makeup & Beauty","المكياج والتجميل","Party, evening & natural everyday looks."),
+                 ("Facial & Cleanup","تنظيف الوجه","Glow facials, threading, waxing."),
+                 ("Spa & Relaxation","سبا والاسترخاء","Full-body massage & wellness rituals.")],
+     "reviews":[("Aisha R.","Great prices and lovely staff. My go-to salon now."),
+                ("Mariam F.","The haircut + blow dry is just 3KD and looks fab!"),
+                ("Hessa D.","Very clean and comfortable. Highly recommend.")]},
+    {"slug":"monya","name_en":"Monya Ladies Beauty Salon","name_ar":"صالون منى للسيدات",
+     "phone":"96598980970","phone_disp":"+965 9898 0970","area_en":"Salmiya, Block 10","area_ar":"السالمية، القطعة 10",
+     "tag_en":"Summer Glow, All Year Round","tag_ar":"إشراق الصيف، طوال العام","accent":"#a0e7e5","ig":"@monya_salon",
+     "services":[("Haircut & Styling","قص وتصفيف","Trend cuts, blow-dry, curls & straightening."),
+                 ("Facial & Cleanup","تنظيف البشرة","Summer specials, brightening facials."),
+                 ("Nails & Pedicure","أظافر وباديكير","Gel polish, nail art, foot care."),
+                 ("Bridal & Events","عرائس ومناسبات","Complete makeover for your big day.")],
+     "reviews":[("Fatima S.","Monya always makes me feel like a queen 👑"),
+                ("Reem T.","Best nail art in the area, hands down."),
+                ("Dana L.","Summer glow facial is a lifesaver in Kuwait heat!")]},
+    {"slug":"royaljasmine","name_en":"Royal Jasmine Salon","name_ar":"صالون الياسمين الملكي",
+     "phone":"96561114586","phone_disp":"+965 6111 4586","area_en":"Salmiya, Block 10","area_ar":"السالمية، القطعة 10",
+     "tag_en":"Royal Care for Royal You","tag_ar":"عناية ملكية لملوكتك","accent":"#cdb4db","ig":"@royal_jasmine_salon_kuwait",
+     "services":[("Hair & Color","الشعر والصبغ","Royal balayage, ombre, root touch-up."),
+                 ("Skin & Facial","البشرة والوجه","Anti-aging, hydra, gold facial."),
+                 ("Nails & Art","الأظافر والفن","Luxury manicure, 3D nail art."),
+                 ("Spa Day","يوم سبا","Massage, scrub, full relaxation.")],
+     "reviews":[("Sheikha N.","Truly royal experience. The jasmine spa is heavenly."),
+                ("Noof B.","My balayage came out better than the inspiration pic!"),
+                ("Maryam A.","Luxury at its finest. Worth every dinar.")]},
+    {"slug":"larene","name_en":"Larene Beauty Salon & Spa","name_ar":"صالون ومنتجع لارين للتجميل",
+     "phone":"96551746804","phone_disp":"+965 5174 6804","area_en":"Hawally, Block 8","area_ar":"حولي، القطعة 8",
+     "tag_en":"Beauty, Wellness & Beyond","tag_ar":"الجمال والعافية وأكثر","accent":"#bde0fe","ig":"@larene_salon",
+     "services":[("Hair & Spa","الشعر والسبا","Cut, color, treatment & hair spa."),
+                 ("Skin Care","العناية بالبشرة","Facials, peels, glow therapy."),
+                 ("Nails & Beauty","الأظافر والتجميل","Manicure, pedicure, makeup."),
+                 ("Wellness","العافية","Massage, relaxation & body care.")],
+     "reviews":[("Jawaher K.","Larene is my weekly escape. The massage is divine."),
+                ("Amna H.","Clean, calm, professional. Exactly what Hawally needed."),
+                ("Salma R.","Got so many compliments after my Larene makeover!")]},
+]
+
+def owner_photos(slug):
+    """Return list of owner photos if dropped, else empty (use couture)."""
+    folder = f"leads-sites/{slug}/owner-photos"
+    if not os.path.isdir(folder): return []
+    exts = ("*.jpg","*.jpeg","*.png","*.webp","*.JPG","*.JPEG","*.PNG")
+    files = []
+    for e in exts:
+        files += glob.glob(os.path.join(folder, e))
+    return sorted(files)
+
+TPL = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{name_en} | {name_ar}</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{{--ac:{accent};}}
+*{{margin:0;padding:0;box-sizing:border-box}}
+html{{scroll-behavior:smooth}}
+body{{font-family:'Poppins',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}}
+.ar{{font-family:'Tajawal',sans-serif}}
+img{{display:block;max-width:100%}}
+/* cursor */
+#cur{{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--ac);mix-blend-mode:difference;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s}}
+#cur.big{{width:54px;height:54px;background:rgba(255,255,255,.25);backdrop-filter:blur(2px)}}
+/* nav */
+nav{{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 6%;transition:.4s}}
+nav.scrolled{{background:rgba(10,10,10,.82);backdrop-filter:blur(16px);padding:14px 6%;border-bottom:1px solid rgba(255,255,255,.06)}}
+.logo{{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;letter-spacing:.5px}}
+.nav-links a{{color:#fff;text-decoration:none;margin-left:28px;font-size:.9rem;opacity:.8;transition:.3s}}
+.nav-links a:hover{{opacity:1;color:var(--ac)}}
+/* hero */
+.hero{{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}}
+.hero .bgwrap{{position:absolute;inset:0;overflow:hidden}}
+.hero img.bg{{position:absolute;inset:-5%;width:110%;height:110%;object-fit:cover;filter:saturate(1.05) contrast(1.05);animation:kenburns 22s ease-in-out infinite alternate}}
+@keyframes kenburns{{0%{{transform:scale(1.1) translate(0,0)}}50%{{transform:scale(1.22) translate(-2%,-1%)}}100%{{transform:scale(1.15) translate(2%,1%)}}}}
+.hero .bgwrap::after{{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);mix-blend-mode:overlay;animation:grain 1.2s steps(3) infinite;opacity:.5}}
+@keyframes grain{{0%{{transform:translateY(0)}}100%{{transform:translateY(3px)}}}}
+.hero .ov{{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.5),rgba(10,10,10,.2) 40%,rgba(10,10,10,.85))}}
+.hero .ov2{{position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,transparent,rgba(10,10,10,.65))}}
+.hero .hc{{position:relative;z-index:3;padding:0 20px}}
+.hero .kicker{{letter-spacing:6px;text-transform:uppercase;font-size:.8rem;color:var(--ac);margin-bottom:18px;opacity:0;animation:up 1s .3s forwards}}
+.hero h1{{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,9vw,7rem);font-weight:700;line-height:1;opacity:0;animation:up 1.1s .5s forwards}}
+.hero .ar{{font-size:clamp(1.6rem,4vw,3rem);color:var(--ac);margin-top:6px;font-weight:700;opacity:0;animation:up 1.1s .7s forwards}}
+.hero p{{margin-top:22px;font-size:1.15rem;font-weight:300;opacity:0;animation:up 1.1s .9s forwards}}
+.hero .cta{{margin-top:36px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:up 1.1s 1.1s forwards}}
+@keyframes up{{from{{opacity:0;transform:translateY(40px)}}to{{opacity:1;transform:translateY(0)}}}}
+.btn{{padding:16px 38px;border-radius:50px;font-weight:600;font-size:1rem;text-decoration:none;transition:.4s;border:none;cursor:pointer}}
+.btn.p{{background:var(--ac);color:#0a0a0a;box-shadow:0 10px 40px rgba(232,180,212,.35)}}
+.btn.g{{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}}
+.btn:hover{{transform:translateY(-4px) scale(1.03)}}
+.scrollind{{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;font-size:.75rem;letter-spacing:3px;opacity:.7;animation:bob 2s infinite}}
+@keyframes bob{{50%{{transform:translate(-50%,10px)}}}}
+/* gallery */
+.gal{{padding:100px 4% 60px;background:#0a0a0a}}
+.sec-t{{text-align:center;margin-bottom:50px}}
+.sec-t .ey{{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}}
+.sec-t h2{{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700}}
+.sec-t .ar{{color:var(--ac);font-size:1.4rem}}
+.ggrid{{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1200px;margin:0 auto}}
+.ggrid .g{{position:relative;height:320px;border-radius:14px;overflow:hidden;cursor:pointer}}
+.ggrid .g img{{width:100%;height:100%;object-fit:cover;transition:transform .9s}}
+.ggrid .g:hover img{{transform:scale(1.12)}}
+.ggrid .g .ov{{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,10,10,.75));opacity:0;transition:.4s}}
+.ggrid .g:hover .ov{{opacity:1}}
+.gtag{{position:absolute;bottom:14px;left:16px;font-size:.85rem;opacity:0;transform:translateY(10px);transition:.4s;z-index:2}}
+.ggrid .g:hover .gtag{{opacity:1;transform:translateY(0)}}
+/* split */
+.split{{display:grid;grid-template-columns:1fr 1fr;min-height:90vh;align-items:center;background:#0d0d0d}}
+.split .txt{{padding:8% 8%}}
+.split .txt .ey{{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}}
+.split .txt h2{{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;margin:10px 0 6px}}
+.split .txt .ar{{color:var(--ac);font-size:1.3rem;margin-bottom:18px}}
+.split .txt p{{opacity:.8;line-height:1.8;font-weight:300;max-width:440px}}
+.split .pic{{position:relative;height:90vh;overflow:hidden}}
+.split .pic img{{width:100%;height:100%;object-fit:cover;transition:transform 1.2s}}
+.split.rev{{direction:rtl}}
+.split.rev .txt{{direction:ltr}}
+/* services */
+.serv{{padding:120px 6%;background:#0d0d0d}}
+.sgrid{{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:0 auto}}
+.scard{{position:relative;height:380px;border-radius:18px;overflow:hidden;cursor:pointer}}
+.scard img{{width:100%;height:100%;object-fit:cover;transition:transform .9s}}
+.scard:hover img{{transform:scale(1.12)}}
+.scard .ov{{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,10,10,.92))}}
+.scard .cap{{position:absolute;bottom:0;left:0;right:0;padding:24px}}
+.scard .cap h3{{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}}
+.scard .cap .ar{{color:var(--ac);font-size:1rem;margin:2px 0 6px}}
+.scard .cap p{{font-size:.82rem;opacity:.75;line-height:1.5}}
+/* testimonials */
+.testi{{padding:120px 6%;background:#0a0a0a}}
+.tgrid{{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}}
+.tcard{{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:30px;transition:.4s}}
+.tcard:hover{{transform:translateY(-8px);border-color:var(--ac)}}
+.tcard .stars{{color:#ffd700;font-size:1.2rem;margin-bottom:14px;letter-spacing:2px}}
+.tcard p{{font-style:italic;line-height:1.7;opacity:.9;margin-bottom:16px}}
+.tcard .who{{font-weight:600;color:var(--ac)}}
+/* fullbleed */
+.full{{position:relative;height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}}
+.full img{{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}}
+.full .ov{{position:absolute;inset:0;background:rgba(10,10,10,.55)}}
+.full .fc{{position:relative;z-index:2;padding:0 20px}}
+.full .fc .ar{{color:var(--ac);font-size:clamp(1.5rem,4vw,2.6rem);font-weight:700}}
+.full .fc p{{margin-top:14px;font-size:1.1rem;font-weight:300;max-width:560px;margin-left:auto;margin-right:auto}}
+/* contact */
+.contact{{padding:120px 6%;text-align:center;background:#0d0d0d}}
+.contact .ey{{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}}
+.contact h2{{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;margin:10px 0}}
+.contact .ar{{color:var(--ac);font-size:1.4rem;margin-bottom:30px}}
+.cinfo{{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}}
+.cinfo div{{font-size:1.05rem}}
+.cinfo a{{color:var(--ac);text-decoration:none}}
+.book{{max-width:520px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:34px}}
+.book input,.book textarea{{width:100%;padding:14px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font-family:'Poppins',sans-serif;margin-bottom:14px;font-size:.95rem}}
+.book input:focus,.book textarea:focus{{outline:none;border-color:var(--ac)}}
+.book .btn{{width:100%}}
+footer{{text-align:center;padding:46px 20px;opacity:.5;font-size:.85rem}}
+.wa-float{{position:fixed;bottom:24px;right:24px;z-index:120;background:#25D366;color:#fff;padding:15px 22px;border-radius:50px;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 10px 36px rgba(37,211,102,.5);transition:.3s}}
+.wa-float:hover{{transform:scale(1.06)}}
+.reveal{{opacity:0;transform:translateY(60px);transition:1s cubic-bezier(.2,.8,.2,1)}}
+.reveal.show{{opacity:1;transform:translateY(0)}}
+.no-js .reveal{{opacity:1!important;transform:none!important}}
+.prog{{position:fixed;top:0;left:0;height:3px;background:var(--ac);z-index:200;width:0}}
+@media(max-width:860px){{.split{{grid-template-columns:1fr}}.split .pic{{height:60vh}}.sgrid,.tgrid,.ggrid{{grid-template-columns:repeat(2,1fr)}}.nav-links{{display:none}}}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div class="prog" id="prog"></div>
+<script>document.documentElement.classList.remove('no-js');document.body.classList.remove('no-js');</script>
+<nav id="nav"><div class="logo">{name_en}</div><div class="nav-links"><a href="#gallery">Gallery</a><a href="#story">Story</a><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div></nav>
+
+<header class="hero">
+  <div class="bgwrap"><img class="bg" src="{HERO}" alt=""></div>
+  <div class="ov"></div><div class="ov2"></div>
+  <div class="hc">
+    <div class="kicker">Premium Salon · Kuwait</div>
+    <h1>{name_en}</h1>
+    <div class="ar">{name_ar}</div>
+    <p>{tag_en} — <span class="ar">{tag_ar}</span></p>
+    <div class="cta">
+      <a href="#contact" class="btn p">Book Appointment · احجزي موعدك</a>
+      <a href="https://wa.me/{phone}" class="btn g">WhatsApp · واتساب</a>
+    </div>
+  </div>
+  <div class="scrollind">SCROLL ↓</div>
+</header>
+
+<section class="gal" id="gallery">
+  <div class="sec-t reveal"><div class="ey">Our Work</div><h2>The Gallery</h2><div class="ar">معرض أعمالنا</div></div>
+  <div class="ggrid">
+    {GALLERY}
+  </div>
+</section>
+
+<section class="split" id="story">
+  <div class="txt reveal">
+    <div class="ey">Our Craft</div>
+    <h2>Beauty, Refined</h2>
+    <div class="ar">جمال، بكل أناقة</div>
+    <p>Step into a space where every detail is designed around you. From the first consultation to the final touch, we craft looks that feel effortless and unforgettable.</p>
+  </div>
+  <div class="pic"><img src="{SPLIT1}" alt=""></div>
+</section>
+
+<section class="split rev">
+  <div class="txt reveal">
+    <div class="ey">The Experience</div>
+    <h2>Calm. Considered. Couture.</h2>
+    <div class="ar">هدوء، عناية، فخامة</div>
+    <p>Soft light, skilled hands, and a team that listens. This is more than a salon visit — it is a moment made entirely for you.</p>
+  </div>
+  <div class="pic"><img src="{SPLIT2}" alt=""></div>
+</section>
+
+<section class="serv" id="services">
+  <div class="sec-t reveal"><div class="ey">What We Offer</div><h2>Our Services</h2><div class="ar">خدماتنا</div></div>
+  <div class="sgrid">
+    {SERVICES}
+  </div>
+</section>
+
+<section class="testi" id="reviews">
+  <div class="sec-t reveal"><div class="ey">Loved By Clients</div><h2>Reviews</h2><div class="ar">آراء الزبائن</div></div>
+  <div class="tgrid">
+    {REVIEWS}
+  </div>
+</section>
+
+<section class="full">
+  <img src="{FULL}" alt="">
+  <div class="ov"></div>
+  <div class="fc reveal">
+    <div class="ar">{name_ar}</div>
+    <p>{tag_en} — your moment, beautifully made.</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="ey reveal">Visit Us</div>
+  <h2 class="reveal">Where To Find Us</h2>
+  <div class="ar reveal">{name_ar} · زورونا</div>
+  <div class="cinfo reveal">
+    <div>📍 {area_en}<br><span class="ar">{area_ar}</span></div>
+    <div>📞 <a href="https://wa.me/{phone}">{phone_disp}</a></div>
+    <div>📸 <a href="https://instagram.com/{ig}" target="_blank">@{ig}</a></div>
+    <div>🕐 Daily 10AM–9PM · Fri 2PM–9PM</div>
+  </div>
+  <div class="book reveal">
+    <form onsubmit="return bookWa(event)">
+      <input id="bn" placeholder="Your Name / اسمك" required>
+      <input id="bs" placeholder="Service / الخدمة" required>
+      <input id="bd" type="date" required>
+      <textarea id="bm" placeholder="Message / رسالتك" rows="3"></textarea>
+      <button class="btn p" type="submit">Send via WhatsApp · أرسلي عبر واتساب</button>
+    </form>
+  </div>
+</section>
+
+<footer>© {name_en} · Designed by KB Rewaq Digital · +965 50703252</footer>
+<a href="https://wa.me/{phone}" class="wa-float">💬 WhatsApp Booking</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+// custom cursor
+const cur=document.getElementById('cur');
+addEventListener('mousemove',e=>{{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';}});
+document.querySelectorAll('a,button,.scard,.g').forEach(el=>el.addEventListener('mouseenter',()=>cur.classList.add('big')));
+document.querySelectorAll('a,button,.scard,.g').forEach(el=>el.addEventListener('mouseleave',()=>cur.classList.remove('big')));
+// progress bar
+addEventListener('scroll',()=>{{const h=document.documentElement;document.getElementById('prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';}});
+// nav
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+// gsap
+if(window.gsap){{gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.reveal').forEach(el=>{{gsap.to(el,{{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{{trigger:el,start:'top 85%'}},onStart:()=>el.classList.add('show')}});});
+gsap.utils.toArray('.split .pic img').forEach(im=>{{gsap.fromTo(im,{{scale:1.25}},{{scale:1,scrollTrigger:{{trigger:im,start:'top bottom',end:'bottom top',scrub:true}}}});}});}}
+else{{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));}}
+function bookWa(e){{e.preventDefault();const n=bn.value,s=bs.value,d=bd.value,m=bm.value;
+const t=encodeURIComponent('Hello {name_en}! I want to book:\\nName: '+n+'\\nService: '+s+'\\nDate: '+d+'\\nNote: '+m);
+window.open('https://wa.me/{phone}?text='+t,'_blank');}}
+</script>
+</body></html>"""
+
+def gen(l):
+    slug=l["slug"]
+    own=owner_photos(slug)
+    # image pool: owner photos first, then couture
+    pool=(own if own else COUTURE)
+    def img(i): return pool[i%len(pool)]
+    hero=img(0); split1=img(1); split2=img(2); full=img(3)
+    # gallery 6
+    gal=""
+    for i in range(6):
+        g=img(i+4)
+        gal+=f'<div class="g reveal"><img src="{g}" alt="work"><div class="ov"></div><div class="gtag">{l["name_en"]} · @{l["ig"]}</div></div>\n'
+    # services
+    svcs=""
+    for i,(en,ar,desc) in enumerate(l["services"]):
+        svcs+=f'<div class="scard reveal"><img src="{img(i+5)}" alt=""><div class="ov"></div><div class="cap"><h3>{en}</h3><div class="ar">{ar}</div><p>{desc}</p></div></div>\n'
+    # reviews
+    revs=""
+    for (who,txt) in l["reviews"]:
+        revs+=f'<div class="tcard reveal"><div class="stars">★★★★★</div><p>"{txt}"</p><div class="who">— {who}</div></div>\n'
+    h=TPL
+    repl={"{name_en}":l["name_en"],"{name_ar}":l["name_ar"],"{phone}":l["phone"],
+        "{phone_disp}":l["phone_disp"],"{area_en}":l["area_en"],"{area_ar}":l["area_ar"],
+        "{tag_en}":l["tag_en"],"{tag_ar}":l["tag_ar"],"{accent}":l["accent"],"{ig}":l["ig"],
+        "{HERO}":hero,"{SPLIT1}":split1,"{SPLIT2}":split2,"{FULL}":full,
+        "{GALLERY}":gal,"{SERVICES}":svcs,"{REVIEWS}":revs}
+    for k,v in repl.items(): h=h.replace(k,v)
+    h=h.replace("{{","{").replace("}}","}")
+    os.makedirs(f'leads-sites/{slug}',exist_ok=True)
+    open(f'leads-sites/{slug}/index.html','w',encoding='utf-8').write(h)
+    note = f" (owner photos: {len(own)})" if own else " (couture placeholders)"
+    print(f'OK {l["name_en"]}{note}')
+
+if __name__=="__main__":
+    for l in LEADS: gen(l)
+    print("v4 couture done")
