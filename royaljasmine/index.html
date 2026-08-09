@@ -12,12 +12,12 @@ html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
 .ar{font-family:'Tajawal',sans-serif}
 img{display:block;max-width:100%}
-#cur{position:fixed;top:0;left:0;width:14px;height:14px;border-radius:50%;background:var(--ac);mix-blend-mode:difference;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
-#cur.big{width:54px;height:54px;background:rgba(255,255,255,.25)}
-nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 6%;transition:.4s}
-nav.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(16px);padding:14px 6%;border-bottom:1px solid rgba(255,255,255,.06)}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700}
-.nav-links a{color:#fff;text-decoration:none;margin-left:24px;font-size:.88rem;opacity:.8;transition:.3s}
+#cur{position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;background:var(--ac);mix-blend-mode:difference;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur.big{width:50px;height:50px;background:rgba(255,255,255,.2)}
+nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 6%;transition:.4s}
+nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12px 6%;border-bottom:1px solid rgba(255,255,255,.06)}
+.logo{display:flex;align-items:center;gap:12px;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
+.nav-links a{color:#fff;text-decoration:none;margin-left:22px;font-size:.85rem;opacity:.8}
 .nav-links a:hover{opacity:1;color:var(--ac)}
 .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
 .hero .bgwrap{position:absolute;inset:0;overflow:hidden}
@@ -37,15 +37,30 @@ nav.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(16px);padding:14
 .btn:hover{transform:translateY(-4px) scale(1.03)}
 .scrollind{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;font-size:.75rem;letter-spacing:3px;opacity:.7;animation:bob 2s infinite}
 @keyframes bob{50%{transform:translate(-50%,10px)}}
+
+/* marquee */
+.marq{overflow:hidden;background:var(--ac);color:#0a0a0a;padding:14px 0;white-space:nowrap}
+.marq .track{display:inline-block;animation:scroll 22s linear infinite;font-weight:600;letter-spacing:1px}
+.marq span{margin:0 28px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* stats */
+.stats{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;padding:70px 6%;background:#0d0d0d;text-align:center}
+.stat .num{font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:700;color:var(--ac)}
+.stat .lbl{font-size:.9rem;opacity:.7;letter-spacing:1px}
+.openbadge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:30px;font-size:.85rem;font-weight:600;margin-top:18px}
+.openbadge .dot{width:10px;height:10px;border-radius:50%;background:#25D366;box-shadow:0 0 10px #25D366;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:.4}}
+
 /* services */
-.serv{padding:110px 6%;background:#0d0d0d}
+.serv{padding:100px 6%;background:#0a0a0a}
 .sec-t{text-align:center;margin-bottom:50px}
 .sec-t .ey{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
 .sec-t h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700}
 .sec-t .ar{color:var(--ac);font-size:1.4rem}
 .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1200px;margin:0 auto}
 .scard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;transition:.4s;display:flex;flex-direction:column}
-.scard:hover{transform:translateY(-8px);border-color:var(--ac);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.scard:hover{transform:translateY(-8px);border-color:var(--ac)}
 .scard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .scard h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;line-height:1.1}
 .scard .ar{color:var(--ac);font-size:.95rem;margin:2px 0 10px}
@@ -53,11 +68,32 @@ nav.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(16px);padding:14
 .scard .price small{font-size:.8rem;opacity:.6;font-weight:400}
 .scard ul{list-style:none;margin:10px 0 16px;flex:1}
 .scard li{font-size:.82rem;opacity:.7;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-.scard .bk{margin-top:auto}
 .scard .bk button{width:100%;padding:11px;border-radius:30px;border:none;background:var(--ac);color:#0a0a0a;font-weight:600;cursor:pointer;font-size:.9rem;transition:.3s}
 .scard .bk button:hover{background:#fff}
+
+/* horizontal gallery */
+.hgal{padding:90px 0;background:#0d0d0d;overflow:hidden}
+.hgal .sec-t{padding:0 6% 30px}
+.htrack{display:flex;gap:16px;padding:0 6%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.htrack::-webkit-scrollbar{display:none}
+.hcard{flex:0 0 320px;height:420px;border-radius:16px;overflow:hidden;position:relative;scroll-snap-align:start}
+.hcard img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.hcard:hover img{transform:scale(1.1)}
+.hcard .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,10,10,.8))}
+.hcard .cap{position:absolute;bottom:16px;left:18px;font-weight:600}
+.draghint{text-align:center;font-size:.8rem;opacity:.5;margin-top:16px}
+
+/* team */
+.team{padding:90px 6%;background:#0a0a0a}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
+.tcard{text-align:center}
+.tcard .ph{width:140px;height:140px;border-radius:50%;margin:0 auto 16px;object-fit:cover;border:3px solid var(--ac)}
+.tcard h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
+.tcard .ar{color:var(--ac);font-size:1rem}
+.tcard p{opacity:.7;font-size:.88rem;margin-top:4px}
+
 /* packages */
-.pkg{padding:90px 6%;background:#0a0a0a}
+.pkg{padding:90px 6%;background:#0d0d0d}
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
 .pcard{border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:30px;text-align:center;position:relative;overflow:hidden;transition:.4s}
 .pcard:hover{transform:translateY(-8px);border-color:var(--ac)}
@@ -69,30 +105,35 @@ nav.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(16px);padding:14
 .pcard p{opacity:.75;font-size:.9rem;margin:12px 0 20px;line-height:1.5}
 .pcard button{padding:12px 30px;border-radius:30px;border:1px solid var(--ac);background:transparent;color:var(--ac);font-weight:600;cursor:pointer;transition:.3s}
 .pcard button:hover{background:var(--ac);color:#0a0a0a}
+
 /* booking */
-.book{padding:110px 6%;background:#0d0d0d}
+.book{padding:100px 6%;background:#0a0a0a}
 .bookwrap{max-width:640px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:40px}
-.bookwrap .f{margin-bottom:18px}
 .bookwrap label{display:block;font-size:.85rem;opacity:.7;margin-bottom:7px}
 .bookwrap input,.bookwrap select,.bookwrap textarea{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#fff;font-family:'Poppins',sans-serif;font-size:.95rem}
 .bookwrap input:focus,.bookwrap select:focus,.bookwrap textarea:focus{outline:none;border-color:var(--ac)}
-.bookwrap .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bookwrap .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
 .bookwrap .submit{width:100%;padding:16px;border-radius:30px;border:none;background:var(--ac);color:#0a0a0a;font-weight:700;font-size:1.05rem;cursor:pointer;transition:.3s}
 .bookwrap .submit:hover{transform:scale(1.02);background:#fff}
 .bookwrap .note{text-align:center;font-size:.8rem;opacity:.55;margin-top:14px}
-/* testimonials */
+
+/* map */
+.mapsec{padding:90px 6%;background:#0d0d0d}
+.mapsec iframe{width:100%;height:380px;border:0;border-radius:18px;filter:grayscale(1) invert(.9) contrast(1.1)}
+
+/* reviews */
 .testi{padding:90px 6%;background:#0a0a0a}
-.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
-.tcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px}
-.tcard .stars{color:#ffd700;font-size:1.1rem;margin-bottom:12px;letter-spacing:2px}
-.tcard p{font-style:italic;line-height:1.7;opacity:.9;margin-bottom:14px}
-.tcard .who{font-weight:600;color:var(--ac)}
-/* contact */
-.contact{padding:100px 6%;text-align:center;background:#0d0d0d}
+.tgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
+.tcard2{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px}
+.tcard2 .stars{color:#ffd700;font-size:1.1rem;margin-bottom:12px;letter-spacing:2px}
+.tcard2 p{font-style:italic;line-height:1.7;opacity:.9;margin-bottom:14px}
+.tcard2 .who{font-weight:600;color:var(--ac)}
+
+.contact{padding:90px 6%;text-align:center;background:#0d0d0d}
 .contact .ey{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
 .contact h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;margin:10px 0}
-.contact .ar{color:var(--ac);font-size:1.4rem;margin-bottom:28px}
-.cinfo{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.contact .ar{color:var(--ac);font-size:1.4rem;margin-bottom:20px}
+.cinfo{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
 .cinfo div{font-size:1.02rem}
 .cinfo a{color:var(--ac);text-decoration:none}
 footer{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}
@@ -100,13 +141,17 @@ footer{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}
 .wa-float:hover{transform:scale(1.06)}
 .reveal{opacity:0;transform:translateY(60px);transition:1s cubic-bezier(.2,.8,.2,1)}
 .reveal.show{opacity:1;transform:translateY(0)}
-@media(max-width:860px){.sgrid,.pgrid,.tgrid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.bookwrap .row{grid-template-columns:1fr}}
+@media(max-width:860px){.sgrid,.pgrid,.tgrid,.tgrid2{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.bookwrap .row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div id="cur"></div>
 <script>document.documentElement.classList.remove('no-js');document.body.classList.remove('no-js');</script>
-<nav id="nav"><div class="logo">Royal Jasmine Salon</div><div class="nav-links"><a href="#services">Services</a><a href="#packages">Packages</a><a href="#book">Book</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></div></nav>
+<nav id="nav"><div class="logo"><svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true">
+<circle cx="50" cy="50" r="46" fill="none" stroke="#cdb4db" stroke-width="2"/>
+<circle cx="50" cy="50" r="38" fill="none" stroke="#cdb4db" stroke-width="0.6" opacity="0.5"/>
+<text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond, serif" font-size="30" font-weight="700" fill="#cdb4db">RJ</text>
+</svg> Royal Jasmine Salon</div><div class="nav-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
 
 <header class="hero">
   <div class="bgwrap"><img class="bg" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""></div>
@@ -120,33 +165,38 @@ footer{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}
       <a href="#book" class="btn p">Book Online · احجزي الآن</a>
       <a href="https://wa.me/96561114586" class="btn g">WhatsApp · واتساب</a>
     </div>
+    <div class="openbadge" id="ob"><span class="dot"></span><span id="obt">Checking...</span></div>
   </div>
   <div class="scrollind">SCROLL ↓</div>
 </header>
 
+<div class="marq"><div class="track"><span>Royal Haircut قص ملكي · 5 KD</span><span>Royal Balayage بلاجاج ملكي · 28 KD</span><span>Anti-Aging Facial فيشل مكافحة الشيخوخة · 18 KD</span><span>Luxury Manicure مانيكير فاخر · 8 KD</span><span>Pedicure Spa باديكير سبا · 8 KD</span><span>Bridal Makeup مكياج عروس · 50 KD</span><span>Body Scrub تقشير الجسم · 15 KD</span><span>Massage مساج · 15 KD</span><span>Royal Haircut قص ملكي · 5 KD</span><span>Royal Balayage بلاجاج ملكي · 28 KD</span><span>Anti-Aging Facial فيشل مكافحة الشيخوخة · 18 KD</span><span>Luxury Manicure مانيكير فاخر · 8 KD</span><span>Pedicure Spa باديكير سبا · 8 KD</span><span>Bridal Makeup مكياج عروس · 50 KD</span><span>Body Scrub تقشير الجسم · 15 KD</span><span>Massage مساج · 15 KD</span></div></div>
+
+<section class="stats">
+  <div class="stat"><div class="num" data-to="215">0</div><div class="lbl">Happy Clients · عميلة سعيدة</div></div>
+  <div class="stat"><div class="num" data-to="8">0</div><div class="lbl">Premium Services · خدمة</div></div>
+  <div class="stat"><div class="num" data-to="5">0</div><div class="lbl">Years in Salmiya · سنوات</div></div>
+</section>
+
 <section class="serv" id="services">
   <div class="sec-t reveal"><div class="ey">Menu &amp; Prices</div><h2>Our Services</h2><div class="ar">خدماتنا وأسعارنا</div></div>
-  <div class="sgrid">
-    <div class="scard reveal"><div class="top"><div><h3>Royal Haircut</h3><div class="ar">قص ملكي</div></div><div class="price">5<small> KD</small></div></div><ul><li>Cut</li><li>Style</li><li>Blowdry</li></ul><div class="bk"><button onclick="wa('Royal Haircut')">Book · احجزي</button></div></div>
-<div class="scard reveal"><div class="top"><div><h3>Balay</h3><div class="ar">بلاجاج ملكي</div></div><div class="price">28<small> KD</small></div></div><ul><li>Balayage</li><li>Ombre</li><li>Full color</li></ul><div class="bk"><button onclick="wa('Balay')">Book · احجزي</button></div></div>
-<div class="scard reveal"><div class="top"><div><h3>Anti-Aging Facial</h3><div class="ar">فيشل مكافحة الشيخوخة</div></div><div class="price">18<small> KD</small></div></div><ul><li>Gold</li><li>Hydra</li></ul><div class="bk"><button onclick="wa('Anti-Aging Facial')">Book · احجزي</button></div></div>
-<div class="scard reveal"><div class="top"><div><h3>Luxury Manicure</h3><div class="ar">مانيكير فاخر</div></div><div class="price">8<small> KD</small></div></div><ul><li>3D nail art</li><li>Gel</li></ul><div class="bk"><button onclick="wa('Luxury Manicure')">Book · احجزي</button></div></div>
-<div class="scard reveal"><div class="top"><div><h3>Pedicure Spa</h3><div class="ar">باديكير سبا</div></div><div class="price">8<small> KD</small></div></div><ul><li>Spa</li><li>Scrub</li></ul><div class="bk"><button onclick="wa('Pedicure Spa')">Book · احجزي</button></div></div>
-<div class="scard reveal"><div class="top"><div><h3>Bridal Makeup</h3><div class="ar">مكياج عروس</div></div><div class="price">50<small> KD</small></div></div><ul><li>HD</li><li>Trial</li><li>Lashes</li></ul><div class="bk"><button onclick="wa('Bridal Makeup')">Book · احجزي</button></div></div>
-<div class="scard reveal"><div class="top"><div><h3>Body Scrub</h3><div class="ar">تقشير الجسم</div></div><div class="price">15<small> KD</small></div></div><ul><li>Full body</li><li>Moroccan</li></ul><div class="bk"><button onclick="wa('Body Scrub')">Book · احجزي</button></div></div>
-<div class="scard reveal"><div class="top"><div><h3>Massage</h3><div class="ar">مساج</div></div><div class="price">15<small> KD</small></div></div><ul><li>Relax</li><li>Hot stone</li></ul><div class="bk"><button onclick="wa('Massage')">Book · احجزي</button></div></div>
+  <div class="sgrid"><div class="scard reveal"><div class="top"><div><h3>Royal Haircut</h3><div class="ar">قص ملكي</div></div><div class="price">5<small> KD</small></div></div><ul><li>Cut</li><li>Style</li><li>Blowdry</li></ul><div class="bk"><button onclick="wa('Royal Haircut')">Book · احجزي</button></div></div><div class="scard reveal"><div class="top"><div><h3>Royal Balayage</h3><div class="ar">بلاجاج ملكي</div></div><div class="price">28<small> KD</small></div></div><ul><li>Balayage</li><li>Ombre</li><li>Full color</li></ul><div class="bk"><button onclick="wa('Royal Balayage')">Book · احجزي</button></div></div><div class="scard reveal"><div class="top"><div><h3>Anti-Aging Facial</h3><div class="ar">فيشل مكافحة الشيخوخة</div></div><div class="price">18<small> KD</small></div></div><ul><li>Gold</li><li>Hydra</li></ul><div class="bk"><button onclick="wa('Anti-Aging Facial')">Book · احجزي</button></div></div><div class="scard reveal"><div class="top"><div><h3>Luxury Manicure</h3><div class="ar">مانيكير فاخر</div></div><div class="price">8<small> KD</small></div></div><ul><li>3D nail art</li><li>Gel</li></ul><div class="bk"><button onclick="wa('Luxury Manicure')">Book · احجزي</button></div></div><div class="scard reveal"><div class="top"><div><h3>Pedicure Spa</h3><div class="ar">باديكير سبا</div></div><div class="price">8<small> KD</small></div></div><ul><li>Spa</li><li>Scrub</li></ul><div class="bk"><button onclick="wa('Pedicure Spa')">Book · احجزي</button></div></div><div class="scard reveal"><div class="top"><div><h3>Bridal Makeup</h3><div class="ar">مكياج عروس</div></div><div class="price">50<small> KD</small></div></div><ul><li>HD</li><li>Trial</li><li>Lashes</li></ul><div class="bk"><button onclick="wa('Bridal Makeup')">Book · احجزي</button></div></div><div class="scard reveal"><div class="top"><div><h3>Body Scrub</h3><div class="ar">تقشير الجسم</div></div><div class="price">15<small> KD</small></div></div><ul><li>Full body</li><li>Moroccan</li></ul><div class="bk"><button onclick="wa('Body Scrub')">Book · احجزي</button></div></div><div class="scard reveal"><div class="top"><div><h3>Massage</h3><div class="ar">مساج</div></div><div class="price">15<small> KD</small></div></div><ul><li>Relax</li><li>Hot stone</li></ul><div class="bk"><button onclick="wa('Massage')">Book · احجزي</button></div></div></div>
+</section>
 
-  </div>
+<section class="hgal" id="gallery">
+  <div class="sec-t reveal"><div class="ey">Our Work</div><h2>The Gallery</h2><div class="ar">معرض أعمالنا</div></div>
+  <div class="htrack"><div class="hcard"><img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Royal Jasmine Salon</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1613915617430-8ab0fd7c6baf?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Royal Jasmine Salon</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1538329972958-465d6d2144ed?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Royal Jasmine Salon</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1553544260-f87e671974ee?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Royal Jasmine Salon</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Royal Jasmine Salon</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1562151270-c7d22ceb586a?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Royal Jasmine Salon</div></div></div>
+  <div class="draghint">← Drag / scroll to explore · اسحبي للاستكشاف →</div>
+</section>
+
+<section class="team" id="team">
+  <div class="sec-t reveal"><div class="ey">Meet The Artists</div><h2>Our Team</h2><div class="ar">فريقنا</div></div>
+  <div class="tgrid"><div class="tcard reveal"><img class="ph" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""><h3>Sheikha</h3><div class="ar">شيخة</div><p>Master Stylist</p></div><div class="tcard reveal"><img class="ph" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""><h3>Noof</h3><div class="ar">نوف</div><p>Color Specialist</p></div><div class="tcard reveal"><img class="ph" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""><h3>Maryam</h3><div class="ar">مريم</div><p>Spa Lead</p></div></div>
 </section>
 
 <section class="pkg" id="packages">
   <div class="sec-t reveal"><div class="ey">Best Value</div><h2>Packages</h2><div class="ar">باقاتنا</div></div>
-  <div class="pgrid">
-    <div class="pcard reveal"><h3>Jasmine Glow</h3><div class="ar">إشراق الياسمين</div><div class="pp">20<small> KD</small></div><p>Gold Facial + Hair Spa + Manicure</p><button onclick="wa('Jasmine Glow')">Book Package · احجزي</button></div>
-<div class="pcard reveal <div class="feat">POPULAR</div>"><h3>Royal Day</h3><div class="ar">يوم ملكي</div><div class="pp">35<small> KD</small></div><p>Massage + Scrub + Facial</p><button onclick="wa('Royal Day')">Book Package · احجزي</button></div>
-<div class="pcard reveal"><h3>Bridal Package</h3><div class="ar">باقة العروس</div><div class="pp">90<small> KD</small></div><p>Bridal Makeup + Hair + Spa</p><button onclick="wa('Bridal Package')">Book Package · احجزي</button></div>
-
-  </div>
+  <div class="pgrid"><div class="pcard reveal"><h3>Jasmine Glow</h3><div class="ar">إشراق الياسمين</div><div class="pp">20<small> KD</small></div><p>Gold Facial + Hair Spa + Manicure</p><button onclick="wa('Jasmine Glow')">Book Package · احجزي</button></div><div class="pcard reveal <div class="feat">POPULAR</div>"><h3>Royal Day</h3><div class="ar">يوم ملكي</div><div class="pp">35<small> KD</small></div><p>Massage + Scrub + Facial</p><button onclick="wa('Royal Day')">Book Package · احجزي</button></div><div class="pcard reveal"><h3>Bridal Package</h3><div class="ar">باقة العروس</div><div class="pp">90<small> KD</small></div><p>Bridal Makeup + Hair + Spa</p><button onclick="wa('Bridal Package')">Book Package · احجزي</button></div></div>
 </section>
 
 <section class="book" id="book">
@@ -154,40 +204,32 @@ footer{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}
   <div class="bookwrap reveal">
     <form id="bkf" onsubmit="return sendBook(event)">
       <div class="row">
-        <div class="f"><label>Your Name / اسمك</label><input id="bn" required placeholder="Full name"></div>
-        <div class="f"><label>Phone / الجوال</label><input id="bp" required placeholder="+965 ......"></div>
+        <div><label>Your Name / اسمك</label><input id="bn" required placeholder="Full name"></div>
+        <div><label>Phone / الجوال</label><input id="bp" required placeholder="+965 ......"></div>
       </div>
-      <div class="f"><label>Service / الخدمة</label><select id="bs"><option value="Royal Haircut (5 KD)">Royal Haircut — 5 KD</option>
-<option value="Balay (28 KD)">Balay — 28 KD</option>
-<option value="Anti-Aging Facial (18 KD)">Anti-Aging Facial — 18 KD</option>
-<option value="Luxury Manicure (8 KD)">Luxury Manicure — 8 KD</option>
-<option value="Pedicure Spa (8 KD)">Pedicure Spa — 8 KD</option>
-<option value="Bridal Makeup (50 KD)">Bridal Makeup — 50 KD</option>
-<option value="Body Scrub (15 KD)">Body Scrub — 15 KD</option>
-<option value="Massage (15 KD)">Massage — 15 KD</option>
-</select></div>
+      <div><label>Service / الخدمة</label><select id="bs"><option value="Royal Haircut (5 KD)">Royal Haircut — 5 KD</option><option value="Royal Balayage (28 KD)">Royal Balayage — 28 KD</option><option value="Anti-Aging Facial (18 KD)">Anti-Aging Facial — 18 KD</option><option value="Luxury Manicure (8 KD)">Luxury Manicure — 8 KD</option><option value="Pedicure Spa (8 KD)">Pedicure Spa — 8 KD</option><option value="Bridal Makeup (50 KD)">Bridal Makeup — 50 KD</option><option value="Body Scrub (15 KD)">Body Scrub — 15 KD</option><option value="Massage (15 KD)">Massage — 15 KD</option></select></div>
       <div class="row">
-        <div class="f"><label>Date / التاريخ</label><input id="bd" type="date" required></div>
-        <div class="f"><label>Time / الوقت</label><input id="bt" type="time" required></div>
+        <div><label>Date / التاريخ</label><input id="bd" type="date" required></div>
+        <div><label>Time / الوقت</label><input id="bt" type="time" required></div>
       </div>
-      <div class="f"><label>Note / ملاحظة</label><textarea id="bm" rows="2" placeholder="Any requests?"></textarea></div>
+      <div><label>Note / ملاحظة</label><textarea id="bm" rows="2" placeholder="Any requests?"></textarea></div>
       <button class="submit" type="submit">Confirm via WhatsApp · أكدي عبر واتساب</button>
       <div class="note">You'll be redirected to WhatsApp to confirm with the salon ✦</div>
     </form>
   </div>
 </section>
 
-<section class="testi" id="reviews">
-  <div class="sec-t reveal"><div class="ey">Loved By Clients</div><h2>Reviews</h2><div class="ar">آراء الزبائن</div></div>
-  <div class="tgrid">
-    <div class="tcard reveal"><div class="stars">★★★★★</div><p>"Truly royal experience. The jasmine spa is heavenly."</p><div class="who">— Sheikha N.</div></div>
-<div class="tcard reveal"><div class="stars">★★★★★</div><p>"My balayage came out better than the inspiration pic!"</p><div class="who">— Noof B.</div></div>
-<div class="tcard reveal"><div class="stars">★★★★★</div><p>"Luxury at its finest. Worth every dinar."</p><div class="who">— Maryam A.</div></div>
-
-  </div>
+<section class="mapsec">
+  <div class="sec-t reveal"><div class="ey">Find Us</div><h2>Location</h2><div class="ar">موقعنا</div></div>
+  <iframe loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=48.0752,%2029.331,%2048.0832,%2029.337&layer=mapnik&marker=29.334,%2048.0792" allowfullscreen></iframe>
 </section>
 
-<section class="contact" id="contact">
+<section class="testi">
+  <div class="sec-t reveal"><div class="ey">Loved By Clients</div><h2>Reviews</h2><div class="ar">آراء الزبائن</div></div>
+  <div class="tgrid2"><div class="tcard2 reveal"><div class="stars">★★★★★</div><p>"Truly royal experience. The jasmine spa is heavenly."</p><div class="who">— Sheikha N.</div></div><div class="tcard2 reveal"><div class="stars">★★★★★</div><p>"My balayage came out better than the inspiration pic!"</p><div class="who">— Noof B.</div></div><div class="tcard2 reveal"><div class="stars">★★★★★</div><p>"Luxury at its finest. Worth every dinar."</p><div class="who">— Maryam A.</div></div></div>
+</section>
+
+<section class="contact">
   <div class="ey reveal">Visit Us</div>
   <h2 class="reveal">Where To Find Us</h2>
   <div class="ar reveal">صالون الياسمين الملكي · زورونا</div>
@@ -210,9 +252,13 @@ addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.c
 document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'));});
 addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
 if(window.gsap){gsap.registerPlugin(ScrollTrigger);gsap.utils.toArray('.reveal').forEach(el=>{gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'},onStart:()=>el.classList.add('show')});});}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));}
+// open-now (Kuwait UTC+3). Daily 10-21, Fri 14-21
+(function(){const now=new Date();const kw=new Date(now.getTime()+(now.getTimezoneOffset()*60000)+(3*3600000));const day=kw.getDay();const h=kw.getHours();let open=(day===5)?(h>=14&&h<21):(h>=10&&h<21);const el=document.getElementById('obt');el.textContent=open?'Open Now · مفتوح الآن':'Closed · مغلق';document.querySelector('#ob .dot').style.background=open?'#25D366':'#888';})();
+// counter
+document.querySelectorAll('.num').forEach(n=>{const to=+n.dataset.to;let c=0;const step=Math.max(1,Math.floor(to/60));const iv=setInterval(()=>{c+=step;if(c>=to){c=to;clearInterval(iv);}n.textContent=c;},25);});
 function wa(svc){const t=encodeURIComponent('Hello Royal Jasmine Salon! I want to book:\nService: '+svc+'\nPlease share available time. Thank you!');window.open('https://wa.me/96561114586?text='+t,'_blank');}
 function sendBook(e){e.preventDefault();const n=bn.value,p=bp.value,s=document.getElementById('bs').value,d=bd.value,t=bt.value,m=bm.value;
 const msg='Hello Royal Jasmine Salon! New booking request:\nName: '+n+'\nPhone: '+p+'\nService: '+s+'\nDate: '+d+'\nTime: '+t+'\nNote: '+m;
-const u='https://wa.me/96561114586?text='+encodeURIComponent(msg);window.open(u,'_blank');}
+window.open('https://wa.me/96561114586?text='+encodeURIComponent(msg),'_blank');}
 </script>
 </body></html>
