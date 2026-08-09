@@ -20,7 +20,7 @@ GAL = [f"{BASE}/assets/ai/gal_manicure.png",f"{BASE}/assets/ai/gal_hair.png",f"{
 
 LEADS = [
     {"slug":"midyaf","name_en":"Midyaf Beauty Salon","name_ar":"صالون ميدياف للتجميل",
-     "phone":"96541065562","phone_disp":"+965 4106 5562","area_en":"Salmiya, Block 9","area_ar":"السالمية، القطعة 9",
+     "phone":"96567633667","phone_disp":"+965 6763 3667","area_en":"Salmiya, Block 9","area_ar":"السالمية، القطعة 9",
      "tag_en":"Where Elegance Meets Expertise","tag_ar":"حيث يلتقي الأناقة بالخبرة","accent":"#e8b4d4","ig":"midyafbeauty",
      "lat":29.3335,"lon":48.0775,"clients":248,
      "services":[("Haircut & Blowdry","قص وتصفيف",4,["Haircut","Blowdry","Style"]),

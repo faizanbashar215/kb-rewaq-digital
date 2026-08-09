@@ -13,7 +13,7 @@ GITHUB = "https://faizanbashar215.github.io/kb-rewaq-digital"
 # Each lead: (en, ar, area, phone, disp, slug, opener)
 # DM body is built from a shared professional template + salon opener + site link.
 LEADS = [
-    ("Midyaf Beauty Salon", "صالون ميدياف", "Salmiya Block 9", "96541065562", "+965 4106 5562", "midyaf",
+    ("Midyaf Beauty Salon", "صالون ميدياف", "Salmiya Block 9", "96567633667", "+965 6763 3667", "midyaf",
      "Hi Midyaf Beauty Salon! 👋 Your salon deserves to be seen online."),
     ("Look Noor Ladies Beauty Salon", "صالون لوك نور", "Salmiya Block 12", "96560748354", "+965 6074 8354", "looknoor",
      "Hello Look Noor Ladies! 👋 Your clients are already on Instagram — let's meet them there."),
