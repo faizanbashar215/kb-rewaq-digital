@@ -112,7 +112,13 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .bookwrap .note{text-align:center;font-size:.8rem;opacity:.55;margin-top:14px}
 
 .mapsec{padding:90px 6%;background:#0d0d0d}
-.mapsec iframe{width:100%;height:380px;border:0;border-radius:18px;filter:grayscale(1) invert(.9) contrast(1.1)}
+.mapcard{display:block;max-width:1000px;margin:0 auto;border-radius:18px;overflow:hidden;text-decoration:none;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);transition:.4s}
+.mapcard:hover{border-color:var(--ac);transform:translateY(-4px)}
+.mc-inner{display:flex;align-items:center;gap:24px;padding:40px}
+.mc-pin{font-size:3rem}
+.mc-txt{font-size:1.1rem;line-height:1.6}
+.mc-txt strong{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#fff}
+.mc-cta{color:var(--ac);font-weight:600;font-size:.95rem}
 
 .testi{padding:90px 6%;background:#0a0a0a}
 .tgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
@@ -210,7 +216,12 @@ footer{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}
 
 <section class="mapsec">
   <div class="sec-t reveal"><div class="ey">Find Us</div><h2>Location</h2><div class="ar">موقعنا</div></div>
-  <iframe loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=48.076100000000004,%2029.3328,%2048.0841,%2029.3388&layer=mapnik&marker=29.3358,%2048.0801" allowfullscreen></iframe>
+  <a class="mapcard" href="https://www.google.com/maps/search/?api=1&query=29.3358,48.0801" target="_blank">
+    <div class="mc-inner">
+      <div class="mc-pin">📍</div>
+      <div class="mc-txt"><strong>Look Noor Ladies Beauty Salon</strong><br>Salmiya, Block 12 · <span class="ar">السالمية، القطعة 12</span><br><span class="mc-cta">Open in Maps →</span></div>
+    </div>
+  </a>
 </section>
 
 <section class="testi">
