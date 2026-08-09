@@ -173,72 +173,20 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
 .reveal{opacity:1;transform:none}
 .js .reveal{opacity:1;transform:translateY(40px);transition:1s cubic-bezier(.2,.8,.2,1)}
 .js .reveal.show{opacity:1;transform:translateY(0)}
-
-/* ===== TIER 1-4 ADVANCED v10 ===== */
-#loader{position:fixed;inset:0;z-index:10000;background:#08070d;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;transition:opacity .8s,visibility .8s}
-#loader.done{opacity:0;visibility:hidden}
-#loader .ring{width:64px;height:64px;border-radius:50%;border:3px solid rgba(255,255,255,.12);border-top-color:var(--ac);animation:spin 1s linear infinite}
-#loader .lm{font-family:'Cormorant Garamond',serif;font-size:1.4rem;letter-spacing:3px;color:var(--ac)}
-@keyframes spin{to{transform:rotate(360deg)}
-.kin{display:inline-block;opacity:0;transform:translateY(40px) rotateX(-40deg);filter:blur(8px);transition:.7s cubic-bezier(.2,.8,.2,1)}
-.js .kin.show{opacity:1;transform:none;filter:none}
-.dust{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--ac);pointer-events:none;z-index:9998;opacity:.8;transition:transform .4s,opacity .6s;mix-blend-mode:screen}
-.ba{position:relative;max-width:760px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.12);aspect-ratio:16/9;user-select:none}
-.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ba .after{clip-path:inset(0 0 0 50%)}
-.ba .lab{position:absolute;bottom:14px;padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:600;background:rgba(10,10,10,.6);backdrop-filter:blur(6px);z-index:3}
-.ba .lab.l{left:14px}.ba .lab.r{right:14px;background:var(--ac);color:#0a0a0a}
-.ba .handle{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--ac);z-index:4;cursor:ew-resize;transform:translateX(-50%)}
-.ba .handle::after{content:"";position:absolute;top:50%;left:50%;width:34px;height:34px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 4px 16px rgba(0,0,0,.5)}
-.igfeed{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1000px;margin:0 auto}
-.igfeed a{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
-.igfeed img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.igfeed a:hover img{transform:scale(1.12)}
-.igfeed .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(10,10,10,.7));display:flex;align-items:flex-end;padding:12px;font-size:.8rem;font-weight:600}
-.cfg{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto 14px}
-.cfg .opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:.3s}
-.cfg .opt.on{background:color-mix(in srgb,var(--ac) 18%,transparent);border-color:var(--ac)}
-.cfg .opt .cb{width:18px;height:18px;border-radius:5px;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:.7rem}
-.cfg .opt.on .cb{background:var(--ac);color:#0a0a0a;border-color:var(--ac)}
-.cfg .opt .pr{margin-left:auto;font-weight:700;color:var(--ac)}
-.cfgtotal{text-align:center;font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;color:var(--ac);margin-bottom:8px}
-.lang{position:fixed;top:18px;right:18px;z-index:200;display:flex;gap:4px;background:rgba(10,10,10,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);border-radius:30px;padding:5px;font-size:.78rem}
-.lang button{border:none;background:transparent;color:#fff;padding:6px 14px;border-radius:24px;font-size:.78rem;cursor:pointer;opacity:.6}
-.lang button.on{background:var(--ac);color:#0a0a0a;opacity:1;font-weight:700}
-body.rtl{direction:rtl}
-body.rtl .nav-links a{margin-left:0;margin-right:22px}
-.bot{position:fixed;bottom:24px;left:24px;z-index:200;width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#7d5fff);display:flex;align-items:center;justify-content:center;font-size:1.6rem;cursor:pointer;box-shadow:0 12px 40px rgba(0,0,0,.5);transition:transform .3s}
-.bot:hover{transform:scale(1.08)}
-.botbox{position:fixed;bottom:96px;left:24px;z-index:201;width:300px;max-width:88vw;background:rgba(18,16,28,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:16px;display:none;flex-direction:column;gap:10px}
-.botbox.open{display:flex}
-.botbox .msg{background:rgba(255,255,255,.06);padding:10px 12px;border-radius:12px;font-size:.85rem;line-height:1.5}
-.botbox .row{display:flex;gap:8px}
-.botbox button{flex:1;border:none;background:var(--ac);color:#0a0a0a;padding:9px;border-radius:10px;font-weight:600;cursor:pointer;font-size:.8rem}
-.tcard{transition:transform .8s;transform-style:preserve-3d;position:relative;min-height:300px}
-.tcard .front,.tcard .back{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px)}
-.tcard .back{transform:rotateY(180deg);background:color-mix(in srgb,var(--ac) 14%,rgba(255,255,255,.04))}
-.tcard.flip{transform:rotateY(180deg)}
-@media(max-width:860px){.sgrid,.pgrid,.tgrid,.tgrid2,.igfeed{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.bookwrap .row{grid-template-columns:1fr}.cfg{grid-template-columns:1fr}}
+@media(max-width:860px){.sgrid,.pgrid,.tgrid,.tgrid2{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.bookwrap .row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div id="cur"></div>
-<div id="loader"><div class="ring"></div><div class="lm">KB REWAQ</div></div>
-<div class="lang"><button id="enb" class="on" onclick="setLang('en')">EN</button><button id="arb" onclick="setLang('ar')">AR</button></div>
 <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');document.body.classList.remove('no-js');</script>
 <nav id="nav"><div class="logo"><svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#a0e7e5" stroke-width="2"/><circle cx="50" cy="50" r="38" fill="none" stroke="#a0e7e5" stroke-width="0.6" opacity="0.5"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond, serif" font-size="30" font-weight="700" fill="#a0e7e5">PS</text></svg> Paulita Spa Beauty</div><div class="nav-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
 
 <header class="hero">
-  <div class="bgwrap">
-    <video class="bgvid" autoplay muted loop playsinline poster="/kb-rewaq-digital/assets/ai/hero_paulita.png">
-      <source src="/kb-rewaq-digital/assets/ai/hero_paulita.mp4" type="video/mp4">
-    </video>
-    <img class="bg" src="/kb-rewaq-digital/assets/ai/hero_paulita.png" alt="">
-  </div>
+  <div class="bgwrap"><img class="bg" src="/kb-rewaq-digital/assets/ai/hero_paulita.png" alt=""></div>
   <div class="ov"></div><div class="grain"></div>
   <div class="hc">
     <div class="kicker">Premium Salon · Kuwait</div>
-    <h1 class="foil" id="kinwrap">Paulita Spa Beauty</h1>
+    <h1 class="foil">Paulita Spa Beauty</h1>
     <div class="ar">بوليتا سبا للتجميل</div>
     <p>Relax, Refresh, Renew — <span class="ar">استرخي وتجدد</span></p>
     <div class="cta">
@@ -269,26 +217,9 @@ body.rtl .nav-links a{margin-left:0;margin-right:22px}
   <div class="draghint">← Drag / scroll to explore · اسحبي للاستكشاف →</div>
 </section>
 
-<section class="ba-sec" style="padding:90px 6%;background:#0a0a0a">
-  <div class="sec-t reveal"><div class="ey">Real Results</div><h2>Before &amp; After</h2><div class="ar">قبل وبعد</div></div>
-  <div class="ba" id="ba">
-    <img class="before" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt="before">
-    <img class="after" src="/kb-rewaq-digital/assets/ai/gal_facial.png" alt="after">
-    <div class="lab l">Before</div><div class="lab r">After</div>
-    <div class="handle" id="bah"></div>
-  </div>
-  <div class="draghint">← Drag the handle to compare · اسحبي المقبض للمقارنة →</div>
-</section>
-
 <section class="team" id="team">
   <div class="sec-t reveal"><div class="ey">Meet The Artists</div><h2>Our Team</h2><div class="ar">فريقنا</div></div>
-  <div class="tgrid"><div class="tcard reveal"><div class="front"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Paulita</h3><div class="ar">بوليتا</div><p>Master Stylist</p></div><div class="back"><h3>Paulita</h3><div class="ar">بوليتا</div><p>Tap to flip back</p></div></div><div class="tcard reveal"><div class="front"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Carmen</h3><div class="ar">كارمن</div><p>Spa Therapist</p></div><div class="back"><h3>Carmen</h3><div class="ar">كارمن</div><p>Tap to flip back</p></div></div><div class="tcard reveal"><div class="front"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Lina</h3><div class="ar">لينا</div><p>Makeup Artist</p></div><div class="back"><h3>Lina</h3><div class="ar">لينا</div><p>Tap to flip back</p></div></div></div>
-</section>
-
-<section class="igsec" style="padding:90px 6%;background:#0d0d0d">
-  <div class="sec-t reveal"><div class="ey">Live On Instagram</div><h2>From Our Feed</h2><div class="ar">من حسابنا</div></div>
-  <div class="igfeed"><a href="https://instagram.com/paulita_spa" target="_blank"><img src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><div class="ov">@paulita_spa</div></a><a href="https://instagram.com/paulita_spa" target="_blank"><img src="/kb-rewaq-digital/assets/ai/gal_hair.png" alt=""><div class="ov">@paulita_spa</div></a><a href="https://instagram.com/paulita_spa" target="_blank"><img src="/kb-rewaq-digital/assets/ai/gal_facial.png" alt=""><div class="ov">@paulita_spa</div></a><a href="https://instagram.com/paulita_spa" target="_blank"><img src="/kb-rewaq-digital/assets/ai/gal_bridal.png" alt=""><div class="ov">@paulita_spa</div></a></div>
-  <div class="draghint"><a href="https://instagram.com/paulita_spa" target="_blank" style="color:var(--ac);text-decoration:none">Follow @paulita_spa →</a></div>
+  <div class="tgrid"><div class="tcard reveal"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Paulita</h3><div class="ar">بوليتا</div><p>Master Stylist</p></div><div class="tcard reveal"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Carmen</h3><div class="ar">كارمن</div><p>Spa Therapist</p></div><div class="tcard reveal"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Lina</h3><div class="ar">لينا</div><p>Makeup Artist</p></div></div>
 </section>
 
 <section class="pkg" id="packages">
@@ -299,9 +230,6 @@ body.rtl .nav-links a{margin-left:0;margin-right:22px}
 <section class="book" id="book">
   <div class="sec-t reveal"><div class="ey">Reserve Your Moment</div><h2>Book Appointment</h2><div class="ar">احجزي موعدك</div></div>
   <div class="bookwrap reveal">
-    <div class="sec-t" style="margin-bottom:18px"><div class="ey">Build Your Visit</div><h2 style="font-size:1.6rem">Price Calculator</h2></div>
-    <div class="cfgtotal" id="cft">0 KD</div>
-    <div class="cfg" id="cfg"><div class="opt" data-p="5"><div class="cb">✓</div><div>Haircut & Blowdry</div><div class="pr">5 KD</div></div><div class="opt" data-p="12"><div class="cb">✓</div><div>Hair Treatment</div><div class="pr">12 KD</div></div><div class="opt" data-p="8"><div class="cb">✓</div><div>Glow Facial</div><div class="pr">8 KD</div></div><div class="opt" data-p="15"><div class="cb">✓</div><div>Gold Facial</div><div class="pr">15 KD</div></div><div class="opt" data-p="6"><div class="cb">✓</div><div>Gel Manicure</div><div class="pr">6 KD</div></div><div class="opt" data-p="7"><div class="cb">✓</div><div>Pedicure Spa</div><div class="pr">7 KD</div></div></div>
     <form id="bkf" onsubmit="return sendBook(event)">
       <div class="row">
         <div><label>Your Name / اسمك</label><input id="bn" required placeholder="Full name"></div>
@@ -347,14 +275,6 @@ body.rtl .nav-links a{margin-left:0;margin-right:22px}
 </section>
 
 <footer>© Paulita Spa Beauty · Designed by KB Rewaq Digital · +965 50703252</footer>
-
-<div class="bot" onclick="document.querySelector('.botbox').classList.toggle('open')">B</div>
-<div class="botbox" id="botbox">
-  <div class="msg">Hi! I am the KB Rewaq assistant. Ask about services, prices or booking, or tap a quick option.</div>
-  <div class="msg" id="botans" style="display:none"></div>
-  <div class="row"><button onclick="botQ('services')">Services</button><button onclick="botQ('price')">Prices</button></div>
-  <div class="row"><button onclick="botQ('book')">Book</button><button onclick="botWA()">WhatsApp</button></div>
-</div>
 <a href="https://wa.me/96569649660" class="wa-float">💬 WhatsApp Booking</a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -378,22 +298,5 @@ window.open('https://wa.me/96569649660?text='+encodeURIComponent(msg),'_blank');
 (function(){const cards=document.querySelectorAll('.scard,.pcard,.tcard2');cards.forEach(c=>{c.classList.add('tilt');const gl=document.createElement('div');gl.className='gl';c.appendChild(gl);let raf;c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=e.clientX-r.left-r.width/2;const y=e.clientY-r.top-r.height/2;cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{c.style.transform=`perspective(900px) rotateY(${x/14}deg) rotateX(${-y/14}deg) translateZ(8px)`;gl.style.opacity='1';});});c.addEventListener('mouseleave',()=>{cancelAnimationFrame(raf);c.style.transform='';gl.style.opacity='0';});});})();
 // magnetic buttons
 (function(){document.querySelectorAll('.btn.p,.wa-float').forEach(b=>{b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();const x=e.clientX-r.left-r.width/2;const y=e.clientY-r.top-r.height/2;b.style.transform=`translate(${x*0.25}px,${y*0.35}px)`;});b.addEventListener('mouseleave',()=>{b.style.transform='';});});})();
-// loader hide
-addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('done'),900));
-// kinetic hero title
-(function(){const w=document.getElementById('kinwrap');if(!w)return;const txt=w.textContent;w.textContent='';[...txt].forEach((ch,i)=>{const s=document.createElement('span');s.className='kin';s.textContent=ch===' '?' ':ch;w.appendChild(s);setTimeout(()=>s.classList.add('show'),400+i*55);});})();
-// gold-dust cursor trail
-(function(){const cur=document.getElementById('cur');let last=0;addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';const now=performance.now();if(now-last<28)return;last=now;const d=document.createElement('div');d.className='dust';d.style.left=e.clientX+'px';d.style.top=e.clientY+'px';document.body.appendChild(d);setTimeout(()=>{d.style.opacity='0';d.style.transform='scale(0.2)';},30);setTimeout(()=>d.remove(),700);});})();
-// before/after drag
-(function(){const ba=document.getElementById('ba'),h=document.getElementById('bah');if(!ba)return;let drag=false;const set=p=>{p=Math.max(2,Math.min(98,p));h.style.left=p+'%';ba.querySelector('.after').style.clipPath=`inset(0 0 0 ${p}%)`;};const mv=e=>{const r=ba.getBoundingClientRect();set((e.clientX-r.left)/r.width*100);};h.addEventListener('mousedown',()=>drag=true);addEventListener('mouseup',()=>drag=false);addEventListener('mousemove',e=>{if(drag)mv(e);});h.addEventListener('touchstart',()=>drag=true);addEventListener('touchend',()=>drag=false);addEventListener('touchmove',e=>{if(drag)mv(e.touches[0]);});})();
-// price configurator
-(function(){const cfg=document.getElementById('cfg');if(!cfg)return;cfg.querySelectorAll('.opt').forEach(o=>{o.addEventListener('click',()=>{o.classList.toggle('on');let t=0;cfg.querySelectorAll('.opt.on').forEach(x=>t+=+x.dataset.p);document.getElementById('cft').textContent=t+' KD';});});})();
-// bilingual toggle
-function setLang(l){document.body.classList.toggle('rtl',l==='ar');document.getElementById('enb').classList.toggle('on',l==='en');document.getElementById('arb').classList.toggle('on',l==='ar');}
-// AI assistant
-function botQ(k){const a=document.getElementById('botans');a.style.display='block';const m={services:'We offer haircuts, color, facials, manicure, bridal makeup and more. Tap Book to reserve.',price:'Use the Price Calculator above to build your visit and see the total instantly.',book:'Great! Fill the form below or tap WhatsApp to book directly.'}[k]||'How can I help?';a.textContent=m;}
-function botWA(){window.open('https://wa.me/96569649660?text='+encodeURIComponent('Hello Paulita Spa Beauty! I have a question about your services.'),'_blank');}
-// team flip
-document.querySelectorAll('.tcard').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('flip')));
 </script>
 </body></html>
