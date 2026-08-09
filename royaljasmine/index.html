@@ -4,124 +4,191 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Royal Jasmine Salon | صالون الياسمين الملكي</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Poppins:wght@300;400;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--c1:#cdb4db;--c2:#ffc8dd;--c3:#faf0ff;}
+:root{--ac:#cdb4db;}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Poppins',sans-serif;background:#1a1016;color:#fff;overflow-x:hidden}
+body{font-family:'Poppins',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
 .ar{font-family:'Tajawal',sans-serif}
-/* particles */
-#petals{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
-.petal{position:absolute;width:14px;height:14px;background:radial-gradient(circle,var(--c1),transparent);border-radius:50%;opacity:.5;animation:float linear infinite}
-@keyframes float{0%{transform:translateY(-10vh) scale(.6);opacity:0}10%{opacity:.6}100%{transform:translateY(110vh) scale(1.2);opacity:0}}
+img{display:block;max-width:100%}
 /* nav */
-nav{position:fixed;top:0;width:100%;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:20px 6%;transition:.4s;backdrop-filter:blur(0px)}
-nav.scrolled{background:rgba(26,16,22,.8);backdrop-filter:blur(14px);padding:14px 6%}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;background:linear-gradient(90deg,var(--c1),var(--c2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-links a{color:#fff;text-decoration:none;margin-left:26px;font-size:.95rem;opacity:.85;transition:.3s}
-.nav-links a:hover{opacity:1;color:var(--c1)}
+nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 6%;transition:.4s}
+nav.scrolled{background:rgba(10,10,10,.82);backdrop-filter:blur(16px);padding:14px 6%;border-bottom:1px solid rgba(255,255,255,.06)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;letter-spacing:.5px}
+.nav-links a{color:#fff;text-decoration:none;margin-left:28px;font-size:.9rem;opacity:.8;transition:.3s}
+.nav-links a:hover{opacity:1;color:var(--ac)}
 /* hero */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 20px}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,#cdb4db33,transparent 55%),radial-gradient(circle at 75% 70%,#ffc8dd33,transparent 55%),linear-gradient(160deg,#2a1620,#120a10);z-index:-2}
-.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext x='10' y='40' font-size='30' opacity='.04'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E") repeat;z-index:-1;opacity:.5}
-.hero-content{transform:translateZ(0);animation:rise 1.2s ease-out}
-@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-.badge{display:inline-block;padding:8px 22px;border:1px solid var(--c1);border-radius:40px;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;color:var(--c1)}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:700;line-height:1;background:linear-gradient(120deg,#fff,var(--c1),var(--c2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero .ar{font-size:clamp(1.8rem,4vw,3rem);color:var(--c1);margin-top:8px;font-weight:700}
-.hero p{margin-top:20px;font-size:1.2rem;opacity:.9;max-width:560px;font-weight:300}
-.cta{margin-top:38px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
-.btn{padding:16px 38px;border-radius:50px;font-weight:600;font-size:1.05rem;text-decoration:none;transition:.4s;cursor:pointer;border:none}
-.btn.primary{background:linear-gradient(90deg,var(--c1),var(--c2));color:#1a1016;box-shadow:0 10px 40px #cdb4db55}
-.btn.ghost{background:transparent;color:#fff;border:2px solid var(--c1)}
-.btn:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 16px 50px #ffc8dd77}
-/* sections */
-section{position:relative;z-index:2;padding:100px 6%}
-.sec-title{text-align:center;margin-bottom:60px}
-.sec-title .eyebrow{color:var(--c1);letter-spacing:3px;text-transform:uppercase;font-size:.85rem}
-.sec-title h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;margin:8px 0 4px}
-.sec-title .ar{color:var(--c2);font-size:1.5rem}
-.reveal{opacity:0;transform:translateY(50px);transition:.9s cubic-bezier(.2,.8,.2,1)}
-.reveal.show{opacity:1;transform:translateY(0)}
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero .bgwrap{position:absolute;inset:0;overflow:hidden}
+.hero img.bg{position:absolute;inset:-5%;width:110%;height:110%;object-fit:cover;filter:saturate(1.05) contrast(1.05);animation:kenburns 22s ease-in-out infinite alternate}
+@keyframes kenburns{0%{transform:scale(1.1) translate(0,0)}50%{transform:scale(1.22) translate(-2%,-1%)}100%{transform:scale(1.15) translate(2%,1%)}}
+.hero .bgwrap::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);mix-blend-mode:overlay;animation:grain 1.2s steps(3) infinite;opacity:.5}
+@keyframes grain{0%{transform:translateY(0)}100%{transform:translateY(3px)}}
+.hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.5),rgba(10,10,10,.2) 40%,rgba(10,10,10,.85))}
+.hero .ov2{position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,transparent,rgba(10,10,10,.65))}
+.hero .hc{position:relative;z-index:3;padding:0 20px}
+.hero .kicker{letter-spacing:6px;text-transform:uppercase;font-size:.8rem;color:var(--ac);margin-bottom:18px;opacity:0;animation:up 1s .3s forwards}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,9vw,7rem);font-weight:700;line-height:1;opacity:0;animation:up 1.1s .5s forwards}
+.hero .ar{font-size:clamp(1.6rem,4vw,3rem);color:var(--ac);margin-top:6px;font-weight:700;opacity:0;animation:up 1.1s .7s forwards}
+.hero p{margin-top:22px;font-size:1.15rem;font-weight:300;opacity:0;animation:up 1.1s .9s forwards}
+.hero .cta{margin-top:36px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:up 1.1s 1.1s forwards}
+@keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.btn{padding:16px 38px;border-radius:50px;font-weight:600;font-size:1rem;text-decoration:none;transition:.4s;border:none;cursor:pointer}
+.btn.p{background:var(--ac);color:#0a0a0a;box-shadow:0 10px 40px rgba(232,180,212,.35)}
+.btn.g{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+.btn:hover{transform:translateY(-4px) scale(1.03)}
+.scrollind{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;font-size:.75rem;letter-spacing:3px;opacity:.7;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translate(-50%,10px)}}
+/* split */
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:90vh;align-items:center}
+.split .txt{padding:8% 8%}
+.split .txt .ey{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
+.split .txt h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;margin:10px 0 6px}
+.split .txt .ar{color:var(--ac);font-size:1.3rem;margin-bottom:18px}
+.split .txt p{opacity:.8;line-height:1.8;font-weight:300;max-width:440px}
+.split .pic{position:relative;height:90vh;overflow:hidden}
+.split .pic img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s}
+.split.rev{direction:rtl}
+.split.rev .txt{direction:ltr}
 /* services */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px;max-width:1100px;margin:0 auto}
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:36px 28px;transition:.5s;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,var(--c1)22,transparent 60%);opacity:0;transition:.5s}
-.card:hover::before{opacity:1}
-.card:hover{transform:translateY(-10px);border-color:var(--c1)}
-.card .num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--c1);opacity:.4}
-.card h3{font-size:1.3rem;margin:10px 0 4px;position:relative}
-.card .ar{color:var(--c2);font-size:1rem;margin-bottom:12px;position:relative}
-.card p{opacity:.75;font-size:.92rem;line-height:1.6;position:relative}
-/* about */
-.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;max-width:1000px;margin:0 auto;align-items:center}
-.about-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:40px}
-.info-row{display:flex;gap:16px;align-items:center;margin:18px 0;font-size:1.1rem}
-.info-row span{font-size:1.6rem}
-.info-row a{color:var(--c1);text-decoration:none}
-.visual{height:340px;border-radius:24px;background:radial-gradient(circle at 40% 30%,var(--c1),var(--c2));position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.visual::after{content:'✿';font-size:9rem;color:rgba(255,255,255,.25)}
-/* booking */
-.book-wrap{max-width:560px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:44px}
-.book-wrap input,.book-wrap textarea{width:100%;padding:16px 20px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font-size:1rem;margin-bottom:16px;font-family:'Poppins',sans-serif}
-.book-wrap input:focus,.book-wrap textarea:focus{outline:none;border-color:var(--c1)}
-.book-wrap .btn{width:100%}
-footer{text-align:center;padding:50px 20px;opacity:.55;font-size:.9rem;position:relative;z-index:2}
-.wa-float{position:fixed;bottom:26px;right:26px;z-index:60;background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;padding:16px 24px;border-radius:50px;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 10px 36px rgba(37,211,102,.5);transition:.3s}
+.serv{padding:120px 6%;background:#0d0d0d}
+.sec-t{text-align:center;margin-bottom:70px}
+.sec-t .ey{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
+.sec-t h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700}
+.sec-t .ar{color:var(--ac);font-size:1.4rem}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:0 auto}
+.scard{position:relative;height:380px;border-radius:18px;overflow:hidden;cursor:pointer}
+.scard img{width:100%;height:100%;object-fit:cover;transition:transform .9s}
+.scard:hover img{transform:scale(1.12)}
+.scard .ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,10,10,.92))}
+.scard .cap{position:absolute;bottom:0;left:0;right:0;padding:24px}
+.scard .cap h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
+.scard .cap .ar{color:var(--ac);font-size:1rem;margin:2px 0 6px}
+.scard .cap p{font-size:.82rem;opacity:.75;line-height:1.5}
+/* before/after */
+.ba{position:relative;max-width:900px;margin:0 auto;height:70vh;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);opacity:1!important;transform:none!important}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{clip-path:inset(0 0 0 50%);transition:clip-path 1.1s cubic-bezier(.7,0,.2,1)}
+.ba:hover .after{clip-path:inset(0 0 0 0)}
+.ba .lbl{position:absolute;top:18px;padding:7px 16px;border-radius:30px;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;backdrop-filter:blur(6px);background:rgba(10,10,10,.55)}
+.ba .lbl.b{left:18px;color:var(--ac)}
+.ba .lbl.a{right:18px}
+.ba .hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:.8rem;letter-spacing:2px;opacity:.85;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+/* fullbleed */
+.full{position:relative;height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.full img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.full .ov{position:absolute;inset:0;background:rgba(10,10,10,.55)}
+.full .fc{position:relative;z-index:2;padding:0 20px}
+.full .fc .ar{color:var(--ac);font-size:clamp(1.5rem,4vw,2.6rem);font-weight:700}
+.full .fc p{margin-top:14px;font-size:1.1rem;font-weight:300;max-width:560px;margin-left:auto;margin-right:auto}
+/* contact */
+.contact{padding:120px 6%;text-align:center;background:#0d0d0d}
+.contact .ey{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
+.contact h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;margin:10px 0}
+.contact .ar{color:var(--ac);font-size:1.4rem;margin-bottom:30px}
+.cinfo{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.cinfo div{font-size:1.05rem}
+.cinfo a{color:var(--ac);text-decoration:none}
+.book{max-width:520px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:34px}
+.book input,.book textarea{width:100%;padding:14px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font-family:'Poppins',sans-serif;margin-bottom:14px;font-size:.95rem}
+.book input:focus,.book textarea:focus{outline:none;border-color:var(--ac)}
+.book .btn{width:100%}
+footer{text-align:center;padding:46px 20px;opacity:.5;font-size:.85rem}
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:120;background:#25D366;color:#fff;padding:15px 22px;border-radius:50px;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 10px 36px rgba(37,211,102,.5);transition:.3s}
 .wa-float:hover{transform:scale(1.06)}
-@media(max-width:760px){.about-wrap{grid-template-columns:1fr}.nav-links{display:none}}
+.reveal{opacity:0;transform:translateY(60px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.show{opacity:1;transform:translateY(0)}
+@media(max-width:860px){.split{grid-template-columns:1fr}.split .pic{height:60vh}.sgrid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}}
 </style>
 </head>
 <body>
-<div id="petals"></div>
-<nav id="nav"><div class="logo">Royal Jasmine Salon</div><div class="nav-links"><a href="#services">Services</a><a href="#about">About</a><a href="#book">Book</a></div></nav>
+<nav id="nav"><div class="logo">Royal Jasmine Salon</div><div class="nav-links"><a href="#story">Story</a><a href="#services">Services</a><a href="#contact">Contact</a></div></nav>
 
 <header class="hero">
-  <div class="hero-content">
-    <span class="badge">Premium Salon · Kuwait</span>
+  <div class="bgwrap"><img class="bg" src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=1600&q=80" alt=""></div>
+  <div class="ov"></div><div class="ov2"></div>
+  <div class="hc">
+    <div class="kicker">Premium Salon · Kuwait</div>
     <h1>Royal Jasmine Salon</h1>
     <div class="ar">صالون الياسمين الملكي</div>
     <p>Royal Care for Royal You — عناية ملكية لملوكتك</p>
     <div class="cta">
-      <a href="#book" class="btn primary">Book Appointment · احجزي موعدك</a>
-      <a href="https://wa.me/96561114586" class="btn ghost">WhatsApp · واتساب</a>
+      <a href="#contact" class="btn p">Book Appointment · احجزي موعدك</a>
+      <a href="https://wa.me/96561114586" class="btn g">WhatsApp · واتساب</a>
     </div>
   </div>
+  <div class="scrollind">SCROLL ↓</div>
 </header>
 
-<section id="services">
-  <div class="sec-title reveal"><div class="eyebrow">What We Offer</div><h2>Our Services</h2><div class="ar">خدماتنا</div></div>
-  <div class="grid">
-    <div class="card reveal"><div class="num">01</div><h3>Hair & Color</h3><div class="ar">الشعر والصبغ</div><p>Royal balayage, ombre, root touch-up.</p></div>
-<div class="card reveal"><div class="num">02</div><h3>Skin & Facial</h3><div class="ar">البشرة والوجه</div><p>Anti-aging, hydra, gold facial.</p></div>
-<div class="card reveal"><div class="num">03</div><h3>Nails & Art</h3><div class="ar">الأظافر والفن</div><p>Luxury manicure, 3D nail art.</p></div>
-<div class="card reveal"><div class="num">04</div><h3>Spa Day</h3><div class="ar">يوم سبا</div><p>Massage, scrub, full relaxation.</p></div>
+<section class="split" id="story">
+  <div class="txt reveal">
+    <div class="ey">Our Craft</div>
+    <h2>Beauty, Refined</h2>
+    <div class="ar">جمال، بكل أناقة</div>
+    <p>Step into a space where every detail is designed around you. From the first consultation to the final touch, we craft looks that feel effortless and unforgettable.</p>
+  </div>
+  <div class="pic"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80" alt=""></div>
+</section>
+
+<section class="split rev">
+  <div class="txt reveal">
+    <div class="ey">The Experience</div>
+    <h2>Calm. Considered. Couture.</h2>
+    <div class="ar">هدوء، عناية، فخامة</div>
+    <p>Soft light, skilled hands, and a team that listens. This is more than a salon visit — it is a moment made entirely for you.</p>
+  </div>
+  <div class="pic"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1600&q=80" alt=""></div>
+</section>
+
+<section class="serv">
+  <div class="sec-t reveal"><div class="ey">What We Offer</div><h2>Our Services</h2><div class="ar">خدماتنا</div></div>
+  <div class="sgrid">
+    <div class="scard reveal"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""><div class="ov"></div><div class="cap"><h3>Hair & Color</h3><div class="ar">الشعر والصبغ</div><p>Royal balayage, ombre, root touch-up.</p></div></div>
+<div class="scard reveal"><img src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=1600&q=80" alt=""><div class="ov"></div><div class="cap"><h3>Skin & Facial</h3><div class="ar">البشرة والوجه</div><p>Anti-aging, hydra, gold facial.</p></div></div>
+<div class="scard reveal"><img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?w=1600&q=80" alt=""><div class="ov"></div><div class="cap"><h3>Nails & Art</h3><div class="ar">الأظافر والفن</div><p>Luxury manicure, 3D nail art.</p></div></div>
+<div class="scard reveal"><img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=1600&q=80" alt=""><div class="ov"></div><div class="cap"><h3>Spa Day</h3><div class="ar">يوم سبا</div><p>Massage, scrub, full relaxation.</p></div></div>
 
   </div>
 </section>
 
-<section id="about">
-  <div class="sec-title reveal"><div class="eyebrow">Visit Us</div><h2>Where To Find Us</h2><div class="ar">زورونا</div></div>
-  <div class="about-wrap reveal">
-    <div class="about-card">
-      <div class="info-row"><span>📍</span><div><b>Location</b><br>Salmiya, Block 10<br><span class="ar">السالمية، القطعة 10</span></div></div>
-      <div class="info-row"><span>📞</span><div><b>Phone / واتساب</b><br><a href="https://wa.me/96561114586">+965 6111 4586</a></div></div>
-      <div class="info-row"><span>🕐</span><div><b>Hours</b><br>Daily 10AM–9PM · Fri 2PM–9PM</div></div>
-    </div>
-    <div class="visual"></div>
+<section class="serv" style="padding-top:0">
+  <div class="sec-t reveal"><div class="ey">The Result</div><h2>Before &amp; After</h2><div class="ar">قبل وبعد</div></div>
+  <div class="ba">
+    <img class="before" src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=1600&q=80" alt="before">
+    <img class="after" src="https://images.unsplash.com/photo-1571875257727-256c39da42af?w=1600&q=80" alt="after">
+    <span class="lbl b">Before · قبل</span>
+    <span class="lbl a">After · بعد</span>
+    <span class="hint">HOVER TO REVEAL ✦</span>
   </div>
 </section>
 
-<section id="book">
-  <div class="sec-title reveal"><div class="eyebrow">Get In Touch</div><h2>Book Your Visit</h2><div class="ar">احجزي زيارتك</div></div>
-  <div class="book-wrap reveal">
+<section class="full">
+  <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt="">
+  <div class="ov"></div>
+  <div class="fc reveal">
+    <div class="ar">صالون الياسمين الملكي</div>
+    <p>Royal Care for Royal You — your moment, beautifully made.</p>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="ey reveal">Visit Us</div>
+  <h2 class="reveal">Where To Find Us</h2>
+  <div class="ar reveal">صالون الياسمين الملكي · زورونا</div>
+  <div class="cinfo reveal">
+    <div>📍 Salmiya, Block 10<br><span class="ar">السالمية، القطعة 10</span></div>
+    <div>📞 <a href="https://wa.me/96561114586">+965 6111 4586</a></div>
+    <div>🕐 Daily 10AM–9PM · Fri 2PM–9PM</div>
+  </div>
+  <div class="book reveal">
     <form onsubmit="return bookWa(event)">
-      <input id="bname" placeholder="Your Name / اسمك" required>
-      <input id="bservice" placeholder="Service / الخدمة" required>
-      <input id="bdate" type="date" required>
-      <textarea id="bnote" placeholder="Message / رسالتك" rows="3"></textarea>
-      <button class="btn primary" type="submit">Send via WhatsApp · أرسلي عبر واتساب</button>
+      <input id="bn" placeholder="Your Name / اسمك" required>
+      <input id="bs" placeholder="Service / الخدمة" required>
+      <input id="bd" type="date" required>
+      <textarea id="bm" placeholder="Message / رسالتك" rows="3"></textarea>
+      <button class="btn p" type="submit">Send via WhatsApp · أرسلي عبر واتساب</button>
     </form>
   </div>
 </section>
@@ -129,18 +196,15 @@ footer{text-align:center;padding:50px 20px;opacity:.55;font-size:.9rem;position:
 <footer>© Royal Jasmine Salon · Designed by KB Rewaq Digital · +965 50703252</footer>
 <a href="https://wa.me/96561114586" class="wa-float">💬 WhatsApp Booking</a>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-// floating petals
-const pc=document.getElementById('petals');
-for(let i=0;i<24;i++){const p=document.createElement('div');p.className='petal';
-p.style.left=Math.random()*100+'vw';p.style.animationDuration=(8+Math.random()*10)+'s';
-p.style.animationDelay=(Math.random()*8)+'s';p.style.transform='scale('+(.5+Math.random())+')';pc.appendChild(p);}
-// nav scroll
-addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>50)});
-// reveal on scroll
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-function bookWa(e){e.preventDefault();const n=bname.value,s=bservice.value,d=bdate.value,m=bnote.value;
+if(window.gsap){gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll('.split .pic img').forEach(im=>{gsap.fromTo(im,{scale:1.25},{scale:1,scrollTrigger:{trigger:im,start:'top bottom',end:'bottom top',scrub:true}});});
+gsap.utils.toArray('.reveal').forEach(el=>{gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'},onStart:()=>el.classList.add('show')});});}
+else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));}
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+function bookWa(e){e.preventDefault();const n=bn.value,s=bs.value,d=bd.value,m=bm.value;
 const t=encodeURIComponent('Hello Royal Jasmine Salon! I want to book:\nName: '+n+'\nService: '+s+'\nDate: '+d+'\nNote: '+m);
 window.open('https://wa.me/96561114586?text='+t,'_blank');}
 </script>
