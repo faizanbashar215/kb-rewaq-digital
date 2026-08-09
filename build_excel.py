@@ -23,6 +23,16 @@ LEADS = [
      "Hello Royal Jasmine! 👋 A royal salon needs a royal presence online."),
     ("Larene Beauty Salon & Spa", "صالون لارين", "Hawally Block 8", "96551746804", "+965 5174 6804", "larene",
      "Hi Larene Beauty Spa! 👋 Your spa should look as beautiful online as it does inside."),
+    ("KAHI Ladies Beauty Salon", "صالون كاهي", "Salmiya Block 2", "96550770458", "+965 5077 0458", "kahi",
+     "Hi KAHI Ladies Salon! 👋 Your clients love your work — now let them find you online."),
+    ("Mahima Ladies Salon", "صالون ماهيما", "Salmiya Block 10", "96551413855", "+965 5141 3855", "mahima",
+     "Hi Mahima Ladies Salon! 👋 Your spa packages are amazing — a website shows them to everyone."),
+    ("Paulita Spa Beauty", "بوليتا سبا", "Salmiya Block 9", "96569649660", "+965 6964 9660", "paulita",
+     "Hello Paulita Spa! 👋 A relaxing salon like yours deserves a calm, beautiful website."),
+    ("Neweves Salon", "صالون نيو إيفز", "Hawally Tunis St", "96594147140", "+965 9414 7140", "neweves",
+     "Hi Neweves Salon! 👋 Great prices, great work — a website brings the walk-ins you're missing."),
+    ("Yours Salon", "صالون يورز", "Maidan Hawally", "96597200323", "+965 9720 0323", "yours",
+     "Hi Yours Salon! 👋 Your clients keep coming back — a website helps new ones find you."),
 ]
 
 # Shared professional body (NO price upfront, explains IG delivery, office-visit close)
