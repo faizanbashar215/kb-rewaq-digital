@@ -5,16 +5,16 @@ auto-replaces AI art. Tier A+B alive features kept. Target 10/10 feel.
 """
 import os, glob
 
-# AI bespoke assets (local, hosted on GitHub Pages)
+# AI bespoke assets (GitHub Pages root-relative path so subdir sites resolve)
 AI = {
- "midyaf":"assets/ai/hero_midyaf.png",
- "looknoor":"assets/ai/hero_looknoor.png",
- "monya":"assets/ai/hero_monya.png",
- "royaljasmine":"assets/ai/hero_royaljasmine.png",
- "larene":"assets/ai/hero_larene.png",
+ "midyaf":"/assets/ai/hero_midyaf.png",
+ "looknoor":"/assets/ai/hero_looknoor.png",
+ "monya":"/assets/ai/hero_monya.png",
+ "royaljasmine":"/assets/ai/hero_royaljasmine.png",
+ "larene":"/assets/ai/hero_larene.png",
 }
-GAL = ["assets/ai/gal_manicure.png","assets/ai/gal_hair.png","assets/ai/gal_facial.png",
-       "assets/ai/gal_bridal.png","assets/ai/gal_pedicure.png"]
+GAL = ["/assets/ai/gal_manicure.png","/assets/ai/gal_hair.png","/assets/ai/gal_facial.png",
+       "/assets/ai/gal_bridal.png","/assets/ai/gal_pedicure.png"]
 
 LEADS = [
     {"slug":"midyaf","name_en":"Midyaf Beauty Salon","name_ar":"صالون ميدياف للتجميل",
@@ -115,12 +115,14 @@ LEADS = [
 ]
 
 def owner_photos(slug):
+    """Return list of owner photos (root-relative /owner-photos/...) if dropped."""
     folder=f"leads-sites/{slug}/owner-photos"
     if not os.path.isdir(folder): return []
     files=[]
     for e in ("*.jpg","*.jpeg","*.png","*.webp","*.JPG","*.JPEG","*.PNG"):
         files+=glob.glob(os.path.join(folder,e))
-    return sorted(files)
+    # make root-relative so subdir sites resolve correctly
+    return [f"/{slug}/owner-photos/{os.path.basename(f)}" for f in sorted(files)]
 
 def monogram(name_en,accent):
     letters="".join(w[0] for w in name_en.split()[:2]).upper()
@@ -151,7 +153,7 @@ nav.scrolled{{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:1
 .hero .bgwrap{{position:absolute;inset:0;overflow:hidden}}
 .hero img.bg{{position:absolute;inset:-5%;width:110%;height:110%;object-fit:cover;filter:saturate(1.05) contrast(1.05);animation:kenburns 22s ease-in-out infinite alternate}}
 @keyframes kenburns{{0%{{transform:scale(1.1) translate(0,0)}}50%{{transform:scale(1.22) translate(-2%,-1%)}}100%{{transform:scale(1.15) translate(2%,1%)}}}}
-.hero .ov{{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.45),rgba(10,10,10,.15) 40%,rgba(10,10,10,.85))}}
+.hero .ov{{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.25),rgba(10,10,10,.1) 40%,rgba(10,10,10,.78))}}
 .hero .grain{{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px);mix-blend-mode:overlay;opacity:.5;pointer-events:none}}
 .hero .hc{{position:relative;z-index:3;padding:0 20px}}
 .hero .kicker{{letter-spacing:6px;text-transform:uppercase;font-size:.8rem;color:var(--ac);margin-bottom:18px;opacity:0;animation:up 1s .3s forwards}}
@@ -172,7 +174,7 @@ nav.scrolled{{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:1
 .marq span{{margin:0 28px}}
 @keyframes scroll{{from{{transform:translateX(0)}}to{{transform:translateX(-50%)}}}}
 
-.stats{{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;padding:70px 6%;background:#0d0d0d;text-align:center}}
+.stats{{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;padding:60px 6% 40px;background:#0d0d0d;text-align:center}}
 .stat .num{{font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:700;color:var(--ac)}}
 .stat .lbl{{font-size:.9rem;opacity:.7;letter-spacing:1px}}
 .openbadge{{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:30px;font-size:.85rem;font-weight:600;margin-top:18px}}
@@ -259,14 +261,16 @@ nav.scrolled{{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:1
 footer{{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}}
 .wa-float{{position:fixed;bottom:24px;right:24px;z-index:120;background:#25D366;color:#fff;padding:14px 22px;border-radius:50px;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:9px;box-shadow:0 10px 36px rgba(37,211,102,.5);transition:.3s}}
 .wa-float:hover{{transform:scale(1.06)}}
-.reveal{{opacity:0;transform:translateY(60px);transition:1s cubic-bezier(.2,.8,.2,1)}}
-.reveal.show{{opacity:1;transform:translateY(0)}}
+.reveal{{opacity:1;transform:none;transition:1s cubic-bezier(.2,.8,.2,1)}}
+.js .reveal{{opacity:0;transform:translateY(60px)}}
+.js .reveal.show{{opacity:1;transform:translateY(0)}}
+.no-js .reveal{{opacity:1!important;transform:none!important}}
 @media(max-width:860px){{.sgrid,.pgrid,.tgrid,.tgrid2{{grid-template-columns:repeat(2,1fr)}}.nav-links{{display:none}}.bookwrap .row{{grid-template-columns:1fr}}}}
 </style>
 </head>
 <body>
 <div id="cur"></div>
-<script>document.documentElement.classList.remove('no-js');document.body.classList.remove('no-js');</script>
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');document.body.classList.remove('no-js');</script>
 <nav id="nav"><div class="logo">{MONO} {name_en}</div><div class="nav-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
 
 <header class="hero">
@@ -397,8 +401,8 @@ def gen(l):
         team+=f'<div class="tcard reveal"><img class="ph" src="{gimg(0)}" alt=""><h3>{en}</h3><div class="ar">{ar}</div><p>{role}</p></div>'
     pkgs=""
     for i,(en,ar,price,desc) in enumerate(l["packages"]):
-        feat=' <div class="feat">POPULAR</div>' if i==1 else ''
-        pkgs+=f'<div class="pcard reveal{feat}"><h3>{en}</h3><div class="ar">{ar}</div><div class="pp">{price}<small> KD</small></div><p>{desc}</p><button onclick="wa(\'{en}\')">Book Package · احجزي</button></div>'
+        feat='<div class="feat">POPULAR</div>' if i==1 else ''
+        pkgs+=f'<div class="pcard reveal">{feat}<h3>{en}</h3><div class="ar">{ar}</div><div class="pp">{price}<small> KD</small></div><p>{desc}</p><button onclick="wa(\'{en}\')">Book Package · احجزي</button></div>'
     revs=""
     for (who,txt) in l["reviews"]:
         revs+=f'<div class="tcard2 reveal"><div class="stars">★★★★★</div><p>"{txt}"</p><div class="who">— {who}</div></div>'
