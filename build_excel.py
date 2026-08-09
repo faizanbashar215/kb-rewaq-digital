@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Build KB Rewaq lead Excel with click-to-WhatsApp + DM (link embedded) + site link.
 DM rules (boss 2026-08-09): human/conversational tone, NO bullets/dashes/emoji-spam,
-no upfront price, explains IG delivery naturally, closes with office-visit offer on YES.
+no upfront price, covers ALL 6 KB Rewaq services (Website, Post, Content, Marketing,
+Ads, Strategy) naturally, closes with office-visit offer on YES.
 """
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -35,15 +36,17 @@ LEADS = [
      "Hi, this is Faizan. Your regulars clearly love you, a website would just help new ones find you."),
 ]
 
-# Human, conversational DM body (no bullets/dashes/emoji-spam — reads like a real WhatsApp)
+# Human, conversational DM body covering ALL 6 KB Rewaq services (no bullets/dashes/emoji-spam)
 BODY = (
-    "\n\nThis is Faizan, I run a small digital studio here in Kuwait. I made a little demo "
-    "website for your salon just to show you what it could look like, totally free and "
-    "no strings attached.\n\n"
-    "If you like it, I can build you a proper site with your name, your services and prices, "
-    "and online booking in both Arabic and English. I also help with Instagram, you just send "
-    "me photos from the salon and I handle the posts and reels so you stay active and get new "
-    "clients without the hassle.\n\n"
+    "\n\nThis is Faizan, I run a small digital studio here in Kuwait called KB Rewaq. "
+    "I made a little demo website for your salon just to show you what it could look like, "
+    "totally free and no strings attached.\n\n"
+    "If you like it, I can handle the whole thing for you. A proper website with your name, "
+    "your services and prices and online booking in both Arabic and English. I also look after "
+    "your social posts and reels, you just send me photos from the salon and I take care of the "
+    "content so you stay active and keep pulling in new clients. On top of that I do the video "
+    "work, the marketing, the paid ads and the strategy, so it is not just about posting, it is "
+    "about actually growing your salon.\n\n"
     "No pressure at all, but if you are curious I can come by the salon for 15 minutes, show you "
     "the plan properly and we take it from there.\n\n"
     "Just reply with a yes and I will get it started :)"
@@ -90,7 +93,7 @@ for i, (en, ar, area, phone, disp, slug, opener) in enumerate(LEADS, 1):
     ws.cell(r, 6).fill = site_fill
     ws.cell(r, 6).font = Font(size=11, bold=True, color="FFFFFF")
     ws.cell(r, 6).alignment = center
-    ws.row_dimensions[r].height = 160
+    ws.row_dimensions[r].height = 170
 
 ws.freeze_panes = "A2"
 ws.auto_filter.ref = f"A1:H{len(LEADS)+1}"
@@ -112,5 +115,5 @@ for i, (txt, bold) in enumerate(instructions, 1):
     c.font = Font(bold=bold, size=14 if bold else 11)
     ws2.column_dimensions["A"].width = 100
 
-wb.save("KB_Rewaq_Leads_v4.xlsx")
-print("✅ KB_Rewaq_Leads_v4.xlsx created with", len(LEADS), "leads (human DM, link embedded)")
+wb.save("KB_Rewaq_Leads_v5.xlsx")
+print("✅ KB_Rewaq_Leads_v5.xlsx created with", len(LEADS), "leads (all 6 KB Rewaq services in DM)")
