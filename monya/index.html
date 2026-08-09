@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monya Ladies Beauty Salon | صالون منى للسيدات</title>
+<style>
+  *{{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Arial,sans-serif}}
+  :root{{--a:#a0e7e5;--b:#b4f8c8}}
+  body{{background:#0d0b1a;color:#fff;overflow-x:hidden}}
+  #hero-canvas{{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}}
+  .wrap{{max-width:1100px;margin:0 auto;padding:0 20px}}
+  header{{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:relative;z-index:5}}
+  .logo{{font-size:1.5rem;font-weight:800;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent}}
+  nav a{{color:#fff;text-decoration:none;margin-left:22px;font-size:.95rem;opacity:.85}}
+  nav a:hover{{opacity:1}}
+  .hero{{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:5}}
+  .hero h1{{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.05;background:linear-gradient(120deg,#fff,var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent}}
+  .hero .ar{{font-size:clamp(1.6rem,4vw,3rem);color:var(--b);margin-top:10px;font-weight:700}}
+  .hero p{{margin-top:18px;font-size:1.15rem;opacity:.9;max-width:600px}}
+  .cta{{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}}
+  .btn{{padding:15px 34px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;transition:.3s;border:2px solid var(--a)}}
+  .btn.primary{{background:linear-gradient(90deg,var(--a),var(--b));color:#0d0b1a;border:none;box-shadow:0 8px 30px rgba(199,125,255,.4)}}
+  .btn.ghost{{color:#fff}}
+  .btn:hover{{transform:translateY(-3px);box-shadow:0 12px 40px rgba(199,125,255,.6)}}
+  section{{position:relative;z-index:5;padding:80px 0}}
+  .glass{{background:rgba(255,255,255,.06);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:40px;margin:20px 0}}
+  h2{{font-size:2.2rem;margin-bottom:10px}}
+  h2 .ar{{color:var(--b);font-size:1.5rem;display:block;margin-top:4px}}
+  .sub{{opacity:.7;margin-bottom:30px}}
+  .grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}}
+  .card{{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px;transition:.3s}}
+  .card:hover{{transform:translateY(-6px);border-color:var(--a);background:rgba(255,255,255,.1)}}
+  .card h3{{font-size:1.2rem;margin-bottom:6px}}
+  .card .ar{{color:var(--b);font-size:.95rem;margin-bottom:10px}}
+  .card p{{opacity:.75;font-size:.9rem;line-height:1.5}}
+  .info-row{{display:flex;gap:14px;align-items:center;margin:14px 0;font-size:1.05rem}}
+  .info-row span{{font-size:1.4rem}}
+  .book{{display:flex;flex-direction:column;gap:14px;max-width:500px;margin:0 auto}}
+  .book input,.book textarea{{width:100%;padding:14px 18px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-size:1rem}}
+  .book input:focus,.book textarea:focus{{outline:none;border-color:var(--a)}}
+  .wa-float{{position:fixed;bottom:24px;right:24px;z-index:20;background:linear-gradient(90deg,#25D366,#128C7E);color:#fff;padding:16px 22px;border-radius:50px;text-decoration:none;font-weight:700;box-shadow:0 8px 30px rgba(37,211,102,.5);display:flex;align-items:center;gap:10px}}
+  .wa-float:hover{{transform:scale(1.05)}}
+  footer{{text-align:center;padding:40px 0;opacity:.6;font-size:.9rem;position:relative;z-index:5}}
+  .badge{{display:inline-block;background:linear-gradient(90deg,var(--a),var(--b));color:#0d0b1a;padding:6px 16px;border-radius:30px;font-size:.8rem;font-weight:700;margin-bottom:20px}}
+</style>
+</head>
+<body>
+<canvas id="hero-canvas"></canvas>
+<header class="wrap">
+  <div class="logo">Monya Ladies Beauty Salon</div>
+  <nav><a href="#services">Services</a><a href="#about">About</a><a href="#book">Book</a></nav>
+</header>
+
+<div class="hero wrap">
+  <div class="badge">PREMIUM SALON · Kuwait</div>
+  <h1>Monya Ladies Beauty Salon</h1>
+  <div class="ar">صالون منى للسيدات</div>
+  <p>Summer Glow, All Year Round — إشراق الصيف، طوال العام</p>
+  <div class="cta">
+    <a href="#book" class="btn primary">Book Appointment · احجزي موعدك</a>
+    <a href="https://wa.me/96598980970" class="btn ghost">WhatsApp · واتساب</a>
+  </div>
+</div>
+
+<section id="services" class="wrap">
+  <div class="glass">
+    <h2>Our Services<span class="ar">خدماتنا</span></h2>
+    <p class="sub">Professional beauty care crafted for you.</p>
+    <div class="grid">
+      <div class="card"><h3>Haircut & Styling</h3><div class="ar">قص وتصفيف الشعر</div><p>Trend cuts, blow-dry, curls & straightening.</p></div>
+<div class="card"><h3>Facial & Cleanup</h3><div class="ar">تنظيف البشرة</div><p>Summer specials, brightening facials.</p></div>
+<div class="card"><h3>Nails & Pedicure</h3><div class="ar">أظافر وباديكير</div><p>Gel polish, nail art, foot care.</p></div>
+<div class="card"><h3>Bridal & Events</h3><div class="ar">عرائس ومناسبات</div><p>Complete makeover for your big day.</p></div>
+
+    </div>
+  </div>
+</section>
+
+<section id="about" class="wrap">
+  <div class="glass">
+    <h2>Visit Us<span class="ar">زورونا</span></h2>
+    <div class="info-row"><span>📍</span><div><b>Location</b><br>Salmiya, Block 10, Al Adsani St<br>السالمية، القطعة 10، شارع العضاني</div></div>
+    <div class="info-row"><span>📞</span><div><b>Phone / واتساب</b><br><a href="https://wa.me/96598980970" style="color:var(--a);text-decoration:none">+965 9898 0970</a></div></div>
+    <div class="info-row"><span>🕐</span><div><b>Hours</b><br>Daily 10:00 AM – 9:00 PM (Fri 2:00 PM – 9:00 PM)</div></div>
+  </div>
+</section>
+
+<section id="book" class="wrap">
+  <div class="glass">
+    <h2>Book Your Visit<span class="ar">احجزي زيارتك</span></h2>
+    <p class="sub">Fill the form or tap WhatsApp — we reply within minutes.</p>
+    <form class="book" onsubmit="return bookWa(event)">
+      <input id="bname" placeholder="Your Name / اسمك" required>
+      <input id="bservice" placeholder="Service / الخدمة" required>
+      <input id="bdate" type="date" required>
+      <textarea id="bnote" placeholder="Message / رسالتك" rows="3"></textarea>
+      <button class="btn primary" type="submit">Send via WhatsApp · أرسلي عبر واتساب</button>
+    </form>
+  </div>
+</section>
+
+<footer>© Monya Ladies Beauty Salon · Designed by KB Rewaq Digital · +965 50703252</footer>
+<a href="https://wa.me/96598980970" class="wa-float">💬 WhatsApp Booking</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// 3D animated hero
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+const rend=new THREE.WebGLRenderer({canvas:document.getElementById('hero-canvas'),alpha:true,antialias:true});
+rend.setSize(innerWidth,innerHeight);rend.setPixelRatio(Math.min(devicePixelRatio,2));
+const geo=new THREE.IcosahedronGeometry(2.2,1);
+const mat=new THREE.MeshStandardMaterial({{color:0xffffff,wireframe:true,emissive:0xc77dff,emissiveIntensity:.4}});
+const mesh=new THREE.Mesh(geo,mat);scene.add(mesh);
+const g2=new THREE.TorusGeometry(3.4,0.05,16,100);
+const m2=new THREE.MeshStandardMaterial({{color:0xe8b4d4,wireframe:true}});
+const ring=new THREE.Mesh(g2,m2);scene.add(ring);
+scene.add(new THREE.AmbientLight(0xffffff,.6));
+const pl=new THREE.PointLight(0xc77dff,2);pl.position.set(5,5,5);scene.add(pl);
+const pl2=new THREE.PointLight(0xe8b4d4,2);pl2.position.set(-5,-5,5);scene.add(pl2);
+cam.position.z=7;
+const pts=[];
+for(let i=0;i<400;i++){{const g=new THREE.BufferGeometry();const r=Math.random()*1.5;const th=Math.random()*Math.PI*2;const ph=Math.acos(2*Math.random()-1);g.setAttribute('position',new THREE.Float32BufferAttribute([r*Math.sin(ph)*Math.cos(th),r*Math.sin(ph)*Math.sin(th),r*Math.cos(ph)],3));const p=new THREE.Points(g,new THREE.PointsMaterial({{color:0xffffff,size:0.04}}));pts.push(p);scene.add(p);}}
+function anim(){{requestAnimationFrame(anim);mesh.rotation.x+=0.004;mesh.rotation.y+=0.006;ring.rotation.z+=0.003;pts.forEach((p,i)=>{{p.rotation.y+=0.001*(i%3+1)}});rend.render(scene,cam);}}
+anim();
+addEventListener('resize',()=>{{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();rend.setSize(innerWidth,innerHeight);}});
+function bookWa(e){{e.preventDefault();const n=document.getElementById('bname').value;const s=document.getElementById('bservice').value;const d=document.getElementById('bdate').value;const m=document.getElementById('bnote').value;const txt=encodeURIComponent('Hello Monya Ladies Beauty Salon! I want to book:\nName: '+n+'\nService: '+s+'\nDate: '+d+'\nNote: '+m);window.open('https://wa.me/96598980970?text='+txt,'_blank');}}
+</script>
+</body></html>
