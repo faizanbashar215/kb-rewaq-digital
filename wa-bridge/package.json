@@ -1,0 +1,14 @@
+{
+  "name": "kb-rewaq-wa-bridge",
+  "version": "1.0.0",
+  "description": "KB Rewaq WhatsApp bridge (+965) via Baileys — local HTTP API for send/poll, single-instance, QR login",
+  "type": "commonjs",
+  "main": "bridge.js",
+  "scripts": {
+    "start": "node bridge.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.0",
+    "qrcode": "^1.5.4"
+  }
+}
