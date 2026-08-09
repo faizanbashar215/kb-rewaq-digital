@@ -23,7 +23,8 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .hero .bgwrap{position:absolute;inset:0;overflow:hidden}
 .hero img.bg{position:absolute;inset:-5%;width:110%;height:110%;object-fit:cover;filter:saturate(1.05) contrast(1.05);animation:kenburns 22s ease-in-out infinite alternate}
 @keyframes kenburns{0%{transform:scale(1.1) translate(0,0)}50%{transform:scale(1.22) translate(-2%,-1%)}100%{transform:scale(1.15) translate(2%,1%)}}
-.hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.5),rgba(10,10,10,.2) 40%,rgba(10,10,10,.85))}
+.hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.45),rgba(10,10,10,.15) 40%,rgba(10,10,10,.85))}
+.hero .grain{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px);mix-blend-mode:overlay;opacity:.5;pointer-events:none}
 .hero .hc{position:relative;z-index:3;padding:0 20px}
 .hero .kicker{letter-spacing:6px;text-transform:uppercase;font-size:.8rem;color:var(--ac);margin-bottom:18px;opacity:0;animation:up 1s .3s forwards}
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,9vw,7rem);font-weight:700;line-height:1;opacity:0;animation:up 1.1s .5s forwards}
@@ -38,13 +39,11 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .scrollind{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;font-size:.75rem;letter-spacing:3px;opacity:.7;animation:bob 2s infinite}
 @keyframes bob{50%{transform:translate(-50%,10px)}}
 
-/* marquee */
 .marq{overflow:hidden;background:var(--ac);color:#0a0a0a;padding:14px 0;white-space:nowrap}
 .marq .track{display:inline-block;animation:scroll 22s linear infinite;font-weight:600;letter-spacing:1px}
 .marq span{margin:0 28px}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* stats */
 .stats{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;padding:70px 6%;background:#0d0d0d;text-align:center}
 .stat .num{font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:700;color:var(--ac)}
 .stat .lbl{font-size:.9rem;opacity:.7;letter-spacing:1px}
@@ -52,7 +51,6 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .openbadge .dot{width:10px;height:10px;border-radius:50%;background:#25D366;box-shadow:0 0 10px #25D366;animation:pulse 1.5s infinite}
 @keyframes pulse{50%{opacity:.4}}
 
-/* services */
 .serv{padding:100px 6%;background:#0a0a0a}
 .sec-t{text-align:center;margin-bottom:50px}
 .sec-t .ey{color:var(--ac);letter-spacing:3px;text-transform:uppercase;font-size:.8rem}
@@ -71,7 +69,6 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .scard .bk button{width:100%;padding:11px;border-radius:30px;border:none;background:var(--ac);color:#0a0a0a;font-weight:600;cursor:pointer;font-size:.9rem;transition:.3s}
 .scard .bk button:hover{background:#fff}
 
-/* horizontal gallery */
 .hgal{padding:90px 0;background:#0d0d0d;overflow:hidden}
 .hgal .sec-t{padding:0 6% 30px}
 .htrack{display:flex;gap:16px;padding:0 6%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
@@ -83,7 +80,6 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .hcard .cap{position:absolute;bottom:16px;left:18px;font-weight:600}
 .draghint{text-align:center;font-size:.8rem;opacity:.5;margin-top:16px}
 
-/* team */
 .team{padding:90px 6%;background:#0a0a0a}
 .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
 .tcard{text-align:center}
@@ -92,7 +88,6 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .tcard .ar{color:var(--ac);font-size:1rem}
 .tcard p{opacity:.7;font-size:.88rem;margin-top:4px}
 
-/* packages */
 .pkg{padding:90px 6%;background:#0d0d0d}
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
 .pcard{border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:30px;text-align:center;position:relative;overflow:hidden;transition:.4s}
@@ -106,7 +101,6 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .pcard button{padding:12px 30px;border-radius:30px;border:1px solid var(--ac);background:transparent;color:var(--ac);font-weight:600;cursor:pointer;transition:.3s}
 .pcard button:hover{background:var(--ac);color:#0a0a0a}
 
-/* booking */
 .book{padding:100px 6%;background:#0a0a0a}
 .bookwrap{max-width:640px;margin:0 auto;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:40px}
 .bookwrap label{display:block;font-size:.85rem;opacity:.7;margin-bottom:7px}
@@ -117,11 +111,9 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .bookwrap .submit:hover{transform:scale(1.02);background:#fff}
 .bookwrap .note{text-align:center;font-size:.8rem;opacity:.55;margin-top:14px}
 
-/* map */
 .mapsec{padding:90px 6%;background:#0d0d0d}
 .mapsec iframe{width:100%;height:380px;border:0;border-radius:18px;filter:grayscale(1) invert(.9) contrast(1.1)}
 
-/* reviews */
 .testi{padding:90px 6%;background:#0a0a0a}
 .tgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
 .tcard2{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px}
@@ -147,15 +139,11 @@ footer{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}
 <body>
 <div id="cur"></div>
 <script>document.documentElement.classList.remove('no-js');document.body.classList.remove('no-js');</script>
-<nav id="nav"><div class="logo"><svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true">
-<circle cx="50" cy="50" r="46" fill="none" stroke="#bde0fe" stroke-width="2"/>
-<circle cx="50" cy="50" r="38" fill="none" stroke="#bde0fe" stroke-width="0.6" opacity="0.5"/>
-<text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond, serif" font-size="30" font-weight="700" fill="#bde0fe">LB</text>
-</svg> Larene Beauty Salon & Spa</div><div class="nav-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
+<nav id="nav"><div class="logo"><svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#bde0fe" stroke-width="2"/><circle cx="50" cy="50" r="38" fill="none" stroke="#bde0fe" stroke-width="0.6" opacity="0.5"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond, serif" font-size="30" font-weight="700" fill="#bde0fe">LB</text></svg> Larene Beauty Salon & Spa</div><div class="nav-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
 
 <header class="hero">
-  <div class="bgwrap"><img class="bg" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""></div>
-  <div class="ov"></div>
+  <div class="bgwrap"><img class="bg" src="assets/ai/hero_larene.png" alt=""></div>
+  <div class="ov"></div><div class="grain"></div>
   <div class="hc">
     <div class="kicker">Premium Salon · Kuwait</div>
     <h1>Larene Beauty Salon & Spa</h1>
@@ -185,13 +173,13 @@ footer{text-align:center;padding:44px 20px;opacity:.5;font-size:.85rem}
 
 <section class="hgal" id="gallery">
   <div class="sec-t reveal"><div class="ey">Our Work</div><h2>The Gallery</h2><div class="ar">معرض أعمالنا</div></div>
-  <div class="htrack"><div class="hcard"><img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1613915617430-8ab0fd7c6baf?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1538329972958-465d6d2144ed?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1553544260-f87e671974ee?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="https://images.unsplash.com/photo-1562151270-c7d22ceb586a?w=1600&q=80" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div></div>
+  <div class="htrack"><div class="hcard"><img src="assets/ai/gal_manicure.png" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="assets/ai/gal_hair.png" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="assets/ai/gal_facial.png" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="assets/ai/gal_bridal.png" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="assets/ai/gal_pedicure.png" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div><div class="hcard"><img src="assets/ai/gal_manicure.png" alt=""><div class="ov"></div><div class="cap">Larene Beauty Salon & Spa</div></div></div>
   <div class="draghint">← Drag / scroll to explore · اسحبي للاستكشاف →</div>
 </section>
 
 <section class="team" id="team">
   <div class="sec-t reveal"><div class="ey">Meet The Artists</div><h2>Our Team</h2><div class="ar">فريقنا</div></div>
-  <div class="tgrid"><div class="tcard reveal"><img class="ph" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""><h3>Jawaher</h3><div class="ar">جواهر</div><p>Stylist</p></div><div class="tcard reveal"><img class="ph" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""><h3>Amna</h3><div class="ar">آمنة</div><p>Therapist</p></div><div class="tcard reveal"><img class="ph" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80" alt=""><h3>Salma</h3><div class="ar">سلمى</div><p>Makeup Artist</p></div></div>
+  <div class="tgrid"><div class="tcard reveal"><img class="ph" src="assets/ai/gal_manicure.png" alt=""><h3>Jawaher</h3><div class="ar">جواهر</div><p>Stylist</p></div><div class="tcard reveal"><img class="ph" src="assets/ai/gal_manicure.png" alt=""><h3>Amna</h3><div class="ar">آمنة</div><p>Therapist</p></div><div class="tcard reveal"><img class="ph" src="assets/ai/gal_manicure.png" alt=""><h3>Salma</h3><div class="ar">سلمى</div><p>Makeup Artist</p></div></div>
 </section>
 
 <section class="pkg" id="packages">
@@ -252,9 +240,7 @@ addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.c
 document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'));});
 addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
 if(window.gsap){gsap.registerPlugin(ScrollTrigger);gsap.utils.toArray('.reveal').forEach(el=>{gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'},onStart:()=>el.classList.add('show')});});}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));}
-// open-now (Kuwait UTC+3). Daily 10-21, Fri 14-21
 (function(){const now=new Date();const kw=new Date(now.getTime()+(now.getTimezoneOffset()*60000)+(3*3600000));const day=kw.getDay();const h=kw.getHours();let open=(day===5)?(h>=14&&h<21):(h>=10&&h<21);const el=document.getElementById('obt');el.textContent=open?'Open Now · مفتوح الآن':'Closed · مغلق';document.querySelector('#ob .dot').style.background=open?'#25D366':'#888';})();
-// counter
 document.querySelectorAll('.num').forEach(n=>{const to=+n.dataset.to;let c=0;const step=Math.max(1,Math.floor(to/60));const iv=setInterval(()=>{c+=step;if(c>=to){c=to;clearInterval(iv);}n.textContent=c;},25);});
 function wa(svc){const t=encodeURIComponent('Hello Larene Beauty Salon & Spa! I want to book:\nService: '+svc+'\nPlease share available time. Thank you!');window.open('https://wa.me/96551746804?text='+t,'_blank');}
 function sendBook(e){e.preventDefault();const n=bn.value,p=bp.value,s=document.getElementById('bs').value,d=bd.value,t=bt.value,m=bm.value;
