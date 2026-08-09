@@ -5,16 +5,18 @@ auto-replaces AI art. Tier A+B alive features kept. Target 10/10 feel.
 """
 import os, glob
 
-# AI bespoke assets (GitHub Pages root-relative path so subdir sites resolve)
+# AI bespoke assets — PROJECT-relative (GitHub Pages project site serves at
+# /kb-rewaq-digital/, so absolute "/assets/ai" would resolve to domain root and 404).
+BASE = "/kb-rewaq-digital"
 AI = {
- "midyaf":"/assets/ai/hero_midyaf.png",
- "looknoor":"/assets/ai/hero_looknoor.png",
- "monya":"/assets/ai/hero_monya.png",
- "royaljasmine":"/assets/ai/hero_royaljasmine.png",
- "larene":"/assets/ai/hero_larene.png",
+ "midyaf":f"{BASE}/assets/ai/hero_midyaf.png",
+ "looknoor":f"{BASE}/assets/ai/hero_looknoor.png",
+ "monya":f"{BASE}/assets/ai/hero_monya.png",
+ "royaljasmine":f"{BASE}/assets/ai/hero_royaljasmine.png",
+ "larene":f"{BASE}/assets/ai/hero_larene.png",
 }
-GAL = ["/assets/ai/gal_manicure.png","/assets/ai/gal_hair.png","/assets/ai/gal_facial.png",
-       "/assets/ai/gal_bridal.png","/assets/ai/gal_pedicure.png"]
+GAL = [f"{BASE}/assets/ai/gal_manicure.png",f"{BASE}/assets/ai/gal_hair.png",f"{BASE}/assets/ai/gal_facial.png",
+       f"{BASE}/assets/ai/gal_bridal.png",f"{BASE}/assets/ai/gal_pedicure.png"]
 
 LEADS = [
     {"slug":"midyaf","name_en":"Midyaf Beauty Salon","name_ar":"صالون ميدياف للتجميل",
@@ -121,8 +123,8 @@ def owner_photos(slug):
     files=[]
     for e in ("*.jpg","*.jpeg","*.png","*.webp","*.JPG","*.JPEG","*.PNG"):
         files+=glob.glob(os.path.join(folder,e))
-    # make root-relative so subdir sites resolve correctly
-    return [f"/{slug}/owner-photos/{os.path.basename(f)}" for f in sorted(files)]
+    # make project-relative so subdir sites resolve correctly
+    return [f"{BASE}/{slug}/owner-photos/{os.path.basename(f)}" for f in sorted(files)]
 
 def monogram(name_en,accent):
     letters="".join(w[0] for w in name_en.split()[:2]).upper()
