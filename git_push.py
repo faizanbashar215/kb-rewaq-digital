@@ -21,6 +21,8 @@ if token:
                     f"https://x-access-token:{token}@github.com/faizanbashar215/kb-rewaq-digital.git"],
                    cwd=HERE, capture_output=True)
 r = subprocess.run(["git", "push", "origin", "main"], cwd=HERE, capture_output=True, text=True)
+# also push master (GitHub Pages often builds from master) so the live site updates
+subprocess.run(["git", "push", "origin", "master"], cwd=HERE, capture_output=True, text=True)
 # always scrub inline token back to plain remote
 subprocess.run(["git", "remote", "set-url", "origin", "https://faizanbashar215@github.com/faizanbashar215/kb-rewaq-digital.git"],
                cwd=HERE, capture_output=True)
