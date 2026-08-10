@@ -5,11 +5,29 @@
 # them back via bridge /send. Logs every exchange to client notes.md.
 # Runs every 5 min (cronjob). Requires the Baileys bridge running on localhost:8787.
 
-import os, json, datetime, urllib.request, urllib.parse
+import os, json, datetime, urllib.request, urllib.parse, sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import zen_llm  # OpenCode Zen LLM brain (deepseek -> nemotron -> rule fallback)
 
 ROOT = r"D:\KB Rewaq Clients"
 BRIDGE = "http://localhost:8787"
 OWN = "96550703252"
+
+SYSTEM_PROMPT = """You are the WhatsApp deal-closer for KB Rewaq Digital, a Kuwait agency that builds
+websites + runs Instagram/social + paid ads + strategy for ladies salons and spas.
+Owner: Faizan (+965 50703252). You speak Hinglish + Arabic + English, warm and human (NO emojis,
+NO bullet spam, natural conversational tone).
+PRICING (KWD/month, billed monthly, 50% advance before work, balance on delivery, cash/bank on-spot):
+- Tier 1 Presence: 35 - 1-page site + 8 posts + 4 reels + logo + 2 videos + IG setup
+- Tier 2 Growth: 95 - site + booking + 12 posts + 8 reels + 4 videos + full social + 1 ad set
+- Tier 3 Pro: 180 - full site + SEO + 20 posts + 12 reels + 8 videos + multi-platform + 3 ad campaigns + report
+- Tier 4 Dominator: 320 - full site + funnel + 30 posts + 20 reels + 15 videos + 360 marketing + 5 campaigns + brand + strategy
+One-time: website build 150-400 KWD, logo/brand kit 50-100 KWD. Paid ads spend = client's money (we manage, 15% fee).
+Domain/hosting: GitHub Pages FREE; custom domain = client pays. NEVER quote below Tier 1 (35 KWD).
+When a client says yes/agrees: ask for (1) salon name + area, (2) which tier (1-4), (3) 50% advance via cash/bank,
+and promise 3-day delivery. Keep replies short (2-4 lines), helpful, never pushy."""
 
 # === TRAINING: Terms & Conditions + pricing brain ===
 PRICING = """
@@ -110,6 +128,14 @@ def send(to, text):
         return {"ok": False, "error": str(e)}
 
 
+def reply_for(name, text, slug):
+    """LLM brain (OpenCode Zen) with rule-brain fallback."""
+    try:
+        return zen_llm.zen_reply(name, text, SYSTEM_PROMPT)
+    except Exception:
+        return draft_reply(name, text, slug)
+
+
 def poll():
     try:
         with urllib.request.urlopen(BRIDGE + "/inbox", timeout=10) as r:
@@ -123,7 +149,7 @@ def poll():
     for m in msgs:
         slug = resolve_slug(m["from"])
         note_log(slug, f"{m['name']} ({m['from']})", m["text"])
-        reply = draft_reply(m["name"], m["text"], slug)
+        reply = reply_for(m["name"], m["text"], slug)
         res = send(m["from"], reply)
         note_log(slug, "KB Rewaq (sent)", reply)
         print(f"  ↩ replied to {m['name']} ({m['from']}): {res.get('ok')}")
