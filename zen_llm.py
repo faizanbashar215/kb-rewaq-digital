@@ -9,8 +9,10 @@ sys.path.insert(0, HERE)
 import cron_whatsapp_dealmaker as dm
 
 ZEN_URL = "https://opencode.ai/zen/v1/chat/completions"
-# primary -> fallback order (deepseek is best brain, nemotron is the reliable free fallback)
-MODEL_CHAIN = ["deepseek-v4-flash-free", "nemotron-3-ultra-free"]
+# primary -> fallback order.
+# nemotron-3-ultra-free is reliably 200 on free tier; deepseek-v4-flash-free often 429
+# (daily cap) so we try nemotron FIRST for speed, deepseek as secondary if nemotron fails.
+MODEL_CHAIN = ["nemotron-3-ultra-free", "deepseek-v4-flash-free"]
 
 # collect keys (old + new) — try new first since old may be rate-limited
 def _load_keys():
