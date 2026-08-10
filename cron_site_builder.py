@@ -126,6 +126,12 @@ def build_one(lead, repo):
 
 def push(repo):
     tok = os.environ.get("GH_TOKEN", "")
+    if not tok:  # cron runner may not export .env; load it like git_push.py does
+        ep = os.path.join(repo, ".env")
+        if os.path.exists(ep):
+            for line in open(ep, encoding="utf-8"):
+                if line.startswith("GH_TOKEN="):
+                    tok = line.strip().split("=", 1)[1].strip()
     if tok:
         subprocess.run(["git", "remote", "set-url", "origin",
                         f"https://x-access-token:{tok}@github.com/faizanbashar215/kb-rewaq-digital.git"],

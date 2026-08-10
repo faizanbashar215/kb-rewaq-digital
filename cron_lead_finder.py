@@ -1,20 +1,48 @@
 #!/usr/bin/env python3
 # KB Rewaq CRON 1 — lead-finder
-# Scans Google Maps for Kuwait ladies salons/spas with NO website (quality leads),
+# Scans OpenStreetMap (Overpass API) for Kuwait ladies salons/spas/beauty shops,
 # enriches (name, area, phone, IG guess), writes a per-client folder under
 # D:\KB Rewaq Clients\{slug}\, and pushes the lead to _QUEUE.json for site-builder.
 # Runs every 10 min (cronjob). Read-only research — no WhatsApp send.
+#
+# 2026-08-10 FIX: Google/DDG/Bing all serve anti-bot JS challenges or CAPTCHAs
+# to plain urllib fetches (Google "knitsail" challenge, DDG duck CAPTCHA), which
+# silently returned 0 leads. Switched data source to OpenStreetMap Overpass API
+# (free, static JSON, no CAPTCHA). Salons tagged shop=beauty|hairdresser|cosmetics
+# in Kuwait bbox. Men's salons, perfume/supply shops, and businesses that already
+# list a website/instagram/facebook are excluded (target = ladies salons with no
+# online presence).
 
 import os, json, re, time, datetime, subprocess, sys, urllib.parse, urllib.request
-from html.parser import HTMLParser
 
 ROOT = r"D:\KB Rewaq Clients"
 QUEUE = os.path.join(ROOT, "_QUEUE.json")
-AREAS = ["Salmiya", "Hawally", "Farwaniya", "Khaitan", "Maidan Hawally", "Rigga Kuwait"]
 SITE_BASE = "https://faizanbashar215.github.io/kb-rewaq-digital"
+MAX_NEW_PER_RUN = 50  # matches _QUEUE.json bound so site-builder stays bounded
 
-# crude Maps query: "ladies salon <area> Kuwait" and look for listings
-HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+OVERPASS_SOURCES = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+]
+# Kuwait bbox: lat 28.5-30.1, lon 46.5-48.5
+OVERPASS_QUERY = """[out:json][timeout:45];
+nwr["shop"~"beauty|hairdresser|cosmetics"](28.5,46.5,30.1,48.5);
+out center tags;"""
+
+MEN_RE = re.compile(r"(?i)\b(men|male|gent|gents)\b|رجال|للرجال|رجل|حلاق")
+NOISE_RE = re.compile(r"(?i)\b(supplies|perfume|عطور|معدات|equipment|بضائع)\b")
+
+# OSM addr:city (mostly Arabic) -> English display names
+AREA_MAP = {
+    "السالمية": "Salmiya", "حولي": "Hawally", "Hawalli": "Hawally", "Hawali": "Hawally",
+    "العارضية": "Ardiya", "العارضيه": "Ardiya", "الجابرية": "Jabriya", "Jabriya": "Jabriya",
+    "Sabah Al Salem": "Sabah Al Salem", "الفنطاس": "Fintas", "سلوى": "Salwa",
+    "الدوحة": "Doha", "القبلة": "Qibla", "الشعب": "Shaab", "بنيد القار": "Bneid Al Qar",
+    "ام قصر": "Um Qasr", "الزهراء": "Zahra", "الصليبخات": "Sulaibikhat",
+}
+
+HEADERS = {"User-Agent": "KB-Rewaq-lead-finder/1.0 (research only)"}
 
 
 def slugify(name):
@@ -22,69 +50,67 @@ def slugify(name):
     return s[:40]
 
 
-def search_maps(area):
-    q = f"ladies beauty salon {area} Kuwait"
-    url = "https://www.google.com/search?q=" + urllib.parse.quote(q) + "&num=20"
-    try:
-        req = urllib.request.Request(url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=15) as r:
-            return r.read().decode("utf-8", "ignore")
-    except Exception as e:
-        print(f"  ! maps fetch error {area}: {e}")
-        return ""
+def fetch_overpass():
+    """Fetch salon elements from Overpass with mirror fallback."""
+    payload = urllib.parse.urlencode({"data": OVERPASS_QUERY}).encode()
+    for base in OVERPASS_SOURCES:
+        try:
+            req = urllib.request.Request(base, data=payload, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=60) as r:
+                js = json.load(r)
+            if js.get("elements"):
+                return js["elements"]
+        except Exception as e:
+            print(f"  ! overpass fetch error ({base.split('/')[2]}): {e}")
+    return []
 
 
-class MapsParser(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.blobs = []
-        self.cur = []
-        self.in_a = False
-
-    def handle_starttag(self, tag, attrs):
-        if tag == "a":
-            self.in_a = True
-            self.cur = []
-
-    def handle_endtag(self, tag):
-        if tag == "a" and self.cur:
-            txt = "".join(self.cur).strip()
-            if 6 <= len(txt) <= 80 and any(w in txt.lower() for w in ["salon", "spa", "beauty", "للتجميل", "صالون"]):
-                self.blobs.append(txt)
-            self.in_a = False
-            self.cur = []
-
-    def handle_data(self, data):
-        if self.in_a:
-            self.cur.append(data)
+def norm_phone(raw):
+    """Normalize a Kuwaiti phone tag -> (digits8, display). Returns ('','') if unusable/masked."""
+    if not raw or "*" in raw:
+        return "", ""
+    d = re.sub(r"\D", "", raw)
+    if d.startswith("00965"):
+        d = d[5:]
+    elif d.startswith("965"):
+        d = d[3:]
+    elif d.startswith("0"):
+        d = d[1:]
+    if len(d) == 8 and d.isdigit():
+        return d, f"+965 {d[:4]} {d[4:]}"
+    return "", ""
 
 
-def extract_leads(html, area):
-    # pull candidate names + nearby phone numbers (best-effort)
-    p = MapsParser()
-    p.feed(html)
+def extract_leads(elements):
+    """Filter OSM elements to quality ladies-salon leads (no online presence)."""
+    seen = set()
     leads = []
-    for name in p.blobs:
-        # find a phone near this name if present
-        m = re.search(r"(\+?965[\s-]?\d{8})", html)
-        phone = re.sub(r"\D", "", m.group(1)) if m else ""
-        if len(phone) == 11 and phone.startswith("965"):
-            phone = phone[3:]
+    for e in elements:
+        t = e.get("tags", {})
+        name = (t.get("name") or "").strip()
+        if not name:
+            continue
+        if MEN_RE.search(name) or NOISE_RE.search(name):
+            continue
+        # already has an online presence -> not a "no website" lead
+        if any(t.get(k) for k in ("website", "contact:website", "facebook", "instagram")):
+            continue
+        phone, disp = norm_phone(t.get("contact:phone") or t.get("phone"))
+        city = t.get("addr:city") or t.get("addr:area") or ""
+        area = AREA_MAP.get(city, city)
+        key = re.sub(r"[^a-z0-9]", "", name.lower())
+        if not key or key in seen:
+            continue
+        seen.add(key)
         leads.append({
             "name_en": name,
             "area_en": area,
             "phone": phone,
-            "phone_disp": f"+965 {phone[:4]} {phone[4:]}" if phone else "",
+            "phone_disp": disp,
             "ig": slugify(name).replace("-", ""),
-            "source": "google_maps_no_site_scan",
+            "source": "openstreetmap_salon_scan",
         })
-    # dedupe by name
-    seen = set(); uniq = []
-    for l in leads:
-        k = l["name_en"].lower()
-        if k not in seen:
-            seen.add(k); uniq.append(l)
-    return uniq[:8]
+    return leads
 
 
 def push_queue(lead, slug):
@@ -125,23 +151,28 @@ def write_client_folder(lead, slug):
 
 def main():
     os.makedirs(ROOT, exist_ok=True)
+    elements = fetch_overpass()
+    if not elements:
+        print("[lead-finder] overpass unreachable, aborting run")
+        return
+    leads = extract_leads(elements)
+    print(f"[lead-finder] {datetime.datetime.now():%H:%M} scan saw {len(elements)} OSM elements, "
+          f"{len(leads)} ladies-salon candidates (no website)")
     found = 0
-    for area in AREAS:
-        html = search_maps(area)
-        if not html:
+    for lead in leads:
+        if found >= MAX_NEW_PER_RUN:
+            print(f"  ... {len(leads) - found} more candidates remain for next runs (per-run cap {MAX_NEW_PER_RUN})")
+            break
+        slug = slugify(lead["name_en"])
+        if not slug:
             continue
-        leads = extract_leads(html, area)
-        for lead in leads:
-            slug = slugify(lead["name_en"])
-            if not slug:
-                continue
-            # skip if folder already exists (already a known client)
-            if os.path.isdir(os.path.join(ROOT, slug)):
-                continue
-            write_client_folder(lead, slug)
-            if push_queue(lead, slug):
-                found += 1
-                print(f"  + new lead: {lead['name_en']} [{slug}] ({area})")
+        # skip if folder already exists (already a known client)
+        if os.path.isdir(os.path.join(ROOT, slug)):
+            continue
+        write_client_folder(lead, slug)
+        if push_queue(lead, slug):
+            found += 1
+            print(f"  + new lead: {lead['name_en']} [{slug}] ({lead['area_en'] or 'area?'})")
     print(f"[lead-finder] {datetime.datetime.now():%H:%M} found {found} new quality leads")
     # keep queue bounded
     if os.path.exists(QUEUE):

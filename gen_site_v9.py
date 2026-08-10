@@ -406,6 +406,33 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
 .js .reveal{opacity:1;transform:translateY(40px);transition:1s cubic-bezier(.2,.8,.2,1)}
 .js .reveal.show{opacity:1;transform:translateY(0)}
 @media(max-width:860px){{.sgrid,.pgrid,.tgrid,.tgrid2{{grid-template-columns:repeat(2,1fr)}}.nav-links{{display:none}}.bookwrap .row{{grid-template-columns:1fr}}}}
+/* ===== MOBILE-FIRST: phones (<=600px) -> single column, no overlap ===== */
+@media(max-width:600px){{
+  nav{{padding:14px 5%}}
+  .logo{{font-size:1.15rem}}
+  .hero h1{{font-size:clamp(2.4rem,11vw,3.4rem)}}
+  .hero p{{font-size:1rem;padding:0 8px}}
+  .hero .cta{{flex-direction:column;gap:12px;padding:0 16px}}
+  .hero .cta .btn{{width:100%;text-align:center}}
+  .sgrid,.pgrid,.tgrid,.tgrid2{{grid-template-columns:1fr;gap:14px}}
+  .serv,.pkg,.team,.testi,.book,.mapsec,.contact{{padding:64px 5%}}
+  .sec-t h2{{font-size:clamp(1.8rem,7vw,2.6rem)}}
+  .stats{{gap:28px;padding:40px 5%}}
+  .stat .num{{font-size:2.6rem}}
+  .bookwrap{{padding:24px 18px;border-radius:18px}}
+  .bookwrap .row{{grid-template-columns:1fr}}
+  .mc-inner{{flex-direction:column;gap:14px;padding:26px 18px;text-align:center}}
+  .mc-pin{{font-size:2.2rem}}
+  .cinfo{{flex-direction:column;gap:14px}}
+  .wa-float{{bottom:16px;right:16px;padding:12px 16px;font-size:.9rem}}
+  .marq{{padding:10px 0}}
+  footer{{padding:32px 16px;font-size:.78rem}}
+}}
+@media(max-width:380px){{
+  .hero h1{{font-size:2.1rem}}
+  .cta .btn{{padding:13px 24px;font-size:.92rem}}
+  .sgrid,.pgrid,.tgrid,.tgrid2{{gap:12px}}
+}}
 </style>
 </head>
 <body>
