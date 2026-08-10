@@ -19,6 +19,7 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .logo{display:flex;align-items:center;gap:12px;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
 .nav-links a{color:#fff;text-decoration:none;margin-left:22px;font-size:.85rem;opacity:.8}
 .nav-links a:hover{opacity:1;color:var(--ac)}
+.nav-links{display:flex;align-items:center}
 /* hamburger */
 .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
 .ham span{width:26px;height:2px;background:#fff;transition:.3s;border-radius:2px}
@@ -218,7 +219,7 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
   .pcard .ar{margin:3px 0 10px;font-size:.9rem}
   .pcard .pp{font-size:1.9rem}
   .pcard p{margin:8px 0 16px;font-size:.85rem;line-height:1.45}
-  .pcard button{width:100%;padding:13px 20px;font-size:.95rem;box-sizing:border-box;display:block;margin:0 auto}
+  .pcard button{width:100%;padding:13px 20px;font-size:.95rem}
   /* services + team cards tighter */
   .scard{padding:22px 16px}
   .tcard{padding:18px 14px}
@@ -237,7 +238,7 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
 <nav id="nav"><div class="logo"><svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#bde0fe" stroke-width="2"/><circle cx="50" cy="50" r="38" fill="none" stroke="#bde0fe" stroke-width="0.6" opacity="0.5"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond, serif" font-size="30" font-weight="700" fill="#bde0fe">YS</text></svg> Yours Salon</div><button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button><div class="nav-links" id="navLinks"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
 
 <header class="hero">
-  <div class="bgwrap"><img class="bg" src="/kb-rewaq-digital/assets/ai/hero_yours.png" alt=""></div>
+  <div class="bgwrap"><img class="bg" src="../assets/ai/hero_yours.png" alt=""></div>
   <div class="ov"></div><div class="grain"></div>
   <div class="hc">
     <div class="kicker">Premium Salon · Kuwait</div>
@@ -268,13 +269,13 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
 
 <section class="hgal" id="gallery">
   <div class="sec-t reveal"><div class="ey">Our Work</div><h2>The Gallery</h2><div class="ar">معرض أعمالنا</div></div>
-  <div class="htrack"><div class="hcard"><img src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="/kb-rewaq-digital/assets/ai/gal_hair.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="/kb-rewaq-digital/assets/ai/gal_facial.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="/kb-rewaq-digital/assets/ai/gal_bridal.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="/kb-rewaq-digital/assets/ai/gal_pedicure.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div></div>
+  <div class="htrack"><div class="hcard"><img src="../assets/ai/gal_manicure.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="../assets/ai/gal_hair.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="../assets/ai/gal_facial.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="../assets/ai/gal_bridal.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="../assets/ai/gal_pedicure.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div><div class="hcard"><img src="../assets/ai/gal_manicure.png" alt=""><div class="ov"></div><div class="cap">Yours Salon</div></div></div>
   <div class="draghint">← Drag / scroll to explore · اسحبي للاستكشاف →</div>
 </section>
 
 <section class="team" id="team">
   <div class="sec-t reveal"><div class="ey">Meet The Artists</div><h2>Our Team</h2><div class="ar">فريقنا</div></div>
-  <div class="tgrid"><div class="tcard reveal"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Yara</h3><div class="ar">يارا</div><p>Stylist</p></div><div class="tcard reveal"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Mira</h3><div class="ar">ميرة</div><p>Therapist</p></div><div class="tcard reveal"><img class="ph" src="/kb-rewaq-digital/assets/ai/gal_manicure.png" alt=""><h3>Salma</h3><div class="ar">سلمى</div><p>Makeup Artist</p></div></div>
+  <div class="tgrid"><div class="tcard reveal"><img class="ph" src="../assets/ai/gal_manicure.png" alt=""><h3>Yara</h3><div class="ar">يارا</div><p>Stylist</p></div><div class="tcard reveal"><img class="ph" src="../assets/ai/gal_manicure.png" alt=""><h3>Mira</h3><div class="ar">ميرة</div><p>Therapist</p></div><div class="tcard reveal"><img class="ph" src="../assets/ai/gal_manicure.png" alt=""><h3>Salma</h3><div class="ar">سلمى</div><p>Makeup Artist</p></div></div>
 </section>
 
 <section class="pkg" id="packages">

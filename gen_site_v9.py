@@ -7,7 +7,7 @@ import os, glob
 
 # AI bespoke assets — PROJECT-relative (GitHub Pages project site serves at
 # /kb-rewaq-digital/, so absolute "/assets/ai" would resolve to domain root and 404).
-BASE = "/kb-rewaq-digital"
+BASE = ".."
 AI = {
  "midyaf":f"{BASE}/assets/ai/hero_midyaf.png",
  "looknoor":f"{BASE}/assets/ai/hero_looknoor.png",
@@ -251,6 +251,7 @@ nav.scrolled{{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:1
 .logo{{display:flex;align-items:center;gap:12px;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}}
 .nav-links a{{color:#fff;text-decoration:none;margin-left:22px;font-size:.85rem;opacity:.8}}
 .nav-links a:hover{{opacity:1;color:var(--ac)}}
+.nav-links{{display:flex;align-items:center}}
 /* hamburger */
 .ham{{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}}
 .ham span{{width:26px;height:2px;background:#fff;transition:.3s;border-radius:2px}}
