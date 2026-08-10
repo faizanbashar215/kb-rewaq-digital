@@ -19,6 +19,12 @@ nav.scrolled{background:rgba(10,10,10,.88);backdrop-filter:blur(16px);padding:12
 .logo{display:flex;align-items:center;gap:12px;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700}
 .nav-links a{color:#fff;text-decoration:none;margin-left:22px;font-size:.85rem;opacity:.8}
 .nav-links a:hover{opacity:1;color:var(--ac)}
+/* hamburger */
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
+.ham span{width:26px;height:2px;background:#fff;transition:.3s;border-radius:2px}
+.ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
 .hero .bgwrap{position:absolute;inset:0;overflow:hidden}
 .hero img.bg{position:absolute;inset:-5%;width:110%;height:110%;object-fit:cover;filter:saturate(1.05) contrast(1.05);animation:kenburns 22s ease-in-out infinite alternate}
@@ -149,7 +155,7 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
 .foil{background:linear-gradient(100deg,#fff 8%,var(--ac) 30%,#fff 46%,var(--ac) 64%,#fff 82%);
   background-size:240% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
   animation:foil 4.5s linear infinite;filter:drop-shadow(0 2px 14px color-mix(in srgb,var(--ac) 45%,transparent))}
-@keyframes foil{to{background-position:220% center}
+@keyframes foil{to{background-position:220% center}}}
 /* 3D tilt card glass */
 .tilt{transform-style:preserve-3d;transition:transform .15s ease;will-change:transform}
 .tilt .gl{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,0));
@@ -173,41 +179,62 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
 .reveal{opacity:1;transform:none}
 .js .reveal{opacity:1;transform:translateY(40px);transition:1s cubic-bezier(.2,.8,.2,1)}
 .js .reveal.show{opacity:1;transform:translateY(0)}
-@media(max-width:860px){.sgrid,.pgrid,.tgrid,.tgrid2{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.bookwrap .row{grid-template-columns:1fr}}
+@media(max-width:860px){
+  .sgrid,.pgrid,.tgrid,.tgrid2{grid-template-columns:repeat(2,1fr)}
+  .bookwrap .row{grid-template-columns:1fr}
+  .ham{display:flex}
+  .nav-links{position:fixed;top:64px;right:0;width:min(72vw,260px);height:calc(100vh - 64px);flex-direction:column;align-items:flex-start;gap:6px;padding:24px 22px;background:rgba(10,10,10,.96);backdrop-filter:blur(20px);border-left:1px solid rgba(255,255,255,.08);transform:translateX(110%);transition:transform .35s cubic-bezier(.2,.8,.2,1);overflow-y:auto}
+  .nav-links.open{transform:translateX(0)}
+  .nav-links a{margin:10px 0;font-size:1.05rem}
+}
 /* ===== MOBILE-FIRST: phones (<=600px) -> single column, no overlap ===== */
 @media(max-width:600px){
-  nav{padding:14px 5%}
-  .logo{font-size:1.15rem}
-  .hero h1{font-size:clamp(2.4rem,11vw,3.4rem)}
-  .hero p{font-size:1rem;padding:0 8px}
+  nav{padding:12px 5%}
+  .logo{font-size:1.05rem;gap:8px}
+  .ham{padding:6px}
+  .hero{height:100svh;padding-top:70px}
+  .hero .kicker{letter-spacing:3px;margin-bottom:12px;font-size:.72rem}
+  .hero h1{font-size:clamp(2.2rem,10vw,3.2rem);line-height:1.05}
+  .hero p{font-size:.92rem;padding:0 10px;line-height:1.5}
   .hero .cta{flex-direction:column;gap:12px;padding:0 16px}
-  .hero .cta .btn{width:100%;text-align:center}
+  .hero .cta .btn{width:100%;text-align:center;padding:14px 20px}
   .sgrid,.pgrid,.tgrid,.tgrid2{grid-template-columns:1fr;gap:14px}
-  .serv,.pkg,.team,.testi,.book,.mapsec,.contact{padding:64px 5%}
-  .sec-t h2{font-size:clamp(1.8rem,7vw,2.6rem)}
-  .stats{gap:28px;padding:40px 5%}
-  .stat .num{font-size:2.6rem}
-  .bookwrap{padding:24px 18px;border-radius:18px}
+  .serv,.pkg,.team,.testi,.book,.mapsec,.contact{padding:56px 5%}
+  .sec-t h2{font-size:clamp(1.7rem,7vw,2.4rem)}
+  .stats{gap:24px;padding:36px 5%}
+  .stat .num{font-size:2.4rem}
+  .bookwrap{padding:22px 16px;border-radius:16px}
   .bookwrap .row{grid-template-columns:1fr}
-  .mc-inner{flex-direction:column;gap:14px;padding:26px 18px;text-align:center}
-  .mc-pin{font-size:2.2rem}
-  .cinfo{flex-direction:column;gap:14px}
-  .wa-float{bottom:16px;right:16px;padding:12px 16px;font-size:.9rem}
-  .marq{padding:10px 0}
-  footer{padding:32px 16px;font-size:.78rem}
+  .mc-inner{flex-direction:column;gap:12px;padding:24px 16px;text-align:center}
+  .mc-pin{font-size:2rem}
+  .cinfo{flex-direction:column;gap:12px}
+  .wa-float{bottom:16px;right:16px;padding:11px 15px;font-size:.85rem}
+  .marq{padding:10px 0;overflow:hidden}
+  .marq .track{max-width:100%;white-space:nowrap}
+  footer{padding:30px 16px;font-size:.76rem}
+  /* packages: compact card, full-width button, tighter spacing */
+  .pcard{padding:22px 18px;border-radius:14px}
+  .pcard h3{font-size:1.35rem}
+  .pcard .ar{margin:3px 0 10px;font-size:.9rem}
+  .pcard .pp{font-size:1.9rem}
+  .pcard p{margin:8px 0 16px;font-size:.85rem;line-height:1.45}
+  .pcard button{width:100%;padding:13px 20px;font-size:.95rem;box-sizing:border-box;display:block;margin:0 auto}
+  /* services + team cards tighter */
+  .scard{padding:22px 16px}
+  .tcard{padding:18px 14px}
+  .tcard2{padding:20px 16px}
 }
 @media(max-width:380px){
   .hero h1{font-size:2.1rem}
   .cta .btn{padding:13px 24px;font-size:.92rem}
   .sgrid,.pgrid,.tgrid,.tgrid2{gap:12px}
 }
-
 </style>
 </head>
 <body>
 <div id="cur"></div>
 <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');document.body.classList.remove('no-js');</script>
-<nav id="nav"><div class="logo"><svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#bde0fe" stroke-width="2"/><circle cx="50" cy="50" r="38" fill="none" stroke="#bde0fe" stroke-width="0.6" opacity="0.5"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond, serif" font-size="30" font-weight="700" fill="#bde0fe">LB</text></svg> Larene Beauty Salon & Spa</div><div class="nav-links"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
+<nav id="nav"><div class="logo"><svg viewBox="0 0 100 100" width="46" height="46" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="#bde0fe" stroke-width="2"/><circle cx="50" cy="50" r="38" fill="none" stroke="#bde0fe" stroke-width="0.6" opacity="0.5"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="Cormorant Garamond, serif" font-size="30" font-weight="700" fill="#bde0fe">LB</text></svg> Larene Beauty Salon & Spa</div><button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button><div class="nav-links" id="navLinks"><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a></div></nav>
 
 <header class="hero">
   <div class="bgwrap"><img class="bg" src="/kb-rewaq-digital/assets/ai/hero_larene.png" alt=""></div>
@@ -312,6 +339,10 @@ const cur=document.getElementById('cur');
 addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
 document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'));});
 addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+// hamburger toggle (mobile menu)
+(function(){const ham=document.getElementById('ham');const links=document.getElementById('navLinks');if(!ham||!links)return;
+ham.addEventListener('click',()=>{ham.classList.toggle('open');links.classList.toggle('open');});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');links.classList.remove('open');}));})();
 // reliable reveal via IntersectionObserver (no GSAP dependency)
 (function(){const els=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('show'));return;}
 const io=new IntersectionObserver((ents)=>{ents.forEach(en=>{if(en.isIntersecting){en.target.classList.add('show');io.unobserve(en.target);}});},{threshold:0.08});
