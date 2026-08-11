@@ -81,9 +81,10 @@ for i, L in enumerate(leads, 1):
     phone_num = L["phone"] or WA_YOU
     phone_link = f"https://wa.me/{phone_num}?text={quote(L['dm'])}"
     demo_link = L["site"] if L["site"] else ""
-    # Clickable: one click -> WhatsApp opens with DM pre-typed
-    phone_cell = f'=HYPERLINK("{phone_link}","Click to DM")'
-    demo_cell = f'=HYPERLINK("{demo_link}","View Demo Site")' if demo_link else "—"
+    # Plain text (GitHub viewer + copy-paste friendly). Phone shown as +965 number.
+    phone_disp = ("+" + phone_num) if not phone_num.startswith("+") else phone_num
+    phone_cell = f"{phone_disp}  |  wa.me/{phone_num}"
+    demo_cell = demo_link if demo_link else "—"
     row = [i, L["name"], L["name_ar"], L["area"], phone_cell, demo_cell, L["dm"], "Live" if L["site"] else "Pending"]
     ws.append(row)
     r = ws.max_row
