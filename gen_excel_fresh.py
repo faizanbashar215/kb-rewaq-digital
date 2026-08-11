@@ -22,12 +22,42 @@ for d in sorted(glob.glob(os.path.join(CRM, "*/"))):
     name = biz.get("name_en", "")
     area = loc.get("area_en", "")
     site = onl.get("site_url", "")
-    # DM
-    dm = (f"Hello {name}! This is Faizan from KB Rewaq Digital — Kuwait.\n"
-          f"We build websites + run Instagram/social + paid ads for ladies salons & spas.\n"
-          f"I made a free demo site for {name}: {site}\n"
-          f"Our packages start at just 35 KWD/month (Tier 1). 50% advance, 3-day delivery, cash/bank ok.\n"
-          f"May I share the full packages? No pressure at all.")
+    # Per-lead human DM (English, no em-dash, Jarvis intro, automation story, NO price)
+    # Vary opener + middle so no two read identical.
+    openers = [
+        f"Hey {name}",
+        f"Hi {name}",
+        f"Hello {name}",
+        f"Good day {name}",
+        f"Hi there {name}",
+    ]
+    about = [
+        "I'm Jarvis, manager at KB Rewaq Digital. I build automation systems for Kuwait salons and spas.",
+        "This is Jarvis from KB Rewaq Digital. I run automation for Kuwait beauty businesses.",
+        "Jarvis here, I manage KB Rewaq Digital where we automate Kuwait salons end to end.",
+        "I'm Jarvis, I look after KB Rewaq Digital and we set up automation for Kuwait salons.",
+        "Hey, Jarvis from KB Rewaq Digital. We handle automation for salons across Kuwait.",
+    ]
+    pitch = [
+        "Your business gets a live website, a services page, Instagram content, and a WhatsApp booking bot that replies to clients 24/7 while you focus on the salon.",
+        "We give your salon a live site, social posts, and a WhatsApp bot that books clients for you around the clock.",
+        "You get a website, fresh Instagram content, and an auto-reply WhatsApp that takes bookings even when you are busy with clients.",
+        "The setup is a website plus Instagram plus a WhatsApp assistant that handles client bookings on its own.",
+        "We put your salon on a website, keep Instagram active, and let a WhatsApp bot answer booking requests day and night.",
+    ]
+    close = [
+        f"I saw {name} and your setup would fit this really well. I can put together a free demo of your own site in a day. Want me to send it over?",
+        f"I came across {name} and thought your place would suit this perfectly. I will build a free demo site for you in a day if you want to see it.",
+        f"Your salon {name} caught my eye and this system would suit you. I can show you a free demo of your own site within a day.",
+        f"I noticed {name} and believe this would work great for you. A free demo of your site takes me about a day to make. Shall I send it?",
+        f"{name} stood out to me and I think automation would lift your bookings. I can draft a free demo site for you in a day. Interested?",
+    ]
+    idx = len(leads) % 5
+    a2 = (len(leads) + 1) % 5
+    a3 = (len(leads) + 2) % 5
+    area_note = f" Based in {area}." if area else ""
+    dm = (f"{openers[idx]}. {about[a2]}{area_note} "
+          f"{pitch[a3]} {close[a3]}")
     leads.append({"slug": slug, "name": name, "name_ar": biz.get("name_ar", ""), "area": area,
                   "phone": phone, "phone_disp": con.get("phone_disp", ""), "site": site, "dm": dm})
 
@@ -48,12 +78,12 @@ border = Border(left=thin, right=thin, top=thin, bottom=thin)
 wrap = Alignment(wrap_text=True, vertical="top")
 
 for i, L in enumerate(leads, 1):
-    phone_link = f"https://wa.me/{L['phone']}?text={quote(L['dm'])}" if L["phone"] else f"https://wa.me/{WA_YOU}"
+    phone_num = L["phone"] or WA_YOU
+    phone_link = f"https://wa.me/{phone_num}?text={quote(L['dm'])}"
     demo_link = L["site"] if L["site"] else ""
-    phone_disp = L["phone_disp"] or L["phone"] or f"+{WA_YOU}"
-    # Plain text phone (copy-paste friendly) + clickable link both shown
-    phone_cell = f'{phone_disp}  (wa.me/{L["phone"] or WA_YOU})'
-    demo_cell = demo_link if demo_link else "—"
+    # Clickable: one click -> WhatsApp opens with DM pre-typed
+    phone_cell = f'=HYPERLINK("{phone_link}","Click to DM")'
+    demo_cell = f'=HYPERLINK("{demo_link}","View Demo Site")' if demo_link else "—"
     row = [i, L["name"], L["name_ar"], L["area"], phone_cell, demo_cell, L["dm"], "Live" if L["site"] else "Pending"]
     ws.append(row)
     r = ws.max_row
