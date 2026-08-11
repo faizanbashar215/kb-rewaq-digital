@@ -4,6 +4,9 @@ import os, json, glob
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from urllib.parse import quote
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from dm_engine import compose_dm, site_url_for
 
 CRM = r"D:\KB Rewaq Clients"
 SITES = r"D:\digitalfirst-agency\fresh_sites"
@@ -21,49 +24,12 @@ for d in sorted(glob.glob(os.path.join(CRM, "*/"))):
     phone = con.get("phone", "") or ""
     name = biz.get("name_en", "")
     area = loc.get("area_en", "")
-    site = onl.get("site_url", "")
-    # Per-lead human DM (English, no em-dash, Jarvis intro, automation story, NO price)
-    # Vary opener + middle so no two read identical.
-    openers = [
-        f"Hey {name}",
-        f"Hi {name}",
-        f"Hello {name}",
-        f"Good day {name}",
-        f"Hi there {name}",
-    ]
-    about = [
-        "I'm Jarvis, manager at KB Rewaq Digital. I build automation systems for Kuwait salons and spas.",
-        "This is Jarvis from KB Rewaq Digital. I run automation for Kuwait beauty businesses.",
-        "Jarvis here, I manage KB Rewaq Digital where we automate Kuwait salons end to end.",
-        "I'm Jarvis, I look after KB Rewaq Digital and we set up automation for Kuwait salons.",
-        "Hey, Jarvis from KB Rewaq Digital. We handle automation for salons across Kuwait.",
-    ]
-    pitch = [
-        "Your business gets a live website, a services page, Instagram content, and a WhatsApp booking bot that replies to clients 24/7 while you focus on the salon.",
-        "We give your salon a live site, social posts, and a WhatsApp bot that books clients for you around the clock.",
-        "You get a website, fresh Instagram content, and an auto-reply WhatsApp that takes bookings even when you are busy with clients.",
-        "The setup is a website plus Instagram plus a WhatsApp assistant that handles client bookings on its own.",
-        "We put your salon on a website, keep Instagram active, and let a WhatsApp bot answer booking requests day and night.",
-    ]
-    close = [
-        f"I saw {name} and your setup would fit this really well. I can put together a free demo of your own site in a day. Want me to send it over?",
-        f"I came across {name} and thought your place would suit this perfectly. I will build a free demo site for you in a day if you want to see it.",
-        f"Your salon {name} caught my eye and this system would suit you. I can show you a free demo of your own site within a day.",
-        f"I noticed {name} and believe this would work great for you. A free demo of your site takes me about a day to make. Shall I send it?",
-        f"{name} stood out to me and I think automation would lift your bookings. I can draft a free demo site for you in a day. Interested?",
-    ]
-    idx = len(leads) % 5
-    a2 = (len(leads) + 1) % 5
-    a3 = (len(leads) + 2) % 5
-    area_note = f" Based in {area}." if area else ""
-    # DM includes the demo website link (boss wants site link inside the WhatsApp message)
-    dm_body = (f"{openers[idx]}. {about[a2]}{area_note} "
-               f"{pitch[a3]} {close[a3]}")
-    if site:
-        dm_body += f"\n\nHere is your free demo site: {site}"
-    dm = dm_body
+    site = site_url_for(slug)
+    # Per-lead unique human DM from shared engine (English, no em-dash, Jarvis intro, automation, no price)
+    dm = compose_dm(name, area, slug, len(leads))
+    phone_disp = con.get("phone_disp", "") or ("+" + phone if phone else "+" + WA_YOU)
     leads.append({"slug": slug, "name": name, "name_ar": biz.get("name_ar", ""), "area": area,
-                  "phone": phone, "phone_disp": con.get("phone_disp", ""), "site": site, "dm": dm})
+                  "phone": phone or WA_YOU, "phone_disp": phone_disp, "site": site, "dm": dm})
 
 leads.sort(key=lambda x: x["name"].lower())
 

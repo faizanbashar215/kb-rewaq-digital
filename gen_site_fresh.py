@@ -206,7 +206,7 @@ def gen(lead, i):
         "business": {"name_en": name, "name_ar": name_ar, "slug": slug},
         "contact": {"phone": wa, "phone_disp": f"+{wa}" if wa else "", "whatsapp_url": f"https://wa.me/{wa}"},
         "location": {"area_en": area},
-        "online": {"site_url": f"https://faizanbashar215.github.io/kb-rewaq-digital/{slug}/", "site_status": "live_fresh"},
+        "online": {"site_url": f"https://faizanbashar215.github.io/kb-rewaq-digital/fresh_sites/{slug}/", "site_status": "live_fresh"},
         "pipeline": {"status": "lead_new", "created": "2026-08-11", "source": "osm_fresh_scan"},
     }
     os.makedirs(os.path.join(r"D:\KB Rewaq Clients", slug), exist_ok=True)
