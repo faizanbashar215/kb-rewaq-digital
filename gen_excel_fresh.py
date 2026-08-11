@@ -56,8 +56,12 @@ for d in sorted(glob.glob(os.path.join(CRM, "*/"))):
     a2 = (len(leads) + 1) % 5
     a3 = (len(leads) + 2) % 5
     area_note = f" Based in {area}." if area else ""
-    dm = (f"{openers[idx]}. {about[a2]}{area_note} "
-          f"{pitch[a3]} {close[a3]}")
+    # DM includes the demo website link (boss wants site link inside the WhatsApp message)
+    dm_body = (f"{openers[idx]}. {about[a2]}{area_note} "
+               f"{pitch[a3]} {close[a3]}")
+    if site:
+        dm_body += f"\n\nHere is your free demo site: {site}"
+    dm = dm_body
     leads.append({"slug": slug, "name": name, "name_ar": biz.get("name_ar", ""), "area": area,
                   "phone": phone, "phone_disp": con.get("phone_disp", ""), "site": site, "dm": dm})
 
@@ -66,8 +70,10 @@ leads.sort(key=lambda x: x["name"].lower())
 wb = openpyxl.Workbook()
 ws = wb.active
 ws.title = "KB Rewaq Leads"
-headers = ["#", "Business (EN)", "Business (AR)", "Area", "Phone (copy)",
-           "Click to DM (WhatsApp)", "Demo Website (copy URL)", "Demo (click)", "Ready DM Message", "Status"]
+# SIMPLE clickable layout (like the original 5-lead sheet boss liked):
+# col E = Click to DM (WhatsApp opens with DM+site link typed), col F = View Demo site.
+headers = ["#", "Business (EN)", "Business (AR)", "Area",
+           "Click to DM (WhatsApp)", "View Demo Website", "Ready DM Message", "Status"]
 ws.append(headers)
 
 green = Font(color="006100"); green_fill = PatternFill("solid", fgColor="C6EFCE")
@@ -81,30 +87,25 @@ for i, L in enumerate(leads, 1):
     phone_num = L["phone"] or WA_YOU
     phone_link = f"https://wa.me/{phone_num}?text={quote(L['dm'])}"
     demo_link = L["site"] if L["site"] else ""
-    phone_disp = ("+" + phone_num) if not phone_num.startswith("+") else phone_num
-    # col5: plain text phone (GitHub viewer + copy)
-    phone_cell = f"{phone_disp}  |  wa.me/{phone_num}"
-    # col6: clickable "Click to DM" -> WhatsApp opens with DM typed
+    # col5: clickable "Click to DM" -> WhatsApp opens with full DM (incl. site link) typed
     dm_cell = f'=HYPERLINK("{phone_link}","Click to DM")'
-    # col7: plain demo URL
-    demo_url_cell = demo_link if demo_link else "—"
-    # col8: clickable demo
-    demo_click_cell = f'=HYPERLINK("{demo_link}","Open Site")' if demo_link else "—"
-    row = [i, L["name"], L["name_ar"], L["area"], phone_cell, dm_cell, demo_url_cell, demo_click_cell, L["dm"], "Live" if L["site"] else "Pending"]
+    # col6: clickable demo site
+    demo_cell = f'=HYPERLINK("{demo_link}","View Demo")' if demo_link else "—"
+    row = [i, L["name"], L["name_ar"], L["area"], dm_cell, demo_cell, L["dm"], "Live" if L["site"] else "Pending"]
     ws.append(row)
     r = ws.max_row
-    for c in range(1, 11):
+    for c in range(1, 9):
         ws.cell(r, c).border = border
         ws.cell(r, c).alignment = wrap
     if L["site"]:
+        ws.cell(r, 5).font = blue; ws.cell(r, 5).fill = blue_fill
         ws.cell(r, 6).font = blue; ws.cell(r, 6).fill = blue_fill
-        ws.cell(r, 8).font = blue; ws.cell(r, 8).fill = blue_fill
-        ws.cell(r, 10).font = Font(color="006100", bold=True)
+        ws.cell(r, 8).font = Font(color="006100", bold=True)
 
-for c in range(1, 11):
+for c in range(1, 9):
     ws.cell(1, c).fill = hdr_fill; ws.cell(1, c).font = hdr_font
     ws.cell(1, c).alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
-widths = [5, 26, 20, 16, 24, 16, 40, 14, 55, 11]
+widths = [5, 26, 20, 16, 18, 18, 60, 11]
 for i, w in enumerate(widths, 1):
     ws.column_dimensions[openpyxl.utils.get_column_letter(i)].width = w
 ws.freeze_panes = "A2"; ws.row_dimensions[1].height = 30
