@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reem Palace — Luxury Beauty Salon Kuwait</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ac:#e8b4d4;--bg:#0c0c0c;--fg:#f5f5f5}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;overflow-x:hidden}
+img{max-width:100%}
+a{color:var(--ac);text-decoration:none}
+nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:16px 5%;transition:.4s}
+nav.scrolled{background:rgba(10,10,10,.9);backdrop-filter:blur(12px);padding:10px 5%}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff}
+.nav-links{display:flex;align-items:center;gap:22px}
+.nav-links a{color:#fff;opacity:.85;font-size:.85rem}
+.nav-links a:hover{opacity:1;color:var(--ac)}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+.ham span{width:26px;height:2px;background:#fff;display:block}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero img.bg{position:absolute;inset:0;width:110%;height:110%;object-fit:cover;opacity:.42;filter:saturate(1.1)}
+.hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.35))}
+.hero .con{position:relative;z-index:2;padding:0 18px;max-width:760px}
+.hero .kicker{letter-spacing:3px;text-transform:uppercase;font-size:.72rem;color:var(--ac);margin-bottom:12px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,9vw,5rem);font-weight:700;line-height:1.05}
+.hero p{margin:14px auto 26px;max-width:540px;opacity:.85;font-size:.95rem}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{padding:13px 26px;border-radius:30px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.3s;border:1px solid var(--ac)}
+.btn.p{background:var(--ac);color:#0a0a0a}
+.btn.s{background:transparent;color:var(--ac)}
+.btn:hover{transform:translateY(-2px)}
+section{padding:64px 5%}
+.sec-t{text-align:center;margin-bottom:40px}
+.sec-t h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,7vw,3rem);font-weight:700}
+.sec-t p{opacity:.7;margin-top:8px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.scard{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px 18px;background:#121212;transition:.3s}
+.scard:hover{border-color:var(--ac);transform:translateY(-4px)}
+.scard h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;margin-bottom:4px}
+.scard .ar{color:var(--ac);font-size:.9rem;margin-bottom:10px}
+.scard .price{font-size:1.7rem;font-weight:700;color:var(--ac);margin-bottom:10px}
+.scard ul{list-style:none;opacity:.75;font-size:.85rem}
+.scard li{padding:3px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.scard button{margin-top:14px;width:100%;padding:11px;border-radius:24px;border:1px solid var(--ac);background:transparent;color:var(--ac);font-weight:600;cursor:pointer}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.pcard{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:26px 20px;text-align:center;background:#121212}
+.pcard h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem}
+.pcard .ar{color:var(--ac);font-size:.95rem;margin:4px 0 12px}
+.pcard .pp{font-size:2rem;font-weight:700;color:var(--ac)}
+.pcard p{opacity:.75;font-size:.88rem;margin:10px 0 18px}
+.pcard button{padding:12px 28px;border-radius:28px;border:1px solid var(--ac);background:transparent;color:var(--ac);font-weight:600;cursor:pointer}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.gal img{width:100%;height:170px;object-fit:cover;border-radius:12px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.tcard{text-align:center;padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:14px}
+.tcard img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 10px}
+.tcard h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+.testi{max-width:760px;margin:0 auto;display:grid;gap:14px}
+.testi .t{border-left:3px solid var(--ac);padding:12px 18px;background:#121212;border-radius:8px}
+.testi .t b{color:var(--ac)}
+.book{max-width:560px;margin:0 auto;background:#121212;border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:26px 20px}
+.book input,.book select,.book textarea{width:100%;padding:11px;margin:6px 0;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0c0c0c;color:#fff}
+.book button{width:100%;padding:13px;border-radius:28px;border:none;background:var(--ac);color:#0a0a0a;font-weight:700;cursor:pointer;margin-top:10px}
+footer{text-align:center;padding:32px 16px;font-size:.8rem;opacity:.6;border-top:1px solid rgba(255,255,255,.08)}
+.wa-float{position:fixed;bottom:18px;right:18px;background:var(--ac);color:#0a0a0a;padding:12px 18px;border-radius:30px;font-weight:600;z-index:90;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+@media(max-width:600px){
+  .nav-links{position:fixed;top:60px;right:0;width:72vw;max-width:280px;height:calc(100vh - 60px);flex-direction:column;align-items:flex-start;gap:8px;padding:24px 20px;background:rgba(10,10,10,.97);transform:translateX(110%);transition:transform .35s;overflow-y:auto}
+  .nav-links.open{transform:translateX(0)}
+  .ham{display:flex}
+  section{padding:54px 5%}
+  .hero h1{font-size:clamp(2.1rem,10vw,3rem)}
+}
+</style></head><body>
+<nav id="nav"><div class="logo">Reem Palace</div>
+<button class="ham" id="ham"><span></span><span></span><span></span></button>
+<div class="nav-links" id="navLinks">
+<a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#team">Team</a><a href="#packages">Packages</a><a href="#book">Book</a>
+</div></nav>
+
+<header class="hero">
+<img class="bg" src="../assets/ai/gal_bridal.png" alt="">
+<div class="ov"></div>
+<div class="con">
+<div class="kicker">Luxury Beauty · Kuwait</div>
+<h1>Reem Palace</h1>
+<p>صالون Reem Palace — Premium ladies salon & spa in Kuwait. Hair, skin, nails & bridal, crafted with love.</p>
+<div class="cta">
+<a class="btn p" href="https://wa.me/96550703252?text=Hello%20Reem Palace!%20I%20want%20to%20book%20an%20appointment.">Book on WhatsApp</a>
+<a class="btn s" href="#book">View Packages</a>
+</div></div></header>
+
+<section id="services"><div class="sec-t"><h2>Our Services</h2><p>خدماتنا — priced in Kuwaiti Dinar</p></div>
+<div class="sgrid"><div class="scard"><h3>Haircut & Blowdry</h3><div class="ar">قص وتصفيف</div><div class="price">4<small> KD</small></div><ul><li>Haircut</li><li>Blowdry</li><li>Style</li></ul><button onclick="wa('Haircut & Blowdry')">Book</button></div><div class="scard"><h3>Hair Color & Balayage</h3><div class="ar">صبغ وبلاجاج</div><div class="price">22<small> KD</small></div><ul><li>Full color</li><li>Balayage</li><li>Root touch-up</li></ul><button onclick="wa('Hair Color & Balayage')">Book</button></div><div class="scard"><h3>Keratin / Protein</h3><div class="ar">كيراتين وبروتين</div><div class="price">18<small> KD</small></div><ul><li>Keratin</li><li>Protein treatment</li></ul><button onclick="wa('Keratin / Protein')">Book</button></div><div class="scard"><h3>Classic Facial</h3><div class="ar">تنظيف البشرة</div><div class="price">8<small> KD</small></div><ul><li>Deep cleanse</li><li>Extraction</li><li>Mask</li></ul><button onclick="wa('Classic Facial')">Book</button></div><div class="scard"><h3>Gold / Hydra Facial</h3><div class="ar">فيشل ذهبي</div><div class="price">15<small> KD</small></div><ul><li>Hydradermie</li><li>Gold mask</li></ul><button onclick="wa('Gold / Hydra Facial')">Book</button></div><div class="scard"><h3>Gel Manicure</h3><div class="ar">مانيكير جل</div><div class="price">6<small> KD</small></div><ul><li>Gel polish</li><li>Nail art +2</li></ul><button onclick="wa('Gel Manicure')">Book</button></div><div class="scard"><h3>Pedicure & Spa</h3><div class="ar">باديكير سبا</div><div class="price">7<small> KD</small></div><ul><li>Spa pedicure</li><li>Foot care</li></ul><button onclick="wa('Pedicure & Spa')">Book</button></div><div class="scard"><h3>Bridal Makeup</h3><div class="ar">مكياج عروس</div><div class="price">45<small> KD</small></div><ul><li>Trial incl.</li><li>HD makeup</li><li>Lashes</li></ul><button onclick="wa('Bridal Makeup')">Book</button></div></div></section>
+
+<section id="gallery" style="background:#0a0a0a"><div class="sec-t"><h2>Gallery</h2></div>
+<div class="gal"><img src="../assets/ai/gal_facial.png" alt=""><img src="../assets/ai/gal_hair.png" alt=""><img src="../assets/ai/gal_manicure.png" alt=""><img src="../assets/ai/gal_pedicure.png" alt=""><img src="../assets/ai/gal_bridal.png" alt=""></div></section>
+
+<section id="team"><div class="sec-t"><h2>Our Team</h2></div>
+<div class="tgrid"><div class="tcard"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iNDAiIGZpbGw9IiNlOGI0ZDQiLz48dGV4dCB4PSI1MCUiIHk9IjU0JSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMGEwYTBhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LXdlaWdodD0iNzAwIj5IPC90ZXh0Pjwvc3ZnPg=="><h3>Hala</h3><div class="ar">هالة</div><p>Master Stylist</p></div><div class="tcard"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iNDAiIGZpbGw9IiNlOGI0ZDQiLz48dGV4dCB4PSI1MCUiIHk9IjU0JSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMGEwYTBhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LXdlaWdodD0iNzAwIj5SPC90ZXh0Pjwvc3ZnPg=="><h3>Reem</h3><div class="ar">ريم</div><p>Bridal Specialist</p></div><div class="tcard"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iNDAiIGZpbGw9IiNlOGI0ZDQiLz48dGV4dCB4PSI1MCUiIHk9IjU0JSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjMyIiBmaWxsPSIjMGEwYTBhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LXdlaWdodD0iNzAwIj5TPC90ZXh0Pjwvc3ZnPg=="><h3>Sara</h3><div class="ar">سارة</div><p>Skin Expert</p></div></div></section>
+
+<section id="packages" style="background:#0a0a0a"><div class="sec-t"><h2>Packages</h2><p>باقاتنا</p></div>
+<div class="pgrid"><div class="pcard"><h3>Glow Package</h3><div class="ar">باقة الإشراق</div><div class="pp">15<small> KD</small></div><p>Fruit Facial + Pedicure + Half-leg Wax</p><button onclick="wa('Glow Package')">Book Package</button></div><div class="pcard"><div class="feat" style="color:var(--ac);font-size:.75rem;margin-bottom:6px">POPULAR</div><h3>Royal Package</h3><div class="ar">باقة ملكية</div><div class="pp">25<small> KD</small></div><p>Gold Facial + Hair Spa + Manicure</p><button onclick="wa('Royal Package')">Book Package</button></div><div class="pcard"><h3>Bridal Package</h3><div class="ar">باقة العروس</div><div class="pp">80<small> KD</small></div><p>Bridal Makeup + Trial + Hair + Facial</p><button onclick="wa('Bridal Package')">Book Package</button></div></div></section>
+
+<section id="reviews"><div class="sec-t"><h2>What Clients Say</h2></div>
+<div class="testi"><div class="t"><b>Hala A.</b> — Best salon experience in Kuwait! The balayage is incredible.</div><div class="t"><b>Sara M.</b> — So personalized and calm. Love the gold facial.</div><div class="t"><b>Layla K.</b> — Finally a salon that treats you like family!</div></div></section>
+
+<section id="book"><div class="sec-t"><h2>Book Appointment</h2></div>
+<div class="book">
+<input id="bn" placeholder="Your Name"><input id="bp" placeholder="Phone (WhatsApp)">
+<select id="bs"><option value="Haircut & Blowdry (4 KD)">Haircut & Blowdry — 4 KD</option><option value="Hair Color & Balayage (22 KD)">Hair Color & Balayage — 22 KD</option><option value="Keratin / Protein (18 KD)">Keratin / Protein — 18 KD</option><option value="Classic Facial (8 KD)">Classic Facial — 8 KD</option><option value="Gold / Hydra Facial (15 KD)">Gold / Hydra Facial — 15 KD</option><option value="Gel Manicure (6 KD)">Gel Manicure — 6 KD</option><option value="Pedicure & Spa (7 KD)">Pedicure & Spa — 7 KD</option><option value="Bridal Makeup (45 KD)">Bridal Makeup — 45 KD</option></select>
+<input id="bd" type="date"><input id="bt" type="time"><textarea id="bm" placeholder="Note (optional)"></textarea>
+<button onclick="sendBook()">Request Booking</button></div></section>
+
+<footer>© Reem Palace · Designed by KB Rewaq Digital · +965 50703252</footer>
+<a class="wa-float" href="https://wa.me/96550703252">💬 WhatsApp Booking</a>
+<script>
+document.getElementById('nav').classList.toggle('scrolled',scrollY>60);
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+const ham=document.getElementById('ham'),links=document.getElementById('navLinks');
+ham.onclick=()=>{links.classList.toggle('open');ham.classList.toggle('open')};
+links.querySelectorAll('a').forEach(a=>a.onclick=()=>links.classList.remove('open'));
+function wa(s){const t=encodeURIComponent('Hello Reem Palace! I want to book: '+s);open('https://wa.me/96550703252?text='+t,'_blank')}
+function sendBook(){const n=bn.value,p=bp.value,s=bs.value,d=bd.value,t=bt.value,m=bm.value;
+const msg='Hello Reem Palace! New booking:\nName: '+n+'\nPhone: '+p+'\nService: '+s+'\nDate: '+d+'\nTime: '+t+'\nNote: '+m;
+open('https://wa.me/96550703252?text='+encodeURIComponent(msg),'_blank')}
+</script></body></html>
