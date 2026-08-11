@@ -50,10 +50,11 @@ wrap = Alignment(wrap_text=True, vertical="top")
 for i, L in enumerate(leads, 1):
     phone_link = f"https://wa.me/{L['phone']}?text={quote(L['dm'])}" if L["phone"] else f"https://wa.me/{WA_YOU}"
     demo_link = L["site"] if L["site"] else ""
-    row = [i, L["name"], L["name_ar"], L["area"],
-           f'=HYPERLINK("{phone_link}","{L["phone_disp"] or L["phone"] or "+965 50703252"}")' if L["phone"] else f'=HYPERLINK("{phone_link}","+965 50703252")',
-           f'=HYPERLINK("{demo_link}","View Demo Site")' if demo_link else "—",
-           L["dm"], "Live" if L["site"] else "Pending"]
+    phone_disp = L["phone_disp"] or L["phone"] or f"+{WA_YOU}"
+    # Plain text phone (copy-paste friendly) + clickable link both shown
+    phone_cell = f'{phone_disp}  (wa.me/{L["phone"] or WA_YOU})'
+    demo_cell = demo_link if demo_link else "—"
+    row = [i, L["name"], L["name_ar"], L["area"], phone_cell, demo_cell, L["dm"], "Live" if L["site"] else "Pending"]
     ws.append(row)
     r = ws.max_row
     for c in range(1, 9):
