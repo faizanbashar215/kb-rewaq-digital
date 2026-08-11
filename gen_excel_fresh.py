@@ -66,8 +66,8 @@ leads.sort(key=lambda x: x["name"].lower())
 wb = openpyxl.Workbook()
 ws = wb.active
 ws.title = "KB Rewaq Leads"
-headers = ["#", "Business (EN)", "Business (AR)", "Area", "Phone (click→WhatsApp)",
-           "Demo Website (click)", "Ready DM Message (link inside)", "Status"]
+headers = ["#", "Business (EN)", "Business (AR)", "Area", "Phone (copy)",
+           "Click to DM (WhatsApp)", "Demo Website (copy URL)", "Demo (click)", "Ready DM Message", "Status"]
 ws.append(headers)
 
 green = Font(color="006100"); green_fill = PatternFill("solid", fgColor="C6EFCE")
@@ -81,25 +81,30 @@ for i, L in enumerate(leads, 1):
     phone_num = L["phone"] or WA_YOU
     phone_link = f"https://wa.me/{phone_num}?text={quote(L['dm'])}"
     demo_link = L["site"] if L["site"] else ""
-    # Plain text (GitHub viewer + copy-paste friendly). Phone shown as +965 number.
     phone_disp = ("+" + phone_num) if not phone_num.startswith("+") else phone_num
+    # col5: plain text phone (GitHub viewer + copy)
     phone_cell = f"{phone_disp}  |  wa.me/{phone_num}"
-    demo_cell = demo_link if demo_link else "—"
-    row = [i, L["name"], L["name_ar"], L["area"], phone_cell, demo_cell, L["dm"], "Live" if L["site"] else "Pending"]
+    # col6: clickable "Click to DM" -> WhatsApp opens with DM typed
+    dm_cell = f'=HYPERLINK("{phone_link}","Click to DM")'
+    # col7: plain demo URL
+    demo_url_cell = demo_link if demo_link else "—"
+    # col8: clickable demo
+    demo_click_cell = f'=HYPERLINK("{demo_link}","Open Site")' if demo_link else "—"
+    row = [i, L["name"], L["name_ar"], L["area"], phone_cell, dm_cell, demo_url_cell, demo_click_cell, L["dm"], "Live" if L["site"] else "Pending"]
     ws.append(row)
     r = ws.max_row
-    for c in range(1, 9):
+    for c in range(1, 11):
         ws.cell(r, c).border = border
         ws.cell(r, c).alignment = wrap
     if L["site"]:
-        ws.cell(r, 5).font = green; ws.cell(r, 5).fill = green_fill
         ws.cell(r, 6).font = blue; ws.cell(r, 6).fill = blue_fill
-        ws.cell(r, 8).font = Font(color="006100", bold=True)
+        ws.cell(r, 8).font = blue; ws.cell(r, 8).fill = blue_fill
+        ws.cell(r, 10).font = Font(color="006100", bold=True)
 
-for c in range(1, 9):
+for c in range(1, 11):
     ws.cell(1, c).fill = hdr_fill; ws.cell(1, c).font = hdr_font
     ws.cell(1, c).alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
-widths = [5, 28, 22, 18, 22, 18, 60, 12]
+widths = [5, 26, 20, 16, 24, 16, 40, 14, 55, 11]
 for i, w in enumerate(widths, 1):
     ws.column_dimensions[openpyxl.utils.get_column_letter(i)].width = w
 ws.freeze_panes = "A2"; ws.row_dimensions[1].height = 30
@@ -107,11 +112,13 @@ ws.freeze_panes = "A2"; ws.row_dimensions[1].height = 30
 htu = wb.create_sheet("HOW TO USE")
 htu["A1"] = "KB REWAQ DIGITAL — FRESH LEAD TRACKER"
 htu["A1"].font = Font(bold=True, size=14, color="1F4E78")
-lines = ["", "1. Click the GREEN phone cell -> opens WhatsApp to that lead with your DM pre-typed.",
-         "2. Click the BLUE 'View Demo Site' cell -> opens the website built for them.",
-         "3. Send the DM on WhatsApp. The link is already inside the message.",
-         "4. When they reply YES, visit their salon, then discuss price & sign up.",
-         "5. After sending, change Status to: replied / won / paid.", "",
+lines = ["", "1. Column E (Phone copy) = plain number + wa.me link. Copy-paste or open wa.me manually.",
+         "2. Column F (Click to DM) = BLUE link. Open this Excel file in Excel/Google Sheets and CLICK it -> WhatsApp opens with the DM already typed. One click sends.",
+         "3. Column G (Demo URL) = plain website link to copy.",
+         "4. Column H (Demo click) = BLUE link. Click to open their demo site.",
+         "5. Column I = full DM text (human, English, Jarvis intro, no price).",
+         "6. Send DM via Column F. When they reply YES, visit salon, discuss price, sign up.",
+         "7. Change Status (col J) to: replied / won / paid.", "",
          f"Your WA: +{WA_YOU}   |   Brand: KB Rewaq Digital",
          "", f"Total fresh leads: {len(leads)}   |   Live demo sites: {sum(1 for x in leads if x['site'])}"]
 for i, t in enumerate(lines, 2):
