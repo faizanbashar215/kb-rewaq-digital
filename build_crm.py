@@ -7,9 +7,9 @@ import os, json, glob, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dm_engine import compose_dm, site_url_for
 
-CRM = r"D:\KB Rewaq Clients"
+CRM = os.environ.get("CLIENTS_DIR", r"D:\KB Rewaq Clients")
 MASTER = os.path.join(CRM, "crm_master.json")
-DASH = r"D:\digitalfirst-agency\crm_dashboard.html"
+DASH = os.environ.get("AGENCY_DIR", r"D:\digitalfirst-agency") + r"\crm_dashboard.html"
 
 leads = []
 for d in sorted(glob.glob(os.path.join(CRM, "*/"))):

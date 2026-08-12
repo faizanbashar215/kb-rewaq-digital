@@ -1,0 +1,13 @@
+FROM n8nio/n8n:latest
+
+USER root
+# install python3 + pip (Debian-based n8n image)
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-pip python3-requests \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -sf /usr/bin/python3 /usr/local/bin/python3
+
+USER node
+
+# mount points (volumes supplied at run time):
+#   /data/agency  -> D:\digitalfirst-agency
+#   /data/clients -> D:\KB Rewaq Clients

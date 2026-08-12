@@ -8,9 +8,9 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dm_engine import compose_dm, site_url_for
 
-CRM = r"D:\KB Rewaq Clients"
-SITES = r"D:\digitalfirst-agency\fresh_sites"
-OUT = r"D:\digitalfirst-agency\KB_Rewaq_Fresh_Leads.xlsx"
+CRM = os.environ.get("CLIENTS_DIR", r"D:\KB Rewaq Clients")
+SITES = os.environ.get("AGENCY_DIR", r"D:\digitalfirst-agency") + r"\fresh_sites"
+OUT = os.environ.get("AGENCY_DIR", r"D:\digitalfirst-agency") + r"\KB_Rewaq_Fresh_Leads.xlsx"
 WA_YOU = "96550703252"
 
 leads = []

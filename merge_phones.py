@@ -2,7 +2,7 @@
 # Merge scraped phone numbers into client.json records (only for leads missing a real number).
 import os, json, glob
 
-LEADS_DIR = r"D:\KB Rewaq Clients"
+LEADS_DIR = os.environ.get("CLIENTS_DIR", r"D:\KB Rewaq Clients")
 scraped = json.load(open(os.path.join(LEADS_DIR, "_scraped_phones.json"), encoding="utf-8"))
 print(f"Scraped phones available: {len(scraped)}")
 

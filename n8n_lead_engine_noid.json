@@ -1,0 +1,192 @@
+{
+  "name": "KB Rewaq Lead Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "name": "Daily 9AM Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d/digitalfirst-agency && python3 gen_site_fresh.py"
+      },
+      "name": "1. Fetch OSM Leads + Build Sites",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d/digitalfirst-agency && python3 scrape_phones.py"
+      },
+      "name": "2. Scrape Phones (DDG/Bing/OSM)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        710,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d/digitalfirst-agency && python3 scrape_instagram.py"
+      },
+      "name": "3. Scrape Phones (Instagram)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        940,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d/digitalfirst-agency && python3 merge_phones.py"
+      },
+      "name": "4. Merge Phones into CRM",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1170,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d/digitalfirst-agency && python3 build_crm.py && python3 gen_excel_fresh.py"
+      },
+      "name": "5. Rebuild CRM + Excel",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /d/digitalfirst-agency && python3 git_push.py \"n8n auto: fresh leads + phone scrape + CRM rebuild\""
+      },
+      "name": "6. Auto-Push to GitHub",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1630,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { status: 'KB Rewaq Lead Engine run complete', time: new Date().toISOString() } }];"
+      },
+      "name": "Done",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1860,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Daily 9AM Trigger": {
+      "main": [
+        [
+          {
+            "node": "1. Fetch OSM Leads + Build Sites",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Fetch OSM Leads + Build Sites": {
+      "main": [
+        [
+          {
+            "node": "2. Scrape Phones (DDG/Bing/OSM)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Scrape Phones (DDG/Bing/OSM)": {
+      "main": [
+        [
+          {
+            "node": "3. Scrape Phones (Instagram)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Scrape Phones (Instagram)": {
+      "main": [
+        [
+          {
+            "node": "4. Merge Phones into CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Merge Phones into CRM": {
+      "main": [
+        [
+          {
+            "node": "5. Rebuild CRM + Excel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Rebuild CRM + Excel": {
+      "main": [
+        [
+          {
+            "node": "6. Auto-Push to GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Auto-Push to GitHub": {
+      "main": [
+        [
+          {
+            "node": "Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "kb-rewaq-lead-engine-v1"
+}

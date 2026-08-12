@@ -3,7 +3,7 @@
 # Free sources: DDG/Bing to locate IG profile, then parse bio for phone.
 import urllib.request, re, urllib.parse, json, glob, os, time
 
-LEADS = r"D:\KB Rewaq Clients"
+LEADS = os.environ.get("CLIENTS_DIR", r"D:\KB Rewaq Clients")
 have = set(json.load(open(os.path.join(LEADS, "_scraped_phones.json"), encoding="utf-8")).keys()) | {"Akrram"}
 names = [json.load(open(d, encoding="utf-8"))["business"]["name_en"]
          for d in sorted(glob.glob(os.path.join(LEADS, "*/client.json")))

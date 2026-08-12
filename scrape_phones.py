@@ -3,7 +3,7 @@
 # Tries multiple free engines (DDG lite, Bing, Yandex) + varied queries.
 import urllib.request, re, urllib.parse, glob, os, json, time
 
-LEADS_DIR = r"D:\KB Rewaq Clients"
+LEADS_DIR = os.environ.get("CLIENTS_DIR", r"D:\KB Rewaq Clients")
 names = []
 for d in sorted(glob.glob(os.path.join(LEADS_DIR, "*/"))):
     cj = os.path.join(d, "client.json")

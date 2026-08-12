@@ -3,7 +3,7 @@
 # Usage: python gen_site_fresh.py
 import os, json, re, base64, urllib.request, urllib.parse, random
 
-BASE_DIR = r"D:\digitalfirst-agency"
+BASE_DIR = os.environ.get("AGENCY_DIR", r"D:\digitalfirst-agency")
 LEADS_F = os.path.join(BASE_DIR, "fresh_leads", "raw.json")
 OUT = os.path.join(BASE_DIR, "fresh_sites")
 ASSETS = os.path.join(BASE_DIR, "assets", "ai")
@@ -209,8 +209,8 @@ def gen(lead, i):
         "online": {"site_url": f"https://faizanbashar215.github.io/kb-rewaq-digital/fresh_sites/{slug}/", "site_status": "live_fresh"},
         "pipeline": {"status": "lead_new", "created": "2026-08-11", "source": "osm_fresh_scan"},
     }
-    os.makedirs(os.path.join(r"D:\KB Rewaq Clients", slug), exist_ok=True)
-    json.dump(rec, open(os.path.join(r"D:\KB Rewaq Clients", slug, "client.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    os.makedirs(os.path.join(os.environ.get("CLIENTS_DIR", r"D:\KB Rewaq Clients"), slug), exist_ok=True)
+    json.dump(rec, open(os.path.join(os.environ.get("CLIENTS_DIR", r"D:\KB Rewaq Clients"), slug, "client.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     return slug
 
 def main():
