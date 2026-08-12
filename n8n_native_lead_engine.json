@@ -1,0 +1,115 @@
+{
+  "name": "KB Rewaq Lead Engine (Native)",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kb-lead-run",
+        "responseMode": "onReceived"
+      },
+      "name": "Webhook (phone-triggered)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 500]
+    },
+    {
+      "parameters": {
+        "url": "https://overpass-api.de/api/interpreter",
+        "method": "POST",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/x-www-form-urlencoded",
+        "body": "data=[out:json][timeout:25];area[\"name\"=\"Kuwait\"]->.a;(node[\"shop\"=\"hairdresser\"]({{area}});way[\"shop\"=\"hairdresser\"]({{area}});node[\"amenity\"=\"salon\"]({{area}});way[\"amenity\"=\"salon\"]({{area}}););out center 200;"
+      },
+      "name": "1. Fetch Salons (OSM Overpass)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const els = items[0].json.elements || [];\nconst leads = els.map(e => {\n  const tags = e.tags || {};\n  const name = tags.name || tags['name:en'] || 'Unknown';\n  const lat = e.lat ?? e.center?.lat;\n  const lon = e.lon ?? e.center?.lon;\n  return { name, lat, lon, tags };\n}).filter(l => l.name !== 'Unknown');\nreturn leads.map(l => ({ json: l }));"
+      },
+      "name": "2. Parse OSM Leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [710, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "name": "3. Split Leads",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [940, 300]
+    },
+    {
+      "parameters": {
+        "url": "=https://html.duckduckgo.com/html/?q={{$json.name}} Kuwait phone",
+        "method": "GET",
+        "options": {
+          "headers": { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" }
+        }
+      },
+      "name": "4. Search Phone (DDG)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1170, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = items[0].json.body || items[0].json.data || JSON.stringify(items[0].json);\nconst re = /(\\+?965[\\s-]?\\d[\\d\\s-]{6,11})|\\b[2569]\\d{7}\\b/g;\nconst m = html.match(re) || [];\nconst clean = m.map(c => c.replace(/[\\s-]/g,'').replace(/^\\+/,'')).map(c => c.length===8 ? '965'+c : c).filter(c => c.length===11);\nreturn [{ json: { name: $('2. Parse OSM Leads').item.json.name, phone: clean[0] || '96550703252' } }];"
+      },
+      "name": "5. Extract Phone",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1400, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $items().map(i => i.json);\nconst byName = {};\nall.forEach(r => { byName[r.name] = r.phone; });\nconst leads = Object.entries(byName).map(([name, phone]) => ({\n  name_en: name,\n  phone: phone,\n  phone_disp: phone === '96550703252' ? '+965****3252' : '+965****' + phone.slice(-4),\n  site_url: `https://faizanbashar215.github.io/kb-rewaq-digital/fresh_sites/${name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}/`,\n  wa: `https://wa.me/${phone}?text=Hi ${name}, Jarvis here from KB Rewaq Digital. We build fresh websites + automation for salons in Kuwait. Want a free demo?`\n}));\nreturn [{ json: { leads, count: leads.length, time: new Date().toISOString() } }];"
+      },
+      "name": "6. Build CRM JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1630, 300]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "create",
+        "repository": "faizanbashar215/kb-rewaq-digital",
+        "branch": "main",
+        "filePath": "crm_leads.json",
+        "fileContent": "={{ JSON.stringify($json.leads, null, 2) }}",
+        "commitMessage": "n8n auto: fresh leads + phones"
+      },
+      "name": "7. Push to GitHub",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [1860, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "1. Fetch Salons (OSM Overpass)", "type": "main", "index": 0 }]] },
+    "Webhook (phone-triggered)": { "main": [[{ "node": "1. Fetch Salons (OSM Overpass)", "type": "main", "index": 0 }]] },
+    "1. Fetch Salons (OSM Overpass)": { "main": [[{ "node": "2. Parse OSM Leads", "type": "main", "index": 0 }]] },
+    "2. Parse OSM Leads": { "main": [[{ "node": "3. Split Leads", "type": "main", "index": 0 }]] },
+    "3. Split Leads": { "main": [[{ "node": "4. Search Phone (DDG)", "type": "main", "index": 0 }]] },
+    "4. Search Phone (DDG)": { "main": [[{ "node": "5. Extract Phone", "type": "main", "index": 0 }]] },
+    "5. Extract Phone": { "main": [[{ "node": "3. Split Leads", "type": "main", "index": 0 }]] },
+    "3. Split Leads (done)": { "main": [[{ "node": "6. Build CRM JSON", "type": "main", "index": 0 }]] },
+    "6. Build CRM JSON": { "main": [[{ "node": "7. Push to GitHub", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" }
+}
